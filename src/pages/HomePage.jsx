@@ -3,6 +3,8 @@ import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Courses from '../components/Courses';
 import About from '../components/About';
+import Quotes from '../components/Quotes';
+import Reviews from '../components/Reviews';
 import Footer from '../components/Footer';
 
 const HomePage = () => {
@@ -30,8 +32,10 @@ const HomePage = () => {
       <Header />
       <main>
         <section className="reveal"><Hero /></section>
+        <section className="reveal"><Quotes /></section>
         <section className="reveal"><Courses /></section>
         <section className="reveal"><About /></section>
+        <section className="reveal"><Reviews /></section>
       </main>
       <Footer />
     </>

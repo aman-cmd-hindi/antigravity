@@ -12,10 +12,11 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#hero' },
-    { name: 'Courses', href: '#courses' },
-    { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/#hero' },
+    { name: 'Courses', href: '/#courses' },
+    { name: 'About', href: '/#about' },
+    { name: 'Toppers', href: '/toppers', isRoute: true },
+    { name: 'Contact', href: '/#contact' },
   ];
 
   return (
@@ -28,21 +29,35 @@ const Header = () => {
       {/* Desktop Nav */}
       <nav className="hidden md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-white/50">
         {navLinks.map((link) => (
-          <a key={link.name} href={link.href} className="hover:text-blue-400 transition-colors">
-            {link.name}
-          </a>
+          link.isRoute ? (
+            <Link key={link.name} to={link.href} className="hover:text-blue-400 transition-colors">
+              {link.name}
+            </Link>
+          ) : (
+            <a key={link.name} href={link.href} className="hover:text-blue-400 transition-colors">
+              {link.name}
+            </a>
+          )
         ))}
       </nav>
 
       <div className="flex items-center gap-4">
-        <a 
-          href="https://wa.me/918779560903" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all shadow-lg shadow-blue-500/20 active:scale-95"
-        >
-          Chat Now
-        </a>
+        <div className="relative group hidden md:block">
+          <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all shadow-lg shadow-blue-500/20 active:scale-95 flex items-center gap-2">
+            Chat Now
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </button>
+          <div className="absolute right-0 mt-2 w-48 glass p-2 rounded-xl border border-white/5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+            <a href="https://wa.me/918779560903" target="_blank" rel="noopener noreferrer" className="block px-4 py-3 text-sm font-bold text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+              Chat: Manoj Sir
+            </a>
+            <a href="https://wa.me/919833187969" target="_blank" rel="noopener noreferrer" className="block px-4 py-3 text-sm font-bold text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+              Chat: Sandeep Sir
+            </a>
+          </div>
+        </div>
 
         {/* Mobile Toggle */}
         <button 
@@ -59,21 +74,35 @@ const Header = () => {
       {mobileMenuOpen && (
         <div className="absolute top-full left-0 w-full glass p-8 flex flex-col gap-6 md:hidden animate-in fade-in slide-in-from-top-4 duration-300">
           {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-lg font-bold text-white/70 hover:text-white"
-            >
-              {link.name}
-            </a>
+            link.isRoute ? (
+              <Link 
+                key={link.name} 
+                to={link.href} 
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-lg font-bold text-white/70 hover:text-white"
+              >
+                {link.name}
+              </Link>
+            ) : (
+              <a 
+                key={link.name} 
+                href={link.href} 
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-lg font-bold text-white/70 hover:text-white"
+              >
+                {link.name}
+              </a>
+            )
           ))}
-          <a 
-            href="https://wa.me/918779560903" 
-            className="bg-blue-600 text-white p-4 rounded-xl text-center font-bold"
-          >
-            Chat Now
-          </a>
+          <div className="flex flex-col gap-3">
+            <span className="text-[10px] text-white/40 uppercase tracking-widest font-bold">WhatsApp Numbers</span>
+            <a href="https://wa.me/918779560903" className="bg-blue-600/20 border border-blue-500/30 text-blue-400 p-4 rounded-xl text-center font-bold">
+              Chat: Manoj Sir
+            </a>
+            <a href="https://wa.me/919833187969" className="bg-blue-600/20 border border-blue-500/30 text-blue-400 p-4 rounded-xl text-center font-bold">
+              Chat: Sandeep Sir
+            </a>
+          </div>
         </div>
       )}
     </header>
