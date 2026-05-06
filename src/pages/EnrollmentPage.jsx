@@ -10,6 +10,7 @@ const EnrollmentPage = () => {
     course: '',
     specificClass: '',
     medium: '',
+    competitiveExam: '',
     location: '',
     message: ''
   });
@@ -20,7 +21,7 @@ const EnrollmentPage = () => {
     const { name, value } = e.target;
     let newFormData = { ...formData, [name]: value };
     
-    if (name === 'standard' && value === 'NEET/JEE') {
+    if (name === 'standard' && value === 'Competitive Exam') {
       newFormData.course = 'Science';
     } else if (name === 'standard' && value === '1-10') {
       newFormData.course = 'School';
@@ -149,7 +150,7 @@ const EnrollmentPage = () => {
                     <option value="1-10" className="bg-[#050b18]">School (1-10)</option>
                     <option value="11" className="bg-[#050b18]">11th Grade</option>
                     <option value="12" className="bg-[#050b18]">12th Grade</option>
-                    <option value="NEET/JEE" className="bg-[#050b18]">NEET / JEE</option>
+                    <option value="Competitive Exam" className="bg-[#050b18]">Competitive Exam</option>
                   </select>
                   <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
                 </div>
@@ -197,6 +198,28 @@ const EnrollmentPage = () => {
                 </>
               )}
               
+              {formData.standard === 'Competitive Exam' && (
+                <div className="space-y-3">
+                  <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Which Competitive Exam?</label>
+                  <div className="relative">
+                    <select 
+                      name="competitiveExam"
+                      required
+                      onChange={handleChange}
+                      value={formData.competitiveExam}
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
+                    >
+                      <option value="" disabled className="bg-[#050b18]">Select Exam</option>
+                      <option value="NEET" className="bg-[#050b18]">NEET</option>
+                      <option value="JEE" className="bg-[#050b18]">JEE</option>
+                      <option value="MHT-CET (PCM)" className="bg-[#050b18]">MHT-CET (PCM)</option>
+                      <option value="MHT-CET (PCB)" className="bg-[#050b18]">MHT-CET (PCB)</option>
+                    </select>
+                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
+                  </div>
+                </div>
+              )}
+              
               {formData.standard && formData.standard !== '1-10' && (
                 <div className="space-y-3">
                   <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Academic Stream</label>
@@ -205,11 +228,11 @@ const EnrollmentPage = () => {
                       name="course"
                       required
                       onChange={handleChange}
-                      value={formData.standard === 'NEET/JEE' ? 'Science' : formData.course}
-                      disabled={formData.standard === 'NEET/JEE'}
+                      value={formData.standard === 'Competitive Exam' ? 'Science' : formData.course}
+                      disabled={formData.standard === 'Competitive Exam'}
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer disabled:opacity-50"
                     >
-                      {formData.standard === 'NEET/JEE' ? (
+                      {formData.standard === 'Competitive Exam' ? (
                         <option value="Science" className="bg-[#050b18]">Science</option>
                       ) : (
                         <>
