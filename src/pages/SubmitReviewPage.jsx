@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
+import { sendConfirmationEmail, sendSMSNotification, getWhatsAppLink } from '../utils/notifications';
 
 const SubmitReviewPage = () => {
   const [formData, setFormData] = useState({
     name: '',
+    phone: '',
     standard: '',
     review: '',
     rating: 5
@@ -28,6 +30,13 @@ const SubmitReviewPage = () => {
         ...formData,
         submittedAt: serverTimestamp()
       });
+
+      // Trigger Notifications
+      await sendConfirmationEmail(formData, 'review');
+      if (formData.phone) {
+        await sendSMSNotification(formData.phone, `Hi ${formData.name}, thank you for your review on Tiwari Tutorials!`);
+      }
+
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
@@ -51,9 +60,20 @@ const SubmitReviewPage = () => {
           <p className="text-white/40 mb-12 text-lg leading-relaxed">
             Thank you, <span className="text-blue-400 font-bold">{formData.name}</span>. Your feedback helps us improve and inspires other students.
           </p>
-          <Link to="/" className="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all shadow-xl active:scale-95">
-            Return to Homepage
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a 
+              href={getWhatsAppLink(formData.name, 'review')} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-10 py-5 bg-green-600 text-white font-bold rounded-2xl hover:bg-green-700 transition-all shadow-xl shadow-green-500/20 active:scale-95 w-full sm:w-auto"
+            >
+              <span>Say Hi on WhatsApp</span>
+              <span className="text-xl">💬</span>
+            </a>
+            <Link to="/" className="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/20 active:scale-95 w-full sm:w-auto">
+              Return Home
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -90,6 +110,17 @@ const SubmitReviewPage = () => {
               name="standard"
               required
               placeholder="e.g. 12th Science, NEET Batch"
+              onChange={handleChange}
+              className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all"
+            />
+          </div>
+
+          <div className="space-y-3">
+            <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Phone Number (Optional)</label>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="+91"
               onChange={handleChange}
               className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all"
             />

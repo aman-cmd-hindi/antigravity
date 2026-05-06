@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
+import { sendConfirmationEmail, sendSMSNotification, getWhatsAppLink } from '../utils/notifications';
 
 const EnrollmentPage = () => {
   const [formData, setFormData] = useState({
@@ -43,6 +44,11 @@ const EnrollmentPage = () => {
         ...formData,
         submittedAt: serverTimestamp()
       });
+
+      // Trigger Notifications
+      await sendConfirmationEmail(formData, 'enrollment');
+      await sendSMSNotification(formData.phone, `Hello ${formData.name}, your enrollment at Tiwari Tutorials for ${formData.standard} has been received!`);
+
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
@@ -67,9 +73,20 @@ const EnrollmentPage = () => {
           <p className="text-white/40 mb-12 text-lg leading-relaxed">
             Success, <span className="text-blue-400 font-bold">{formData.name}</span>! Your enrollment request has been prioritized. Manoj Sir or Sandeep Sir will reach out to you within 24 hours.
           </p>
-          <Link to="/" className="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/30 active:scale-95">
-            Return to Homepage
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a 
+              href={getWhatsAppLink(formData.name, 'enrollment', formData.standard)} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-10 py-5 bg-green-600 text-white font-bold rounded-2xl hover:bg-green-700 transition-all shadow-xl shadow-green-500/20 active:scale-95 w-full sm:w-auto"
+            >
+              <span>Confirm on WhatsApp</span>
+              <span className="text-xl">💬</span>
+            </a>
+            <Link to="/" className="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/20 active:scale-95 w-full sm:w-auto">
+              Return Home
+            </Link>
+          </div>
         </div>
       </div>
     );
