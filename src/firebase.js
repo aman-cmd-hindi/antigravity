@@ -1,16 +1,19 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
 
-// ⚠️  REPLACE these values with your own Firebase project config
-// Go to: https://console.firebase.google.com → Your Project → Project Settings → Your Apps
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBYkyTBSCInCSt-hiD_tkDKuakY51sRfXo",
+  authDomain: "tiwari-tutorials-cfb74.firebaseapp.com",
+  projectId: "tiwari-tutorials-cfb74",
+  storageBucket: "tiwari-tutorials-cfb74.firebasestorage.app",
+  messagingSenderId: "183003633718",
+  appId: "1:183003633718:web:2b31e4e2ff3d67d3fc6097",
+  measurementId: "G-MYND35VG51"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const analytics = getAnalytics(app);
 export const db = getFirestore(app);
