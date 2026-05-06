@@ -1,19 +1,17 @@
 import React from 'react';
 
 const toppers = [
-  { name: "Aditya Verma", exam: "SSC 10th Board", percentage: "98.4%", year: "2023", photo: "👨‍🎓" },
-  { name: "Priya Sharma", exam: "HSC 12th Science", percentage: "96.8%", year: "2023", photo: "👩‍🎓" },
-  { name: "Rohan Gupta", exam: "JEE Advanced", percentage: "AIR 452", year: "2023", photo: "👨‍🎓" },
-  { name: "Neha Singh", exam: "NEET UG", percentage: "685/720", year: "2023", photo: "👩‍🎓" },
-  { name: "Kunal Patil", exam: "SSC 10th Board", percentage: "97.2%", year: "2023", photo: "👨‍🎓" },
-  { name: "Riya Kapoor", exam: "HSC 12th Commerce", percentage: "95.5%", year: "2023", photo: "👩‍🎓" }
+  { name: "Gitanjali Vishwakarma", exam: "SSC 10th Board", percentage: "91.20%", year: "2025", photo: "👨‍🎓" },
+  { name: "Lekhraj Maurya", exam: "SSC 10th ", percentage: "87.60%", year: "2025", photo: "👩‍🎓" },
+  { name: "Aman Vishwakarma", exam: "SSC Board", percentage: "86.80%", year: "2025", photo: "👨‍🎓" },
+  { name: "Aman Pal", exam: "SSC Board", percentage: "85.20%", year: "2025", photo: "👩‍🎓" }
 ];
 
 const Toppers = () => {
   return (
     <section id="toppers" className="py-24 px-6 md:px-12 relative overflow-hidden bg-mesh border-t border-white/5">
       <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-yellow-500/5 rounded-full blur-[150px] pointer-events-none -translate-y-1/2"></div>
-      
+
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <span className="text-yellow-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">Wall of Excellence</span>
