@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import HomePage from './pages/HomePage';
 import EnrollmentPage from './pages/EnrollmentPage';
 import SubmitReviewPage from './pages/SubmitReviewPage';
@@ -16,6 +17,7 @@ function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
         </Routes>
       </div>
+      <Analytics />
     </Router>
   );
 }
