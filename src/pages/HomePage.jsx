@@ -35,7 +35,7 @@ const HomePage = () => {
         <section className="reveal"><Hero /></section>
         <section className="reveal"><Quotes /></section>
         <section className="reveal"><Courses /></section>
-        <section className="reveal"><Our Toppers /></section>
+        <section className="reveal"><Toppers /></section>
         <section className="reveal"><About /></section>
         <section className="reveal"><Reviews /></section>
       </main>
