@@ -8,6 +8,8 @@ const EnrollmentPage = () => {
     email: '',
     standard: '',
     course: '',
+    specificClass: '',
+    medium: '',
     location: '',
     message: ''
   });
@@ -153,7 +155,49 @@ const EnrollmentPage = () => {
                 </div>
               </div>
               
-              {formData.standard !== '1-10' && formData.standard !== 'NEET/JEE' && (
+              {formData.standard === '1-10' && (
+                <>
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Specific Class</label>
+                    <div className="relative">
+                      <select 
+                        name="specificClass"
+                        required
+                        onChange={handleChange}
+                        value={formData.specificClass}
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
+                      >
+                        <option value="" disabled className="bg-[#050b18]">Select Class</option>
+                        {[...Array(10)].map((_, i) => (
+                          <option key={i+1} value={i+1} className="bg-[#050b18]">{i+1}{i+1 === 1 ? 'st' : i+1 === 2 ? 'nd' : i+1 === 3 ? 'rd' : 'th'} Standard</option>
+                        ))}
+                      </select>
+                      <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Medium of Language</label>
+                    <div className="relative">
+                      <select 
+                        name="medium"
+                        required
+                        onChange={handleChange}
+                        value={formData.medium}
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
+                      >
+                        <option value="" disabled className="bg-[#050b18]">Select Medium</option>
+                        <option value="English" className="bg-[#050b18]">English</option>
+                        <option value="Hindi" className="bg-[#050b18]">Hindi</option>
+                        <option value="Vernacular" className="bg-[#050b18]">Vernacular</option>
+                      </select>
+                      <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
+                    </div>
+                  </div>
+                </>
+              )}
+              
+              {formData.standard && formData.standard !== '1-10' && (
                 <div className="space-y-3">
                   <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Academic Stream</label>
                   <div className="relative">
@@ -161,11 +205,19 @@ const EnrollmentPage = () => {
                       name="course"
                       required
                       onChange={handleChange}
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
+                      value={formData.standard === 'NEET/JEE' ? 'Science' : formData.course}
+                      disabled={formData.standard === 'NEET/JEE'}
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer disabled:opacity-50"
                     >
-                      <option value="" disabled selected className="bg-[#050b18]">Choose Stream</option>
-                      <option value="Science" className="bg-[#050b18]">Science</option>
-                      <option value="Commerce" className="bg-[#050b18]">Commerce</option>
+                      {formData.standard === 'NEET/JEE' ? (
+                        <option value="Science" className="bg-[#050b18]">Science</option>
+                      ) : (
+                        <>
+                          <option value="" disabled className="bg-[#050b18]">Choose Stream</option>
+                          <option value="Science" className="bg-[#050b18]">Science</option>
+                          <option value="Commerce" className="bg-[#050b18]">Commerce</option>
+                        </>
+                      )}
                     </select>
                     <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
                   </div>
