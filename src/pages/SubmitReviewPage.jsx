@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const SubmitReviewPage = () => {
   const [formData, setFormData] = useState({
@@ -10,15 +12,30 @@ const SubmitReviewPage = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setLoading(true);
+    setError('');
+    try {
+      await addDoc(collection(db, 'reviews'), {
+        ...formData,
+        submittedAt: serverTimestamp()
+      });
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -106,8 +123,14 @@ const SubmitReviewPage = () => {
             ></textarea>
           </div>
 
-          <button type="submit" className="w-full py-5 bg-blue-600 text-white font-extrabold rounded-2xl hover:bg-blue-700 transition-all shadow-xl active:scale-95 text-sm uppercase tracking-[0.2em] mt-4">
-            Submit Review
+          {error && <p className="text-red-400 text-sm text-center font-bold">{error}</p>}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-5 bg-blue-600 text-white font-extrabold rounded-2xl hover:bg-blue-700 transition-all shadow-xl active:scale-95 text-sm uppercase tracking-[0.2em] mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {loading ? 'Submitting...' : 'Submit Review'}
           </button>
         </form>
       </div>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const EnrollmentPage = () => {
   const [formData, setFormData] = useState({
@@ -16,25 +18,41 @@ const EnrollmentPage = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     let newFormData = { ...formData, [name]: value };
-    
+
     if (name === 'standard' && value === 'Competitive Exam') {
       newFormData.course = 'Science';
     } else if (name === 'standard' && value === '1-10') {
       newFormData.course = 'School';
     }
-    
+
     setFormData(newFormData);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setLoading(true);
+    setError('');
+    try {
+      await addDoc(collection(db, 'enrollments'), {
+        ...formData,
+        submittedAt: serverTimestamp()
+      });
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   if (submitted) {
     return (
@@ -248,8 +266,14 @@ const EnrollmentPage = () => {
               )}
             </div>
 
-            <button type="submit" className="w-full py-5 bg-blue-600 text-white font-extrabold rounded-2xl hover:bg-blue-700 transition-all transform hover:-translate-y-1 shadow-2xl shadow-blue-600/30 active:scale-95 text-sm uppercase tracking-[0.2em]">
-              Confirm Enrollment
+            {error && <p className="text-red-400 text-sm text-center font-bold">{error}</p>}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-5 bg-blue-600 text-white font-extrabold rounded-2xl hover:bg-blue-700 transition-all transform hover:-translate-y-1 shadow-2xl shadow-blue-600/30 active:scale-95 text-sm uppercase tracking-[0.2em] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+            >
+              {loading ? 'Submitting...' : 'Confirm Enrollment'}
             </button>
             <p className="text-center text-[10px] text-white/20 font-bold uppercase tracking-widest">By enrolling, you agree to our terms of excellence.</p>
           </form>
