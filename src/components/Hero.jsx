@@ -3,7 +3,7 @@ import heroBg from '../assets/hero-bg.jpg';
 
 const Hero = () => {
   return (
-    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative min-h-[100svh] flex items-center justify-center overflow-hidden py-32 md:py-24">
       {/* Background Image with Overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center z-0 scale-105"
