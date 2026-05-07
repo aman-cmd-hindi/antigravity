@@ -19,7 +19,7 @@ const reviewData = [
     standard: "NEET Aspirant",
     text: "Shiva Sir's biology lectures are top-notch. The study material is exhaustive and covers all NCERT nuances perfectly. Highly recommended!",
     rating: 4.8
-  }
+  },
   {
     name: "Amit singh",
     standard: "Commerce 12th",

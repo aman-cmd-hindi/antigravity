@@ -1,33 +1,33 @@
 import React from 'react';
 
 const toppers = [
-  { 
-    name: "Gitanjali Vishwakarma", 
-    exam: "SSC 10th Board", 
-    score: "91.20%", 
-    year: "2025", 
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400" 
+  {
+    name: "Gitanjali Vishwakarma",
+    exam: "SSC 10th Board",
+    score: "91.20%",
+    year: "2025",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400"
   },
-  { 
-    name: "Lekhraj Maurya", 
-    exam: "SSC 10th Board", 
-    score: "87.60%", 
-    year: "2025", 
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400" 
+  {
+    name: "Lekhraj Maurya",
+    exam: "SSC 10th Board",
+    score: "87.60%",
+    year: "2025",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400"
   },
-  { 
-    name: "Aman Vishwakarma", 
-    exam: "SSC 10th Board", 
-    score: "86.80%", 
-    year: "2025", 
-    image: "https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&q=80&w=400" 
+  {
+    name: "Aman Vishwakarma",
+    exam: "SSC 10th Board",
+    score: "86.80%",
+    year: "2025",
+    image: "https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&q=80&w=400"
   },
-  { 
-    name: "Aman Pal", 
-    exam: "SSC 10th Board", 
-    score: "85.20%", 
-    year: "2025", 
-    image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&q=80&w=400" 
+  {
+    name: "Aman Pal",
+    exam: "SSC 10th Board",
+    score: "85.20%",
+    year: "2025",
+    image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&q=80&w=400"
   }
 ];
 
@@ -47,14 +47,14 @@ const Toppers = () => {
           {toppers.map((topper, idx) => (
             <div key={idx} className="glass-card edu-card p-6 md:p-8 rounded-[30px] md:rounded-[40px] group">
               <div className="relative mb-6 md:mb-8 aspect-square rounded-[25px] md:rounded-[35px] overflow-hidden group-hover:scale-[1.02] transition-transform duration-500 shadow-2xl">
-                 <img src={topper.image} alt={topper.name} className="w-full h-full object-cover" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
-                 
-                 <div className="absolute top-4 right-4 bg-primary/20 backdrop-blur-md border border-primary/30 text-primary text-[9px] md:text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
-                    {topper.score}
-                 </div>
+                <img src={topper.image} alt={topper.name} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+
+                <div className="absolute top-4 right-4 bg-primary/20 backdrop-blur-md border border-primary/30 text-primary text-[9px] md:text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
+                  {topper.score}
+                </div>
               </div>
-              
+
               <div className="text-center">
                 <span className="text-[10px] font-bold text-primary/60 uppercase tracking-[0.2em]">{topper.exam}</span>
                 <h3 className="text-xl md:text-2xl font-extrabold text-white mt-2 mb-1 group-hover:text-primary transition-colors">{topper.name}</h3>
@@ -62,8 +62,8 @@ const Toppers = () => {
               </div>
 
               <div className="mt-6 pt-6 border-t border-white/5 flex items-center justify-center gap-4">
-                 <div className="w-8 h-8 rounded-full glass flex items-center justify-center text-sm">🏆</div>
-                 <span className="text-[10px] text-white/40 font-bold uppercase tracking-widest">Merit Rank Holder</span>
+                <div className="w-8 h-8 rounded-full glass flex items-center justify-center text-sm">🏆</div>
+                <span className="text-[10px] text-white/40 font-bold uppercase tracking-widest">Merit Rank Holder</span>
               </div>
             </div>
           ))}
