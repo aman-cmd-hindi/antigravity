@@ -5,43 +5,37 @@ const faculty = [
     name: "Anjali Mam",
     subject: "Biology",
     specialization: "NEET Expert",
-    icon: "🧬",
-    color: "from-pink-500 to-rose-600"
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400"
   },
   {
     name: "Shiva Sir",
     subject: "Chemistry",
-    specialization: "JEE & NEET",
-    icon: "🧪",
-    color: "from-blue-500 to-cyan-600"
+    specialization: "JEE & NEET Specialist",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400"
   },
   {
     name: "Santosh Sir",
     subject: "Chemistry",
     specialization: "Organic & Inorganic",
-    icon: "⚗️",
-    color: "from-indigo-500 to-blue-600"
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400"
   },
   {
     name: "Manoj Sir",
     subject: "Mathematics",
     specialization: "JEE Specialist",
-    icon: "📐",
-    color: "from-orange-500 to-amber-600"
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400"
   },
   {
     name: "Sandeep Sir",
     subject: "Mathematics",
     specialization: "Advanced Calculus",
-    icon: "📊",
-    color: "from-yellow-500 to-orange-600"
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"
   },
   {
     name: "Expert Faculty",
     subject: "Physics",
     specialization: "Conceptual Mastery",
-    icon: "⚛️",
-    image: "/images/physics.jpg"
+    image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&q=80&w=400"
   }
 ];
 
@@ -61,7 +55,7 @@ const Faculty = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-          {facultyMembers.map((member, idx) => (
+          {faculty.map((member, idx) => (
             <div key={idx} className="glass-card edu-card p-6 md:p-8 rounded-[30px] md:rounded-[40px] group transition-all duration-500 hover:bg-white/[0.02]">
               <div className="relative mb-6 md:mb-8 aspect-square rounded-[25px] md:rounded-[35px] overflow-hidden group-hover:scale-[1.02] transition-transform duration-500 shadow-2xl">
                 <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-all duration-700 group-hover:brightness-110" />

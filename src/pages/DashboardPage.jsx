@@ -171,11 +171,13 @@ const DashboardPage = () => {
           { label: 'Total Enrollments', value: enrollments.length, icon: '📋', color: 'blue' },
           { label: 'Total Reviews', value: reviews.length, icon: '⭐', color: 'yellow' },
           { label: 'Avg Rating', value: reviews.length ? (reviews.reduce((s, r) => s + Number(r.rating || 0), 0) / reviews.length).toFixed(1) : '—', icon: '📊', color: 'green' },
-          { label: 'This Month', value: enrollments.filter(e => {
-            if (!e.submittedAt) return false;
-            const d = e.submittedAt.toDate ? e.submittedAt.toDate() : new Date(e.submittedAt);
-            return d.getMonth() === new Date().getMonth();
-          }).length, icon: '📅', color: 'purple' },
+          {
+            label: 'This Month', value: enrollments.filter(e => {
+              if (!e.submittedAt) return false;
+              const d = e.submittedAt.toDate ? e.submittedAt.toDate() : new Date(e.submittedAt);
+              return d.getMonth() === new Date().getMonth();
+            }).length, icon: '📅', color: 'purple'
+          },
         ].map((stat, i) => (
           <div key={i} className="glass-card p-6 rounded-3xl border border-white/5">
             <div className="text-2xl mb-3">{stat.icon}</div>
@@ -191,11 +193,10 @@ const DashboardPage = () => {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${
-              activeTab === tab
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
-                : 'glass border border-white/10 text-white/40 hover:text-white'
-            }`}
+            className={`px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${activeTab === tab
+              ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
+              : 'glass border border-white/10 text-white/40 hover:text-white'
+              }`}
           >
             {tab === 'enrollments' ? `📋 Enrollments (${enrollments.length})` : `⭐ Reviews (${reviews.length})`}
           </button>

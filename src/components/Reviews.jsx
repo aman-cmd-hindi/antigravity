@@ -5,20 +5,26 @@ const reviewData = [
   {
     name: "Santosh",
     standard: "12th Science",
-    text: "Tiwari Tutorials transformed my approach to physics and chemistry. The conceptual clarity I gained here helped me crack JEE Mains with an excellent percentile.",
-    rating: 5
+    text: "Tiwari Tutorials transformed my approach to physics and chemistry.",
+    rating: 4.8
   },
   {
     name: "Gitanjali vishwakarma",
     standard: "10th Std",
-    text: "The personal attention and weekly test series boosted my confidence immensely. I scored 95% in my boards thanks to the dedicated faculty.",
-    rating: 5
+    text: "The personal attention and weekly test series boosted my confidence immensely. I scored 91.20% in my boards thanks to the dedicated faculty.",
+    rating: 4.9
   },
   {
-    name: "Amit singh",
+    name: "Aman pal",
     standard: "NEET Aspirant",
-    text: "Sandeep Sir's biology lectures are top-notch. The study material is exhaustive and covers all NCERT nuances perfectly. Highly recommended!",
-    rating: 5
+    text: "Shiva Sir's biology lectures are top-notch. The study material is exhaustive and covers all NCERT nuances perfectly. Highly recommended!",
+    rating: 4.8
+  }
+  {
+    name: "Amit singh",
+    standard: "Commerce 12th",
+    text: "Sandeep Sir's Account and economics lectures are top-notch. The study material is exhaustive and covers all perfectly. Highly recommended!",
+    rating: 4.5
   }
 ];
 
@@ -48,13 +54,13 @@ const Reviews = () => {
                   ))}
                 </div>
                 <p className="text-white/60 italic leading-relaxed text-base md:text-lg mb-8 group-hover:text-white/80 transition-colors">
-                   "{review.text}"
+                  "{review.text}"
                 </p>
               </div>
-              
+
               <div className="flex items-center gap-4 pt-6 border-t border-white/5">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-white font-black text-xl shadow-lg">
-                   {review.name.charAt(0)}
+                  {review.name.charAt(0)}
                 </div>
                 <div>
                   <h4 className="text-white font-bold text-sm md:text-base">{review.name}</h4>

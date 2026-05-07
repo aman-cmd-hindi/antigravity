@@ -1,10 +1,34 @@
 import React from 'react';
 
 const toppers = [
-  { name: "Gitanjali Vishwakarma", exam: "SSC 10th Board", percentage: "91.20%", year: "2025", photo: "👨‍🎓" },
-  { name: "Lekhraj Maurya", exam: "SSC 10th ", percentage: "87.60%", year: "2025", photo: "👩‍🎓" },
-  { name: "Aman Vishwakarma", exam: "SSC Board", percentage: "86.80%", year: "2025", photo: "👨‍🎓" },
-  { name: "Aman Pal", exam: "SSC Board", percentage: "85.20%", year: "2025", photo: "👩‍🎓" }
+  { 
+    name: "Gitanjali Vishwakarma", 
+    exam: "SSC 10th Board", 
+    score: "91.20%", 
+    year: "2025", 
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400" 
+  },
+  { 
+    name: "Lekhraj Maurya", 
+    exam: "SSC 10th Board", 
+    score: "87.60%", 
+    year: "2025", 
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400" 
+  },
+  { 
+    name: "Aman Vishwakarma", 
+    exam: "SSC 10th Board", 
+    score: "86.80%", 
+    year: "2025", 
+    image: "https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&q=80&w=400" 
+  },
+  { 
+    name: "Aman Pal", 
+    exam: "SSC 10th Board", 
+    score: "85.20%", 
+    year: "2025", 
+    image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&q=80&w=400" 
+  }
 ];
 
 const Toppers = () => {
