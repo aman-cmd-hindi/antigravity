@@ -4,13 +4,13 @@ const faculty = [
   {
     name: "Anjali Mam",
     subject: "Biology",
-    specialization: "NEET Expert",
+    specialization: "Biology Expert",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400"
   },
   {
     name: "Shiva Sir",
-    subject: "Chemistry",
-    specialization: "JEE & NEET Specialist",
+    subject: "Biology",
+    specialization: "NEET Expert",
     image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400"
   },
   {
@@ -22,7 +22,7 @@ const faculty = [
   {
     name: "Manoj Sir",
     subject: "Mathematics",
-    specialization: "JEE Specialist",
+    specialization: "Calculus Expert",
     image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400"
   },
   {
@@ -60,14 +60,14 @@ const Faculty = () => {
               <div className="relative mb-6 md:mb-8 aspect-square rounded-[25px] md:rounded-[35px] overflow-hidden group-hover:scale-[1.02] transition-transform duration-500 shadow-2xl">
                 <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-all duration-700 group-hover:brightness-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
-                
+
                 <div className="absolute bottom-6 left-6 flex gap-2">
                   {[...Array(5)].map((_, i) => (
                     <span key={i} className="text-primary text-xs">★</span>
                   ))}
                 </div>
               </div>
-              
+
               <div>
                 <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">{member.subject}</span>
                 <h3 className="text-xl md:text-2xl font-extrabold text-white mt-2 mb-1 group-hover:text-primary transition-colors">{member.name}</h3>
@@ -76,9 +76,9 @@ const Faculty = () => {
 
               <div className="mt-6 pt-6 border-t border-white/5 flex items-center justify-between">
                 <div className="flex -space-x-2">
-                   {[1,2,3].map(i => (
-                     <div key={i} className="w-6 h-6 rounded-full border border-slate-950 bg-slate-800 flex items-center justify-center text-[8px] text-white/50">👤</div>
-                   ))}
+                  {[1, 2, 3].map(i => (
+                    <div key={i} className="w-6 h-6 rounded-full border border-slate-950 bg-slate-800 flex items-center justify-center text-[8px] text-white/50">👤</div>
+                  ))}
                 </div>
                 <span className="text-[10px] text-white/30 font-bold uppercase tracking-widest">500+ Students Mentored</span>
               </div>

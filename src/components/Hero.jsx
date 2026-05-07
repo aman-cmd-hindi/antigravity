@@ -1,21 +1,26 @@
 import React from 'react';
-import heroBg from '../assets/hero-bg.jpg';
 
 const Hero = () => {
+  const particles = React.useMemo(() => {
+    return [...Array(15)].map((_, i) => ({
+      width: `${Math.random() * 8 + 2}px`,
+      height: `${Math.random() * 8 + 2}px`,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 5}s`,
+      animationDuration: `${Math.random() * 10 + 10}s`,
+    }));
+  }, []);
+
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 md:py-32 bg-main-animate">
       {/* Animated Particles */}
-      {[...Array(15)].map((_, i) => (
+      {particles.map((style, i) => (
         <div 
           key={i} 
           className="particle animate-particle" 
           style={{ 
-            width: `${Math.random() * 8 + 2}px`, 
-            height: `${Math.random() * 8 + 2}px`, 
-            left: `${Math.random() * 100}%`, 
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 5}s`,
-            animationDuration: `${Math.random() * 10 + 10}s`,
+            ...style,
             background: 'var(--primary)',
             opacity: 0.2
           }}

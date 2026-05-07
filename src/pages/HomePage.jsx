@@ -12,7 +12,8 @@ import Footer from '../components/Footer';
 const HomePage = () => {
   useEffect(() => {
     const observerOptions = {
-      threshold: 0.1
+      threshold: 0.05,
+      rootMargin: '0px 0px -30px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -24,7 +25,14 @@ const HomePage = () => {
     }, observerOptions);
 
     const revealElements = document.querySelectorAll('.reveal');
-    revealElements.forEach(el => observer.observe(el));
+    revealElements.forEach(el => {
+      // Immediately reveal elements already visible in the viewport
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('active');
+      }
+      observer.observe(el);
+    });
 
     return () => observer.disconnect();
   }, []);
