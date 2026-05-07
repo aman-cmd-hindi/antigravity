@@ -63,7 +63,7 @@ const Faculty = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {faculty.map((member, idx) => (
-            <div key={idx} className="glass-card p-10 rounded-[40px] border border-white/5 group hover:scale-[1.02] transition-all duration-500 hover:border-blue-500/30">
+            <div key={idx} className="glass-card edu-card p-10 rounded-[40px] border border-white/5 group transition-all duration-500">
               <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${member.color} flex items-center justify-center text-4xl mb-8 shadow-2xl shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
                 {member.icon}
               </div>

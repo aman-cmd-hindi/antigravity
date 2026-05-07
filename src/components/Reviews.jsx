@@ -31,14 +31,14 @@ const Reviews = () => {
             <span className="text-blue-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">Student Success</span>
             <h2 className="text-4xl md:text-5xl font-extrabold text-white">What Our <span className="text-blue-500">Achievers</span> Say</h2>
           </div>
-          <Link to="/review" className="px-6 py-3 bg-blue-600/10 text-blue-400 border border-blue-500/30 font-bold rounded-xl hover:bg-blue-600 hover:text-white transition-all text-sm uppercase tracking-widest whitespace-nowrap">
+          <Link to="/review" className="px-6 py-3 btn-secondary text-blue-400 font-bold rounded-xl transition-all text-sm uppercase tracking-widest whitespace-nowrap">
             Write a Review
           </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {reviewData.map((review, idx) => (
-            <div key={idx} className="glass-card p-8 rounded-3xl border border-white/5 relative">
+            <div key={idx} className="glass-card edu-card p-8 rounded-3xl border border-white/5 relative">
               <div className="flex gap-1 mb-6">
                 {[...Array(review.rating)].map((_, i) => (
                   <svg key={i} xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">

@@ -38,10 +38,10 @@ const Hero = () => {
           Unleash your potential in Science, JEE, and NEET with personalized mentorship that transcends traditional boundaries.
         </p>
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-          <a href="#courses" className="px-10 py-4 bg-white text-black font-bold rounded-2xl hover:bg-white/90 transition-all transform hover:-translate-y-1 shadow-2xl hover:shadow-white/10">
+          <a href="#courses" className="px-10 py-4 btn-primary shimmer-effect font-bold rounded-2xl">
             Explore Courses
           </a>
-          <a href="#about" className="px-10 py-4 glass text-white font-bold rounded-2xl hover:bg-white/10 transition-all border border-white/10">
+          <a href="#about" className="px-10 py-4 btn-secondary text-white font-bold rounded-2xl">
             Learn More
           </a>
         </div>

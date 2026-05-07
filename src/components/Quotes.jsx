@@ -12,7 +12,7 @@ const Quotes = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {quotes.map((quote, idx) => (
-            <div key={idx} className="glass-card p-8 rounded-3xl border border-white/5 relative group hover:-translate-y-2 transition-transform duration-300">
+            <div key={idx} className="glass-card edu-card p-8 rounded-3xl border border-white/5 relative group transition-transform duration-300">
               <div className="text-4xl text-blue-500/20 absolute top-4 left-4 font-serif">"</div>
               <p className="text-white/70 italic mb-6 relative z-10 text-lg leading-relaxed pt-4">
                 {quote.text}

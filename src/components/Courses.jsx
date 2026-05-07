@@ -52,7 +52,7 @@ const Courses = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {courses.map((course, idx) => (
-            <div key={idx} className="glass-card p-10 rounded-[40px] hover:scale-[1.02] transition-all duration-500 group relative overflow-hidden">
+            <div key={idx} className="glass-card edu-card p-10 rounded-[40px] group relative overflow-hidden">
               {course.popular && (
                 <div className="absolute top-6 right-6 bg-blue-600 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full text-white shadow-lg shadow-blue-500/40">
                   Most Popular
@@ -67,10 +67,10 @@ const Courses = () => {
               <h3 className="text-2xl font-extrabold text-white mt-3 mb-4 group-hover:text-blue-400 transition-colors duration-300">{course.title}</h3>
               <p className="text-white/40 text-sm leading-relaxed mb-10 group-hover:text-white/60 transition-colors">{course.desc}</p>
               
-              <Link to="/enroll" className="inline-flex items-center gap-3 text-white font-bold text-sm group/btn">
-                <span className="group-hover/btn:mr-2 transition-all">Enroll Now</span>
-                <div className="w-8 h-8 rounded-full glass flex items-center justify-center group-hover/btn:bg-white group-hover/btn:text-black transition-all">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <Link to="/enroll" className="inline-flex items-center gap-3 btn-secondary px-6 py-3 rounded-xl text-white font-bold text-sm group/btn">
+                <span className="group-hover/btn:mr-1 transition-all">Enroll Now</span>
+                <div className="w-6 h-6 rounded-full glass flex items-center justify-center group-hover/btn:bg-white group-hover/btn:text-black transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </div>

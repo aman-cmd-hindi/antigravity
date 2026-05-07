@@ -22,7 +22,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-6">
               {['FB', 'IG', 'TW', 'LI'].map((social) => (
-                <a key={social} href="#" className="w-12 h-12 rounded-2xl glass flex items-center justify-center text-xs font-bold text-white/40 hover:text-blue-500 hover:border-blue-500/50 transition-all active:scale-95">
+                <a key={social} href="#" className="w-12 h-12 rounded-2xl glass edu-card flex items-center justify-center text-xs font-bold text-white/40 hover:text-blue-500 hover:border-blue-500/50 transition-all active:scale-95">
                   {social}
                 </a>
               ))}
@@ -92,7 +92,7 @@ const Footer = () => {
           </div>
           <button 
             onClick={scrollToTop}
-            className="w-12 h-12 glass rounded-2xl flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all shadow-xl active:scale-95"
+            className="w-12 h-12 btn-secondary rounded-2xl flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all shadow-xl active:scale-95"
           >
             ↑
           </button>

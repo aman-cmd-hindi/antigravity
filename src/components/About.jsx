@@ -47,15 +47,21 @@ const About = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-2 gap-8 mt-12">
-            <div>
-              <p className="text-2xl font-extrabold text-white mb-1">98%</p>
-              <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest">Success Rate</p>
-            </div>
-            <div>
-              <p className="text-2xl font-extrabold text-white mb-1">50+</p>
-              <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest">Expert Faculty</p>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-12">
+            {[
+              { icon: "🎯", title: "Personalized Focus", desc: "Small batch sizes for individual attention." },
+              { icon: "📖", title: "Modern Curriculum", desc: "Updated material synced with latest patterns." },
+              { icon: "🏆", title: "Proven Results", desc: "Consistently producing top board and JEE/NEET ranks." },
+              { icon: "🔬", title: "Concept Mastery", desc: "Focus on deep understanding over rote learning." }
+            ].map((feature, idx) => (
+              <div key={idx} className="flex gap-4 p-4 rounded-2xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
+                <div className="text-2xl">{feature.icon}</div>
+                <div>
+                  <h4 className="text-white font-bold text-sm mb-1">{feature.title}</h4>
+                  <p className="text-white/40 text-[10px] leading-relaxed">{feature.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

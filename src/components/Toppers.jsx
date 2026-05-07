@@ -22,7 +22,7 @@ const Toppers = () => {
         {/* CSS Scroll Snap Slider */}
         <div className="flex overflow-x-auto gap-8 pb-10 snap-x snap-mandatory no-scrollbar" style={{ scrollBehavior: 'smooth' }}>
           {toppers.map((topper, idx) => (
-            <div key={idx} className="snap-center shrink-0 w-72 glass-card p-8 rounded-[30px] border border-white/5 text-center group hover:-translate-y-2 transition-all duration-300">
+            <div key={idx} className="snap-center shrink-0 w-72 glass-card edu-card p-8 rounded-[30px] border border-white/5 text-center group transition-all duration-300">
               <div className="w-24 h-24 mx-auto bg-gradient-to-br from-yellow-400 to-amber-600 rounded-full flex items-center justify-center text-4xl mb-6 shadow-xl shadow-yellow-500/20 group-hover:scale-110 transition-transform">
                 {topper.photo}
               </div>
