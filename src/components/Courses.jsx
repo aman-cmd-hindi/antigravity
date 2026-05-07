@@ -45,8 +45,8 @@ const Courses = () => {
     <section id="courses" className="py-32 px-6 md:px-12 bg-mesh relative">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
-          <span className="text-blue-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">Excellence Guaranteed</span>
-          <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Master Your <span className="text-blue-500">Future</span></h2>
+          <span className="text-amber-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">Excellence Guaranteed</span>
+          <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Master Your <span className="text-amber-500">Future</span></h2>
           <p className="text-white/40 max-w-xl mx-auto text-lg leading-relaxed">Elite coaching for school, college, and competitive excellence. Your path to success starts here.</p>
         </div>
 
@@ -54,7 +54,7 @@ const Courses = () => {
           {courses.map((course, idx) => (
             <div key={idx} className="glass-card edu-card p-10 rounded-[40px] group relative overflow-hidden">
               {course.popular && (
-                <div className="absolute top-6 right-6 bg-blue-600 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full text-white shadow-lg shadow-blue-500/40">
+                <div className="absolute top-6 right-6 bg-amber-600 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full text-white shadow-lg shadow-amber-500/40">
                   Most Popular
                 </div>
               )}
@@ -63,8 +63,8 @@ const Courses = () => {
                 {course.icon}
               </div>
               
-              <span className="text-[10px] font-bold text-blue-400/60 uppercase tracking-[0.2em]">{course.tag}</span>
-              <h3 className="text-2xl font-extrabold text-white mt-3 mb-4 group-hover:text-blue-400 transition-colors duration-300">{course.title}</h3>
+              <span className="text-[10px] font-bold text-amber-400/60 uppercase tracking-[0.2em]">{course.tag}</span>
+              <h3 className="text-2xl font-extrabold text-white mt-3 mb-4 group-hover:text-amber-400 transition-colors duration-300">{course.title}</h3>
               <p className="text-white/40 text-sm leading-relaxed mb-10 group-hover:text-white/60 transition-colors">{course.desc}</p>
               
               <Link to="/enroll" className="inline-flex items-center gap-3 btn-secondary px-6 py-3 rounded-xl text-white font-bold text-sm group/btn">

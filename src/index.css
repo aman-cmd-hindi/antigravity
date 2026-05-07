@@ -10,8 +10,10 @@
   line-height: 1.5;
   font-weight: 400;
 
-  --primary: #3b82f6;
-  --bg-dark: #050b18;
+  --primary: #fbbf24;
+  --primary-dark: #b45309;
+  --gold-glow: rgba(251, 191, 36, 0.15);
+  --bg-dark: #0a0a0a;
   --glass: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
 }
@@ -83,25 +85,58 @@ body {
 .bg-mesh {
   background-color: var(--bg-dark);
   background-image: 
-    radial-gradient(at 0% 0%, hsla(210, 100%, 15%, 1) 0, transparent 50%), 
-    radial-gradient(at 50% 0%, hsla(225, 100%, 10%, 1) 0, transparent 50%), 
-    radial-gradient(at 100% 0%, hsla(240, 100%, 15%, 1) 0, transparent 50%);
+    radial-gradient(at 0% 0%, hsla(45, 100%, 15%, 1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(35, 100%, 10%, 1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(45, 100%, 15%, 1) 0, transparent 50%);
+}
+
+/* Animated Golden Background */
+.bg-golden-animate {
+  background: linear-gradient(-45deg, #0a0a0a, #1a1a1a, #261a00, #0a0a0a);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating Particles */
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.3;
+  filter: blur(1px);
+}
+
+@keyframes float-particle {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+  50% { transform: translateY(-100px) translateX(50px) scale(1.2); opacity: 0.1; }
+  100% { transform: translateY(-200px) translateX(-20px) scale(1); opacity: 0; }
+}
+
+.animate-particle {
+  animation: float-particle 10s linear infinite;
 }
 
 /* Professional Button Animations */
 .btn-primary {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #3b82f6);
+  background: linear-gradient(90deg, #fbbf24, #d97706, #fbbf24);
   background-size: 200% auto;
   transition: 0.5s;
-  color: white;
-  box-shadow: 0 4px 15px 0 rgba(59, 130, 246, 0.45);
+  color: #000;
+  box-shadow: 0 4px 15px 0 rgba(251, 191, 36, 0.45);
 }
 
 .btn-primary:hover {
   background-position: right center;
-  box-shadow: 0 6px 20px 0 rgba(59, 130, 246, 0.6);
+  box-shadow: 0 6px 20px 0 rgba(251, 191, 36, 0.6);
   transform: translateY(-2px);
 }
 
@@ -117,7 +152,7 @@ body {
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: var(--primary);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
   transform: translateY(-2px);
 }
 
@@ -169,6 +204,6 @@ body {
 
 .edu-card:hover {
   transform: translateY(-10px);
-  border-color: rgba(59, 130, 246, 0.5);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(59, 130, 246, 0.1);
+  border-color: rgba(251, 191, 36, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(251, 191, 36, 0.1);
 }

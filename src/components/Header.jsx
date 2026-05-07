@@ -23,8 +23,8 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${(isScrolled || mobileMenuOpen) ? 'bg-[#050b18]/95 backdrop-blur-xl py-3 border-b border-white/10 shadow-2xl' : 'py-6 border-b border-transparent'} px-6 md:px-12 flex justify-between items-center`}>
       <Link to="/" className="text-2xl font-bold tracking-tighter text-white hover:opacity-80 transition-opacity flex items-center gap-2">
-        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-sm">T</div>
-        TIWARI <span className="text-blue-500 underline decoration-2 underline-offset-4">TUTORIALS</span>
+        <div className="w-8 h-8 bg-amber-600 rounded-lg flex items-center justify-center text-sm shadow-lg shadow-amber-500/20">T</div>
+        TIWARI <span className="text-amber-500 underline decoration-2 underline-offset-4">TUTORIALS</span>
       </Link>
 
       {/* Desktop Nav */}
@@ -97,10 +97,10 @@ const Header = () => {
           ))}
           <div className="flex flex-col gap-3 mt-4">
             <span className="text-[10px] text-white/40 uppercase tracking-widest font-bold">WhatsApp Numbers</span>
-            <a href="https://wa.me/918779560903" className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-xl text-center font-bold transition-colors">
+            <a href="https://wa.me/918779560903" className="bg-amber-600 hover:bg-amber-700 text-white p-4 rounded-xl text-center font-bold transition-colors">
               Chat: Manoj Sir
             </a>
-            <a href="https://wa.me/919833187969" className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-xl text-center font-bold transition-colors">
+            <a href="https://wa.me/919833187969" className="bg-amber-600 hover:bg-amber-700 text-white p-4 rounded-xl text-center font-bold transition-colors">
               Chat: Sandeep Sir
             </a>
           </div>

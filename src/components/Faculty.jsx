@@ -54,8 +54,8 @@ const Faculty = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-20">
-          <span className="text-blue-500 font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">The Pillars of Excellence</span>
-          <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Our Expert <span className="text-blue-500">Faculty</span></h2>
+          <span className="text-amber-500 font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">The Pillars of Excellence</span>
+          <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Our Expert <span className="text-amber-500">Faculty</span></h2>
           <p className="text-white/40 max-w-xl mx-auto text-lg leading-relaxed">
             Mentorship from the best in the industry. Specialized faculty for JEE, NEET, and Boards.
           </p>
@@ -69,8 +69,8 @@ const Faculty = () => {
               </div>
               
               <div>
-                <span className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.2em]">{member.subject}</span>
-                <h3 className="text-2xl font-extrabold text-white mt-2 mb-1 group-hover:text-blue-400 transition-colors">{member.name}</h3>
+                <span className="text-[10px] font-bold text-amber-400 uppercase tracking-[0.2em]">{member.subject}</span>
+                <h3 className="text-2xl font-extrabold text-white mt-2 mb-1 group-hover:text-amber-400 transition-colors">{member.name}</h3>
                 <p className="text-white/30 text-sm font-medium">{member.specialization}</p>
               </div>
 

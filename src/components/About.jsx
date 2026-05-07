@@ -27,13 +27,13 @@ const About = () => {
         </div>
 
         <div className="flex-1">
-          <span className="text-blue-500 font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">Our Legacy</span>
-          <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">Empowering Students to <br /><span className="text-blue-500 italic">Reach for the Stars</span></h2>
+          <span className="text-amber-500 font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">Our Legacy</span>
+          <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">Empowering Students to <br /><span className="text-amber-500 italic">Reach for the Stars</span></h2>
           
-          <div className="flex items-center gap-6 mb-12 p-6 glass rounded-3xl border border-blue-500/20">
-            <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-blue-500/30">👨‍🏫</div>
+          <div className="flex items-center gap-6 mb-12 p-6 glass rounded-3xl border border-amber-500/20">
+            <div className="w-12 h-12 bg-amber-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-amber-500/30">👨‍🏫</div>
             <div>
-               <p className="text-blue-400 font-bold uppercase tracking-[0.2em] text-[10px] mb-1">Founders & Directors</p>
+               <p className="text-amber-400 font-bold uppercase tracking-[0.2em] text-[10px] mb-1">Founders & Directors</p>
                <p className="text-white text-lg font-extrabold tracking-tight">Manoj Sir & Sandeep Sir</p>
             </div>
           </div>
@@ -54,7 +54,7 @@ const About = () => {
               { icon: "🏆", title: "Proven Results", desc: "Consistently producing top board and JEE/NEET ranks." },
               { icon: "🔬", title: "Concept Mastery", desc: "Focus on deep understanding over rote learning." }
             ].map((feature, idx) => (
-              <div key={idx} className="flex gap-4 p-4 rounded-2xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
+              <div key={idx} className="flex gap-4 p-4 rounded-2xl hover:bg-white/5 transition-colors border border-transparent hover:border-amber-500/10">
                 <div className="text-2xl">{feature.icon}</div>
                 <div>
                   <h4 className="text-white font-bold text-sm mb-1">{feature.title}</h4>

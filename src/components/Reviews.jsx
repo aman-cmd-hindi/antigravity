@@ -28,10 +28,10 @@ const Reviews = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div>
-            <span className="text-blue-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">Student Success</span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-white">What Our <span className="text-blue-500">Achievers</span> Say</h2>
+            <span className="text-amber-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">Student Success</span>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-white">What Our <span className="text-amber-500">Achievers</span> Say</h2>
           </div>
-          <Link to="/review" className="px-6 py-3 btn-secondary text-blue-400 font-bold rounded-xl transition-all text-sm uppercase tracking-widest whitespace-nowrap">
+          <Link to="/review" className="px-6 py-3 btn-secondary text-amber-400 font-bold rounded-xl transition-all text-sm uppercase tracking-widest whitespace-nowrap">
             Write a Review
           </Link>
         </div>
@@ -55,7 +55,7 @@ const Reviews = () => {
                 </div>
                 <div>
                   <h4 className="text-white font-bold text-sm">{review.name}</h4>
-                  <p className="text-blue-400 text-xs">{review.standard}</p>
+                  <p className="text-amber-400 text-xs">{review.standard}</p>
                 </div>
               </div>
             </div>
