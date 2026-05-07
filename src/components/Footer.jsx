@@ -83,9 +83,14 @@ const Footer = () => {
         </div>
 
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-white/20 text-[10px] md:text-xs font-medium tracking-wider text-center md:text-left">
-            © 2026 TIWARI TUTORIALS. CRAFTED BY PROFESSIONAL MENTORS.
-          </p>
+          <div className="flex flex-col gap-2">
+            <p className="text-white/20 text-[10px] md:text-xs font-medium tracking-wider text-center md:text-left">
+              © 2026 TIWARI TUTORIALS. CRAFTED BY PROFESSIONAL MENTORS.
+            </p>
+            <p className="text-white/10 text-[9px] md:text-[10px] font-medium tracking-[0.1em] text-center md:text-left">
+              This website is created by <span className="text-primary/40 font-bold uppercase">Aman Vishwakarma</span>. For queries: <a href="tel:8928875553" className="hover:text-primary/60 transition-colors">8928875553</a> | <a href="mailto:websitebyaman@gmail.com" className="hover:text-primary/60 transition-colors">websitebyaman@gmail.com</a>
+            </p>
+          </div>
           <div className="flex gap-8">
              <a href="#" className="text-white/20 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors">Privacy</a>
              <a href="#" className="text-white/20 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors">Terms</a>
