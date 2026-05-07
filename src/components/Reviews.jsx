@@ -24,38 +24,41 @@ const reviewData = [
 
 const Reviews = () => {
   return (
-    <section className="py-24 px-6 md:px-12 bg-mesh relative">
+    <section className="py-16 md:py-32 px-4 md:px-12 bg-mesh relative">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 md:mb-16 gap-6 text-center md:text-left">
           <div>
-            <span className="text-amber-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">Student Success</span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-white">What Our <span className="text-amber-500">Achievers</span> Say</h2>
+            <span className="text-primary font-bold uppercase tracking-[0.2em] text-[10px] mb-3 block">Student Success</span>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white">What Our <span className="text-primary">Achievers</span> Say</h2>
           </div>
-          <Link to="/review" className="px-6 py-3 btn-secondary text-amber-400 font-bold rounded-xl transition-all text-sm uppercase tracking-widest whitespace-nowrap">
+          <Link to="/review" className="w-full md:w-auto px-8 py-3.5 btn-secondary text-primary font-bold rounded-xl transition-all text-xs uppercase tracking-widest whitespace-nowrap border border-primary/20">
             Write a Review
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {reviewData.map((review, idx) => (
-            <div key={idx} className="glass-card edu-card p-8 rounded-3xl border border-white/5 relative">
-              <div className="flex gap-1 mb-6">
-                {[...Array(review.rating)].map((_, i) => (
-                  <svg key={i} xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
+            <div key={idx} className="glass-card edu-card p-8 md:p-10 rounded-[30px] md:rounded-[40px] group flex flex-col justify-between">
+              <div>
+                <div className="flex gap-1 mb-6">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <svg key={i} xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 text-primary" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-white/60 italic leading-relaxed text-base md:text-lg mb-8 group-hover:text-white/80 transition-colors">
+                   "{review.text}"
+                </p>
               </div>
-              <p className="text-white/70 mb-8 leading-relaxed text-sm">
-                "{review.text}"
-              </p>
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
-                  {review.name.charAt(0)}
+              
+              <div className="flex items-center gap-4 pt-6 border-t border-white/5">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-white font-black text-xl shadow-lg">
+                   {review.name.charAt(0)}
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-sm">{review.name}</h4>
-                  <p className="text-amber-400 text-xs">{review.standard}</p>
+                  <h4 className="text-white font-bold text-sm md:text-base">{review.name}</h4>
+                  <p className="text-primary text-[10px] md:text-xs font-bold uppercase tracking-widest">{review.standard}</p>
                 </div>
               </div>
             </div>
