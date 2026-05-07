@@ -24,7 +24,7 @@ const reviewData = [
 
 const Reviews = () => {
   return (
-    <section className="py-24 px-6 md:px-12 bg-mesh relative border-t border-white/5">
+    <section className="py-24 px-6 md:px-12 bg-mesh relative">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div>

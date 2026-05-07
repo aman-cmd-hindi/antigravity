@@ -4,7 +4,7 @@ const About = () => {
   return (
     <section id="about" className="py-32 px-6 md:px-12 bg-mesh relative overflow-hidden">
       {/* Abstract Background Shapes */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-[100px] -translate-y-1/2"></div>
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-amber-500/10 rounded-full blur-[100px] -translate-y-1/2"></div>
       
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-center">
         <div className="flex-1 relative">

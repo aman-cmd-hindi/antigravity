@@ -9,8 +9,8 @@ const toppers = [
 
 const Toppers = () => {
   return (
-    <section id="toppers" className="py-24 px-6 md:px-12 relative overflow-hidden bg-mesh border-t border-white/5">
-      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-yellow-500/5 rounded-full blur-[150px] pointer-events-none -translate-y-1/2"></div>
+    <section id="toppers" className="py-24 px-6 md:px-12 relative overflow-hidden bg-mesh">
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[150px] pointer-events-none -translate-y-1/2"></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
