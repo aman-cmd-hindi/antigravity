@@ -6,7 +6,7 @@ const Footer = () => {
   };
 
   return (
-    <footer id="contact" className="bg-[#020610] pt-32 pb-12 px-6 md:px-12 relative overflow-hidden">
+    <footer id="contact" className="bg-mesh pt-32 pb-12 px-6 md:px-12 relative overflow-hidden">
       {/* Decorative Gradient */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[300px] bg-blue-600/5 rounded-full blur-[150px] pointer-events-none"></div>
 

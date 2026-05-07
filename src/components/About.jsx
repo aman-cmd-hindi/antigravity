@@ -2,7 +2,7 @@ import React from 'react';
 
 const About = () => {
   return (
-    <section id="about" className="py-32 px-6 md:px-12 relative overflow-hidden">
+    <section id="about" className="py-32 px-6 md:px-12 bg-mesh relative overflow-hidden">
       {/* Abstract Background Shapes */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-[100px] -translate-y-1/2"></div>
       

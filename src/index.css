@@ -88,6 +88,8 @@ body {
     radial-gradient(at 0% 0%, hsla(45, 100%, 15%, 1) 0, transparent 50%), 
     radial-gradient(at 50% 0%, hsla(35, 100%, 10%, 1) 0, transparent 50%), 
     radial-gradient(at 100% 0%, hsla(45, 100%, 15%, 1) 0, transparent 50%);
+  background-size: 200% 200%;
+  animation: gradientBG 20s ease infinite;
 }
 
 /* Animated Golden Background */

@@ -47,7 +47,7 @@ const faculty = [
 
 const Faculty = () => {
   return (
-    <section id="faculty" className="py-32 px-6 md:px-12 bg-[#020610] relative overflow-hidden">
+    <section id="faculty" className="py-32 px-6 md:px-12 bg-mesh relative overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[150px] pointer-events-none"></div>
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[150px] pointer-events-none"></div>
