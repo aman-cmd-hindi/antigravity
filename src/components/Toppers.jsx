@@ -13,7 +13,7 @@ const toppers = [
     exam: "SSC 10th Board",
     score: "87.60%",
     year: "2025",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400"
+    image: "/lekhraj-maurya.png"
   },
   {
     name: "Aman Vishwakarma",
