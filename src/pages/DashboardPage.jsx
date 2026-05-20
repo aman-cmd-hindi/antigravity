@@ -237,10 +237,17 @@ const DashboardPage = () => {
                       <td className="px-6 py-4 text-white/60 whitespace-nowrap">{e.email || '—'}</td>
                       <td className="px-6 py-4">
                         <span className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-lg text-[10px] font-bold uppercase whitespace-nowrap">
-                          {e.standard === '1-10' ? `Class ${e.specificClass || '1-10'}` : e.standard}
+                          {e.standard === '1-10' ? `Class ${e.specificClass || '1-10'}` : 
+                           e.standard === 'School Boards (Class 1-9)' ? `School: Class ${e.specificClass || '1-9'}` :
+                           e.standard === 'Pre Foundation (Class 1-9)' ? `Pre-Found: Class ${e.specificClass || '1-9'}` :
+                           e.standard}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-white/60 whitespace-nowrap">{e.competitiveExam || e.course || '—'}</td>
+                      <td className="px-6 py-4 text-white/60 whitespace-nowrap">
+                        {e.standard === 'NEET' || e.standard === 'IIT JEE' 
+                          ? `${e.standard} (${e.specificClass || '—'})` 
+                          : e.competitiveExam || e.course || '—'}
+                      </td>
                       <td className="px-6 py-4 text-white/30 text-xs whitespace-nowrap">{formatDate(e.submittedAt)}</td>
                       <td className="px-6 py-4">
                         {deleteConfirm === e.id ? (

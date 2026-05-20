@@ -26,10 +26,16 @@ const EnrollmentPage = () => {
     const { name, value } = e.target;
     let newFormData = { ...formData, [name]: value };
 
-    if (name === 'standard' && value === 'Competitive Exam') {
-      newFormData.course = 'Science';
-    } else if (name === 'standard' && value === '1-10') {
-      newFormData.course = 'School';
+    if (name === 'standard') {
+      newFormData.specificClass = '';
+      newFormData.medium = '';
+      if (value === 'NEET' || value === 'IIT JEE') {
+        newFormData.course = 'Science';
+        newFormData.competitiveExam = value === 'IIT JEE' ? 'JEE' : 'NEET';
+      } else {
+        newFormData.course = value;
+        newFormData.competitiveExam = '';
+      }
     }
 
     setFormData(newFormData);
@@ -75,7 +81,7 @@ const EnrollmentPage = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a 
-              href={getWhatsAppLink(formData.name, 'enrollment', formData.standard)} 
+              href={getWhatsAppLink(formData.name, 'enrollment', `${formData.standard}${formData.specificClass ? ` (${formData.specificClass}${['Class 11', 'Class 12', 'Dropper'].includes(formData.specificClass) ? '' : formData.specificClass === '1' ? 'st Std' : formData.specificClass === '2' ? 'nd Std' : formData.specificClass === '3' ? 'rd Std' : 'th Std'})` : ''}`)} 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-5 bg-green-600 text-white font-bold rounded-2xl hover:bg-green-700 transition-all shadow-xl shadow-green-500/20 active:scale-95 w-full sm:w-auto"
@@ -173,7 +179,7 @@ const EnrollmentPage = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div className="space-y-3">
-                <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Standard / Class</label>
+                <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Course / Category</label>
                 <div className="relative">
                   <select 
                     name="standard"
@@ -181,17 +187,17 @@ const EnrollmentPage = () => {
                     onChange={handleChange}
                     className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
                   >
-                    <option value="" disabled selected className="bg-[#050b18]">Choose Class</option>
-                    <option value="1-10" className="bg-[#050b18]">School (1-10)</option>
-                    <option value="11" className="bg-[#050b18]">11th Grade</option>
-                    <option value="12" className="bg-[#050b18]">12th Grade</option>
-                    <option value="Competitive Exam" className="bg-[#050b18]">Competitive Exam</option>
+                    <option value="" disabled selected className="bg-[#050b18]">Choose Course Category</option>
+                    <option value="School Boards (Class 1-9)" className="bg-[#050b18]">School Boards (Class 1-9)</option>
+                    <option value="Pre Foundation (Class 1-9)" className="bg-[#050b18]">Pre Foundation (Class 1-9)</option>
+                    <option value="NEET" className="bg-[#050b18]">NEET</option>
+                    <option value="IIT JEE" className="bg-[#050b18]">IIT JEE</option>
                   </select>
                   <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
                 </div>
               </div>
               
-              {formData.standard === '1-10' && (
+              {(formData.standard === 'School Boards (Class 1-9)' || formData.standard === 'Pre Foundation (Class 1-9)') && (
                 <>
                   <div className="space-y-3">
                     <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Specific Class</label>
@@ -204,7 +210,7 @@ const EnrollmentPage = () => {
                         className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
                       >
                         <option value="" disabled className="bg-[#050b18]">Select Class</option>
-                        {[...Array(10)].map((_, i) => (
+                        {[...Array(9)].map((_, i) => (
                           <option key={i+1} value={i+1} className="bg-[#050b18]">{i+1}{i+1 === 1 ? 'st' : i+1 === 2 ? 'nd' : i+1 === 3 ? 'rd' : 'th'} Standard</option>
                         ))}
                       </select>
@@ -233,49 +239,21 @@ const EnrollmentPage = () => {
                 </>
               )}
               
-              {formData.standard === 'Competitive Exam' && (
+              {(formData.standard === 'NEET' || formData.standard === 'IIT JEE') && (
                 <div className="space-y-3">
-                  <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Which Competitive Exam?</label>
+                  <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Select Class / Batch</label>
                   <div className="relative">
                     <select 
-                      name="competitiveExam"
+                      name="specificClass"
                       required
                       onChange={handleChange}
-                      value={formData.competitiveExam}
+                      value={formData.specificClass}
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
                     >
-                      <option value="" disabled className="bg-[#050b18]">Select Exam</option>
-                      <option value="NEET" className="bg-[#050b18]">NEET</option>
-                      <option value="JEE" className="bg-[#050b18]">JEE</option>
-                      <option value="MHT-CET (PCM)" className="bg-[#050b18]">MHT-CET (PCM)</option>
-                      <option value="MHT-CET (PCB)" className="bg-[#050b18]">MHT-CET (PCB)</option>
-                    </select>
-                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
-                  </div>
-                </div>
-              )}
-              
-              {formData.standard && formData.standard !== '1-10' && (
-                <div className="space-y-3">
-                  <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Academic Stream</label>
-                  <div className="relative">
-                    <select 
-                      name="course"
-                      required
-                      onChange={handleChange}
-                      value={formData.standard === 'Competitive Exam' ? 'Science' : formData.course}
-                      disabled={formData.standard === 'Competitive Exam'}
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer disabled:opacity-50"
-                    >
-                      {formData.standard === 'Competitive Exam' ? (
-                        <option value="Science" className="bg-[#050b18]">Science</option>
-                      ) : (
-                        <>
-                          <option value="" disabled className="bg-[#050b18]">Choose Stream</option>
-                          <option value="Science" className="bg-[#050b18]">Science</option>
-                          <option value="Commerce" className="bg-[#050b18]">Commerce</option>
-                        </>
-                      )}
+                      <option value="" disabled className="bg-[#050b18]">Select Class/Batch</option>
+                      <option value="Class 11" className="bg-[#050b18]">Class 11</option>
+                      <option value="Class 12" className="bg-[#050b18]">Class 12</option>
+                      <option value="Dropper" className="bg-[#050b18]">Dropper</option>
                     </select>
                     <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
                   </div>
