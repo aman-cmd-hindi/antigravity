@@ -30,6 +30,13 @@ const courses = [
     tag: "Competitive Prep",
     color: "from-yellow-500 to-orange-500",
     icon: "🧬"
+  },
+  {
+    title: "Commerce Section",
+    desc: "Expert coaching in Accountancy, Business Studies, Economics & Maths for commerce stream students.",
+    tag: "Commerce Stream",
+    color: "from-teal-500 to-cyan-500",
+    icon: "📊"
   }
 ];
 
@@ -40,7 +47,7 @@ const Courses = () => {
         <div className="text-center mb-12 md:mb-20">
           <span className="text-primary font-bold uppercase tracking-[0.2em] text-[10px] mb-3 block">Excellence Guaranteed</span>
           <h2 className="text-3xl md:text-6xl font-extrabold text-white mb-4 md:mb-6">Master Your <span className="text-primary">Future</span></h2>
-          <p className="text-white/40 max-w-lg mx-auto text-base md:text-lg leading-relaxed">Elite coaching for school boards, pre foundation, and competitive entrance exams.</p>
+          <p className="text-white/40 max-w-lg mx-auto text-base md:text-lg leading-relaxed">Elite coaching for school boards, commerce, pre foundation, and competitive entrance exams.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">

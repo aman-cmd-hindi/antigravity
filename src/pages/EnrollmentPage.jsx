@@ -14,6 +14,7 @@ const EnrollmentPage = () => {
     specificClass: '',
     medium: '',
     competitiveExam: '',
+    commerceSubject: '',
     location: '',
     message: ''
   });
@@ -29,9 +30,13 @@ const EnrollmentPage = () => {
     if (name === 'standard') {
       newFormData.specificClass = '';
       newFormData.medium = '';
+      newFormData.commerceSubject = '';
       if (value === 'NEET' || value === 'IIT JEE') {
         newFormData.course = 'Science';
         newFormData.competitiveExam = value === 'IIT JEE' ? 'JEE' : 'NEET';
+      } else if (value === 'Commerce Section') {
+        newFormData.course = 'Commerce';
+        newFormData.competitiveExam = '';
       } else {
         newFormData.course = value;
         newFormData.competitiveExam = '';
@@ -80,9 +85,9 @@ const EnrollmentPage = () => {
             Success, <span className="text-blue-400 font-bold">{formData.name}</span>! Your enrollment request has been prioritized. Manoj Sir or Sandeep Sir will reach out to you within 24 hours.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a 
-              href={getWhatsAppLink(formData.name, 'enrollment', `${formData.standard}${formData.specificClass ? ` (${formData.specificClass}${['Class 11', 'Class 12', 'Dropper'].includes(formData.specificClass) ? '' : formData.specificClass === '1' ? 'st Std' : formData.specificClass === '2' ? 'nd Std' : formData.specificClass === '3' ? 'rd Std' : 'th Std'})` : ''}`)} 
-              target="_blank" 
+            <a
+              href={getWhatsAppLink(formData.name, 'enrollment', `${formData.standard}${formData.specificClass ? ` (${formData.specificClass}${['Class 11', 'Class 12', 'Dropper'].includes(formData.specificClass) ? '' : formData.specificClass === '1' ? 'st Std' : formData.specificClass === '2' ? 'nd Std' : formData.specificClass === '3' ? 'rd Std' : 'th Std'})` : ''}`)}
+              target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-5 bg-green-600 text-white font-bold rounded-2xl hover:bg-green-700 transition-all shadow-xl shadow-green-500/20 active:scale-95 w-full sm:w-auto"
             >
@@ -109,7 +114,7 @@ const EnrollmentPage = () => {
         <div className="flex-1 space-y-12">
           <div>
             <Link to="/" className="inline-flex items-center gap-3 text-blue-500 font-bold uppercase tracking-[0.2em] text-xs mb-10 group hover:opacity-80 transition-all">
-              <span className="w-8 h-8 rounded-full glass flex items-center justify-center group-hover:-translate-x-1 transition-transform">←</span> 
+              <span className="w-8 h-8 rounded-full glass flex items-center justify-center group-hover:-translate-x-1 transition-transform">←</span>
               Back to Home
             </Link>
             <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-[1.1] mb-8">
@@ -121,19 +126,19 @@ const EnrollmentPage = () => {
           </div>
 
           <div className="space-y-6">
-             {[
-               { title: 'Personalized Attention', desc: 'Direct mentorship from founders.' },
-               { title: 'Proven Results', desc: 'Consistent toppers in boards & JEE/NEET.' },
-               { title: 'Modern Methodology', desc: 'Concept-first learning approach.' }
-             ].map((item, idx) => (
-               <div key={idx} className="flex gap-6 items-start group">
-                  <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-lg">✓</div>
-                  <div>
-                    <h4 className="text-white font-bold mb-1">{item.title}</h4>
-                    <p className="text-white/30 text-sm">{item.desc}</p>
-                  </div>
-               </div>
-             ))}
+            {[
+              { title: 'Personalized Attention', desc: 'Direct mentorship from founders.' },
+              { title: 'Proven Results', desc: 'Consistent toppers in boards & JEE/NEET.' },
+              { title: 'Modern Methodology', desc: 'Concept-first learning approach.' }
+            ].map((item, idx) => (
+              <div key={idx} className="flex gap-6 items-start group">
+                <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-lg">✓</div>
+                <div>
+                  <h4 className="text-white font-bold mb-1">{item.title}</h4>
+                  <p className="text-white/30 text-sm">{item.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -143,8 +148,8 @@ const EnrollmentPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div className="space-y-3">
                 <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Full Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="name"
                   required
                   placeholder="Student Name"
@@ -154,8 +159,8 @@ const EnrollmentPage = () => {
               </div>
               <div className="space-y-3">
                 <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Contact Number</label>
-                <input 
-                  type="tel" 
+                <input
+                  type="tel"
                   name="phone"
                   required
                   placeholder="+91"
@@ -167,8 +172,8 @@ const EnrollmentPage = () => {
 
             <div className="space-y-3">
               <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Email Address</label>
-              <input 
-                type="email" 
+              <input
+                type="email"
                 name="email"
                 required
                 placeholder="email@example.com"
@@ -181,7 +186,7 @@ const EnrollmentPage = () => {
               <div className="space-y-3">
                 <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Course / Category</label>
                 <div className="relative">
-                  <select 
+                  <select
                     name="standard"
                     required
                     onChange={handleChange}
@@ -192,17 +197,18 @@ const EnrollmentPage = () => {
                     <option value="Pre Foundation (Class 1-9)" className="bg-[#050b18]">Pre Foundation (Class 1-9)</option>
                     <option value="NEET" className="bg-[#050b18]">NEET</option>
                     <option value="IIT JEE" className="bg-[#050b18]">IIT JEE</option>
+                    <option value="Commerce Section" className="bg-[#050b18]">Commerce Section</option>
                   </select>
                   <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
                 </div>
               </div>
-              
+
               {(formData.standard === 'School Boards (Class 1-9)' || formData.standard === 'Pre Foundation (Class 1-9)') && (
                 <>
                   <div className="space-y-3">
                     <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Specific Class</label>
                     <div className="relative">
-                      <select 
+                      <select
                         name="specificClass"
                         required
                         onChange={handleChange}
@@ -211,17 +217,17 @@ const EnrollmentPage = () => {
                       >
                         <option value="" disabled className="bg-[#050b18]">Select Class</option>
                         {[...Array(9)].map((_, i) => (
-                          <option key={i+1} value={i+1} className="bg-[#050b18]">{i+1}{i+1 === 1 ? 'st' : i+1 === 2 ? 'nd' : i+1 === 3 ? 'rd' : 'th'} Standard</option>
+                          <option key={i + 1} value={i + 1} className="bg-[#050b18]">{i + 1}{i + 1 === 1 ? 'st' : i + 1 === 2 ? 'nd' : i + 1 === 3 ? 'rd' : 'th'} Standard</option>
                         ))}
                       </select>
                       <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-3">
                     <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Medium of Language</label>
                     <div className="relative">
-                      <select 
+                      <select
                         name="medium"
                         required
                         onChange={handleChange}
@@ -238,12 +244,12 @@ const EnrollmentPage = () => {
                   </div>
                 </>
               )}
-              
+
               {(formData.standard === 'NEET' || formData.standard === 'IIT JEE') && (
                 <div className="space-y-3">
                   <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Select Class / Batch</label>
                   <div className="relative">
-                    <select 
+                    <select
                       name="specificClass"
                       required
                       onChange={handleChange}
@@ -254,6 +260,30 @@ const EnrollmentPage = () => {
                       <option value="Class 11" className="bg-[#050b18]">Class 11</option>
                       <option value="Class 12" className="bg-[#050b18]">Class 12</option>
                       <option value="Dropper" className="bg-[#050b18]">Dropper</option>
+                    </select>
+                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
+                  </div>
+                </div>
+              )}
+
+              {formData.standard === 'Commerce Section' && (
+                <div className="space-y-3">
+                  <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Commerce Subject</label>
+                  <div className="relative">
+                    <select
+                      name="commerceSubject"
+                      required
+                      onChange={handleChange}
+                      value={formData.commerceSubject}
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
+                    >
+                      <option value="" disabled className="bg-[#050b18]">Select Subject</option>
+                      <option value="Accountancy" className="bg-[#050b18]">Accountancy</option>
+                      <option value="Business Studies" className="bg-[#050b18]">Business Studies</option>
+                      <option value="Economics" className="bg-[#050b18]">Economics</option>
+                      <option value="Mathematics (Commerce)" className="bg-[#050b18]">Mathematics (Commerce)</option>
+                      <option value="English" className="bg-[#050b18]">English</option>
+                      <option value="All Subjects" className="bg-[#050b18]">All Subjects</option>
                     </select>
                     <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
                   </div>
