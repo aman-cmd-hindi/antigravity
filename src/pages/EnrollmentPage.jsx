@@ -193,7 +193,7 @@ const EnrollmentPage = () => {
                     className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
                   >
                     <option value="" disabled selected className="bg-[#050b18]">Choose Course Category</option>
-                    <option value="School Boards (Class 1-9)" className="bg-[#050b18]">School Boards (Class 1-9)</option>
+                    <option value="School Boards (Class 10-12)" className="bg-[#050b18]">School Boards (Class 10-12)</option>
                     <option value="Pre Foundation (Class 1-9)" className="bg-[#050b18]">Pre Foundation (Class 1-9)</option>
                     <option value="NEET" className="bg-[#050b18]">NEET</option>
                     <option value="IIT JEE" className="bg-[#050b18]">IIT JEE</option>
@@ -203,7 +203,7 @@ const EnrollmentPage = () => {
                 </div>
               </div>
 
-              {(formData.standard === 'School Boards (Class 1-9)' || formData.standard === 'Pre Foundation (Class 1-9)') && (
+              {(formData.standard === 'School Boards (Class 10-12)' || formData.standard === 'Pre Foundation (Class 1-9)') && (
                 <>
                   <div className="space-y-3">
                     <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Specific Class</label>
@@ -216,9 +216,17 @@ const EnrollmentPage = () => {
                         className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
                       >
                         <option value="" disabled className="bg-[#050b18]">Select Class</option>
-                        {[...Array(9)].map((_, i) => (
-                          <option key={i + 1} value={i + 1} className="bg-[#050b18]">{i + 1}{i + 1 === 1 ? 'st' : i + 1 === 2 ? 'nd' : i + 1 === 3 ? 'rd' : 'th'} Standard</option>
-                        ))}
+                        {formData.standard === 'School Boards (Class 10-12)' ? (
+                          <>
+                            <option value="Class 10" className="bg-[#050b18]">Class 10</option>
+                            <option value="Class 11" className="bg-[#050b18]">Class 11</option>
+                            <option value="Class 12" className="bg-[#050b18]">Class 12</option>
+                          </>
+                        ) : (
+                          [...Array(9)].map((_, i) => (
+                            <option key={i + 1} value={i + 1} className="bg-[#050b18]">{i + 1}{i + 1 === 1 ? 'st' : i + 1 === 2 ? 'nd' : i + 1 === 3 ? 'rd' : 'th'} Standard</option>
+                          ))
+                        )}
                       </select>
                       <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
                     </div>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const courses = [
   {
     title: "School Boards (Class 10-12)",
-    desc: "Building solid foundations for State Boards with clear conceptual understanding.",
+    desc: "Expert board exam coaching for Class 10, 11 & 12 — CBSE, ICSE and State Boards.",
     tag: "School Education",
     color: "from-green-500 to-emerald-500",
     icon: "🏫"
