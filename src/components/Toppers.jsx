@@ -50,7 +50,7 @@ const Toppers = () => {
                 <img src={topper.image} alt={topper.name} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
 
-                <div className="absolute top-4 right-4 bg-primary/20 backdrop-blur-md border border-primary/30 text-primary text-[9px] md:text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
+                <div className="absolute top-4 right-4 bg-slate-950/90 backdrop-blur-md border border-primary/30 text-primary text-[9px] md:text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
                   {topper.score}
                 </div>
               </div>
