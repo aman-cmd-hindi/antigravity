@@ -13,7 +13,7 @@ const toppers = [
     exam: "SSC 10th Board",
     score: "87.60%",
     year: "2025",
-    image: "/lekhraj-maurya.png"
+    image: "/lekhraj-maurya.jpeg"
   },
   {
     name: "Aman Vishwakarma",
