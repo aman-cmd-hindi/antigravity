@@ -15,6 +15,10 @@ const EnrollmentPage = () => {
     medium: '',
     competitiveExam: '',
     commerceSubject: '',
+    stream: '',
+    scienceGroup: '',
+    languages: [],
+    optionalSubject: '',
     location: '',
     message: ''
   });
@@ -24,13 +28,34 @@ const EnrollmentPage = () => {
   const [error, setError] = useState('');
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
+
+    if (type === 'checkbox' && name === 'languages') {
+      let updatedLanguages = [...formData.languages];
+      if (checked) {
+        if (updatedLanguages.length < 2) {
+          updatedLanguages.push(value);
+        } else {
+          // If trying to check a 3rd option, ignore
+          return;
+        }
+      } else {
+        updatedLanguages = updatedLanguages.filter(lang => lang !== value);
+      }
+      setFormData({ ...formData, languages: updatedLanguages });
+      return;
+    }
+
     let newFormData = { ...formData, [name]: value };
 
     if (name === 'standard') {
       newFormData.specificClass = '';
       newFormData.medium = '';
       newFormData.commerceSubject = '';
+      newFormData.stream = '';
+      newFormData.scienceGroup = '';
+      newFormData.languages = [];
+      newFormData.optionalSubject = '';
       if (value === 'NEET' || value === 'IIT JEE') {
         newFormData.course = 'Science';
         newFormData.competitiveExam = value === 'IIT JEE' ? 'JEE' : 'NEET';
@@ -41,6 +66,25 @@ const EnrollmentPage = () => {
         newFormData.course = value;
         newFormData.competitiveExam = '';
       }
+    }
+
+    if (name === 'specificClass' && formData.standard === 'School Boards (Class 10-12)') {
+      if (value !== 'Class 11' && value !== 'Class 12') {
+        newFormData.stream = '';
+        newFormData.scienceGroup = '';
+        newFormData.languages = [];
+        newFormData.optionalSubject = '';
+      }
+    }
+
+    if (name === 'stream') {
+      newFormData.scienceGroup = '';
+      newFormData.languages = [];
+      newFormData.optionalSubject = '';
+    }
+    
+    if (name === 'scienceGroup' && value === 'PCM Computer Science') {
+      newFormData.languages = [];
     }
 
     setFormData(newFormData);
@@ -71,6 +115,27 @@ const EnrollmentPage = () => {
   };
 
 
+  let courseDetails = formData.standard;
+  if (formData.specificClass) {
+    let suffix = '';
+    if (!['Class 11', 'Class 12', 'Dropper'].includes(formData.specificClass)) {
+      if (formData.specificClass === '1') suffix = 'st Std';
+      else if (formData.specificClass === '2') suffix = 'nd Std';
+      else if (formData.specificClass === '3') suffix = 'rd Std';
+      else suffix = 'th Std';
+    }
+    courseDetails += ` (${formData.specificClass}${suffix})`;
+  }
+  
+  if (formData.stream === 'Science') {
+    courseDetails += ` - Science (${formData.scienceGroup})`;
+    if (formData.languages.length > 0) {
+      courseDetails += ` [Languages: ${formData.languages.join(', ')}]`;
+    }
+  } else if (formData.stream === 'Commerce') {
+    courseDetails += ` - Commerce [Optional: ${formData.optionalSubject}]`;
+  }
+
   if (submitted) {
     return (
       <div className="min-h-screen bg-[#050b18] flex items-center justify-center px-6 bg-mesh">
@@ -86,7 +151,7 @@ const EnrollmentPage = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
-              href={getWhatsAppLink(formData.name, 'enrollment', `${formData.standard}${formData.specificClass ? ` (${formData.specificClass}${['Class 11', 'Class 12', 'Dropper'].includes(formData.specificClass) ? '' : formData.specificClass === '1' ? 'st Std' : formData.specificClass === '2' ? 'nd Std' : formData.specificClass === '3' ? 'rd Std' : 'th Std'})` : ''}`)}
+              href={getWhatsAppLink(formData.name, 'enrollment', courseDetails)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-5 bg-green-600 text-white font-bold rounded-2xl hover:bg-green-700 transition-all shadow-xl shadow-green-500/20 active:scale-95 w-full sm:w-auto"
@@ -250,6 +315,103 @@ const EnrollmentPage = () => {
                       <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
                     </div>
                   </div>
+
+                  {(formData.standard === 'School Boards (Class 10-12)' && (formData.specificClass === 'Class 11' || formData.specificClass === 'Class 12')) && (
+                    <>
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Stream</label>
+                        <div className="relative">
+                          <select
+                            name="stream"
+                            required
+                            onChange={handleChange}
+                            value={formData.stream}
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
+                          >
+                            <option value="" disabled className="bg-[#050b18]">Select Stream</option>
+                            <option value="Science" className="bg-[#050b18]">Science</option>
+                            <option value="Commerce" className="bg-[#050b18]">Commerce</option>
+                          </select>
+                          <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
+                        </div>
+                      </div>
+
+                      {formData.stream === 'Science' && (
+                        <>
+                          <div className="space-y-3">
+                            <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Science Group</label>
+                            <div className="relative">
+                              <select
+                                name="scienceGroup"
+                                required
+                                onChange={handleChange}
+                                value={formData.scienceGroup}
+                                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
+                              >
+                                <option value="" disabled className="bg-[#050b18]">Select Group</option>
+                                <option value="PCMB" className="bg-[#050b18]">PCMB</option>
+                                <option value="PCB" className="bg-[#050b18]">PCB</option>
+                                <option value="PCM" className="bg-[#050b18]">PCM</option>
+                                <option value="PCM Computer Science" className="bg-[#050b18]">PCM Computer Science</option>
+                              </select>
+                              <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
+                            </div>
+                          </div>
+
+                          {formData.scienceGroup && formData.scienceGroup !== 'PCM Computer Science' && (
+                            <div className="space-y-3">
+                              <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Language Selection (Max 2)</label>
+                              <div className="flex flex-wrap gap-4">
+                                {['English', 'Hindi', 'Marathi', 'Information Technology'].map(lang => (
+                                  <label key={lang} className="flex items-center space-x-2 cursor-pointer">
+                                    <input 
+                                      type="checkbox" 
+                                      name="languages" 
+                                      value={lang}
+                                      onChange={handleChange}
+                                      checked={formData.languages.includes(lang)}
+                                      disabled={!formData.languages.includes(lang) && formData.languages.length >= 2}
+                                      className="w-4 h-4 rounded bg-white/5 border-white/10 text-blue-500 focus:ring-blue-500"
+                                    />
+                                    <span className="text-white/80 text-sm">{lang}</span>
+                                  </label>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </>
+                      )}
+
+                      {formData.stream === 'Commerce' && (
+                        <>
+                          <div className="bg-white/5 border border-white/10 rounded-2xl p-4 mt-2">
+                            <p className="text-[11px] font-bold text-white/60 mb-1 uppercase tracking-wider text-green-400">Compulsory Subjects:</p>
+                            <p className="text-sm text-white/80 font-medium">Accountancy, Business Studies, Economics, English</p>
+                          </div>
+                          
+                          <div className="space-y-3">
+                            <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Optional Subject</label>
+                            <div className="relative">
+                              <select
+                                name="optionalSubject"
+                                required
+                                onChange={handleChange}
+                                value={formData.optionalSubject}
+                                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
+                              >
+                                <option value="" disabled className="bg-[#050b18]">Select Optional Subject</option>
+                                <option value="Mathematics" className="bg-[#050b18]">Mathematics</option>
+                                <option value="Information Technology" className="bg-[#050b18]">Information Technology</option>
+                                <option value="Hindi" className="bg-[#050b18]">Hindi</option>
+                                <option value="Marathi" className="bg-[#050b18]">Marathi</option>
+                              </select>
+                              <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </>
+                  )}
                 </>
               )}
 
