@@ -138,7 +138,7 @@ const EnrollmentPage = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-[#050b18] flex items-center justify-center px-6 bg-mesh">
+      <div className="min-h-screen flex items-center justify-center px-6 bg-mesh">
         <div className="glass-card p-16 rounded-[60px] text-center max-w-xl w-full animate-float shadow-[0_0_100px_rgba(59,130,246,0.1)]">
           <div className="w-24 h-24 bg-gradient-to-br from-green-400 to-emerald-600 rounded-[35%] flex items-center justify-center mx-auto mb-10 shadow-2xl shadow-green-500/20 rotate-12">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-white -rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">

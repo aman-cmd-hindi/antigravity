@@ -6,7 +6,7 @@ const toppers = [
     exam: "SSC 10th Board",
     score: "91.20%",
     year: "2025",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400"
+    image: "/sample-profile.png"
   },
   {
     name: "Lekhraj Maurya",
@@ -27,7 +27,7 @@ const toppers = [
     exam: "SSC 10th Board",
     score: "85.20%",
     year: "2025",
-    image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&q=80&w=400"
+    image: "/sample-profile.png"
   }
 ];
 

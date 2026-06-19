@@ -36,10 +36,10 @@ const About = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8 mt-8 md:mt-12">
             {[
-              { icon: "🎯", title: "Personalized Focus", desc: "Individual attention to every student." },
-              { icon: "📖", title: "Modern Curriculum", desc: "Updated for the latest JEE/NEET patterns." },
-              { icon: "🏆", title: "Proven Results", desc: "Top board and competitive ranks." },
-              { icon: "🔬", title: "Concept Mastery", desc: "Deep understanding over rote learning." }
+              { icon: "👨‍🏫", title: "Experienced Faculty", desc: "Expert mentors who explain difficult concepts simply." },
+              { icon: "🎯", title: "Personalized Attention", desc: "Individual doubt-solving and customized study plans." },
+              { icon: "📝", title: "Regular Test Series & Analysis", desc: "Frequent practice tests to build speed and board accuracy." },
+              { icon: "🏆", title: "Proven Track Record", desc: "Consistently delivering top board and competitive ranks." }
             ].map((feature, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-2xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5">
                 <div className="text-xl md:text-2xl">{feature.icon}</div>

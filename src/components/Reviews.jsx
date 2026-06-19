@@ -77,6 +77,10 @@ const Reviews = () => {
 
 export default Reviews; export const quotes = [
   {
+    text: "Education is not just about learning syllabus, it's about building conceptual depth and confidence.",
+    author: "Manoj Sir & Sandeep Sir (Directors)"
+  },
+  {
     text: "Education is the most powerful weapon which you can use to change the world.",
     author: "Nelson Mandela"
   },

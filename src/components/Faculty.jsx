@@ -5,37 +5,37 @@ const faculty = [
     name: "Anjali Mam",
     subject: "Biology",
     specialization: "Biology Expert",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400"
+    image: "/sample-profile.png"
   },
   {
     name: "Shiva Sir",
     subject: "Biology",
     specialization: "NEET Expert",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400"
+    image: "/sample-profile.png"
   },
   {
     name: "Santosh Sir",
     subject: "Chemistry",
     specialization: "Organic & Inorganic",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400"
+    image: "/sample-profile.png"
   },
   {
     name: "Manoj Sir",
     subject: "Mathematics",
     specialization: "Calculus Expert",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400"
+    image: "/sample-profile.png"
   },
   {
     name: "Sandeep Sir",
     subject: "Mathematics",
     specialization: "Advanced Calculus",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"
+    image: "/sample-profile.png"
   },
   {
     name: "Expert Faculty",
     subject: "Physics",
     specialization: "Conceptual Mastery",
-    image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&q=80&w=400"
+    image: "/sample-profile.png"
   }
 ];
 

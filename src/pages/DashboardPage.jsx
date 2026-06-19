@@ -74,7 +74,7 @@ const DashboardPage = () => {
   // ── LOGIN SCREEN ──
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#050b18] bg-mesh flex items-center justify-center px-6">
+      <div className="min-h-screen bg-mesh flex items-center justify-center px-6">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-blue-600/5 rounded-full blur-[150px] pointer-events-none" />
 
         <div className="w-full max-w-md relative z-10">
@@ -134,7 +134,7 @@ const DashboardPage = () => {
   const currentData = activeTab === 'enrollments' ? enrollments : reviews;
 
   return (
-    <div className="min-h-screen bg-[#050b18] px-4 md:px-10 py-10">
+    <div className="min-h-screen px-4 md:px-10 py-10">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[150px] pointer-events-none" />
 
       {/* Header */}

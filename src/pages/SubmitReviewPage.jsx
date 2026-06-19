@@ -49,7 +49,7 @@ const SubmitReviewPage = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-[#050b18] flex items-center justify-center px-6 bg-mesh">
+      <div className="min-h-screen flex items-center justify-center px-6 bg-mesh">
         <div className="glass-card p-16 rounded-[60px] text-center max-w-xl w-full animate-float">
           <div className="w-24 h-24 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-10 shadow-2xl">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">

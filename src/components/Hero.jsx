@@ -36,7 +36,7 @@ const Hero = () => {
           The Future of Education
         </div>
         <h1 className="text-4xl md:text-7xl font-extrabold text-white mb-6 tracking-tight leading-[1.1]">
-          Master Your Future with <br /><span className="bg-gradient-to-r from-teal-300 to-cyan-500 bg-clip-text text-transparent">Tiwari Tutorials</span>
+          Master Your Future with <br /><span className="bg-gradient-to-r from-amber-400 via-yellow-300 to-blue-400 bg-clip-text text-transparent">Tiwari Tutorials</span>
         </h1>
         <div className="flex items-center justify-center gap-4 mb-8 md:mb-10">
           <div className="h-[1px] w-8 md:w-12 bg-gradient-to-r from-transparent to-primary"></div>
@@ -48,13 +48,28 @@ const Hero = () => {
         <p className="text-base md:text-lg text-white/50 mb-10 md:mb-12 max-w-xl mx-auto leading-relaxed font-medium">
           Expert mentorship for Science, JEE, and NEET. Building strong foundations for a brighter tomorrow.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center">
+        <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center mb-16">
           <a href="#courses" className="w-full sm:w-auto px-8 py-3.5 md:px-10 md:py-4 btn-primary shimmer-effect font-bold rounded-xl md:rounded-2xl text-sm md:text-base">
             Explore Courses
           </a>
           <a href="#about" className="w-full sm:w-auto px-8 py-3.5 md:px-10 md:py-4 btn-secondary text-white font-bold rounded-xl md:rounded-2xl text-sm md:text-base">
             Learn More
           </a>
+        </div>
+
+        {/* Academic Stats Counters */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto pt-8 border-t border-white/5">
+          {[
+            { value: '10+', label: 'Years of Excellence', color: 'text-amber-500' },
+            { value: '1000+', label: 'Students Mentored', color: 'text-blue-400' },
+            { value: '97%', label: 'Top Board Score', color: 'text-amber-500' },
+            { value: '100%', label: 'Concept Oriented', color: 'text-blue-400' }
+          ].map((stat, idx) => (
+            <div key={idx} className="glass p-5 rounded-2xl border border-white/5 hover:border-amber-500/30 transition-all duration-500">
+              <div className={`text-2xl md:text-3xl font-black ${stat.color}`}>{stat.value}</div>
+              <div className="text-[9px] md:text-[10px] text-white/40 font-bold uppercase tracking-widest mt-1.5">{stat.label}</div>
+            </div>
+          ))}
         </div>
       </div>
 
