@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import emailjs from '@emailjs/browser';
 
 // Replace these with your actual EmailJS credentials

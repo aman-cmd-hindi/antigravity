@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -16,14 +15,19 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-2 text-center md:text-left">
             <div className="text-2xl md:text-3xl font-extrabold tracking-tighter text-white mb-6 md:mb-8 flex items-center justify-center md:justify-start gap-3">
               <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-slate-950 text-base font-black shadow-xl shadow-primary/20">T</div>
-              TIWARI <span className="text-primary">TUTORIALS</span>
+              TIWARI <span className="text-primary font-mono-label">TUTORIALS</span>
             </div>
             <p className="text-white/30 max-w-sm mx-auto md:mx-0 leading-relaxed mb-8 md:mb-10 text-base md:text-lg">
                Building strong foundations for future engineers, doctors, and scientists. Your journey to excellence starts here.
             </p>
             <div className="flex justify-center md:justify-start gap-4 md:gap-6">
               {['FB', 'IG', 'TW', 'LI'].map((social) => (
-                <a key={social} href="#" className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl glass edu-card flex items-center justify-center text-[10px] font-bold text-white/40 hover:text-primary hover:border-primary/50 transition-all active:scale-95">
+                <a 
+                  key={social} 
+                  href="#" 
+                  aria-label={`Visit our ${social} social channel`}
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl glass edu-card flex items-center justify-center text-[10px] font-bold text-white/40 hover:text-primary hover:border-primary/50 transition-all active:scale-95 font-mono-label"
+                >
                   {social}
                 </a>
               ))}
@@ -31,11 +35,11 @@ const Footer = () => {
           </div>
 
           <div className="text-center md:text-left">
-            <h4 className="text-white font-bold uppercase tracking-[0.2em] text-[10px] mb-8 md:mb-10">Navigation</h4>
+            <h4 className="text-white font-bold uppercase tracking-[0.2em] text-[10px] mb-8 md:mb-10 font-mono-label">Navigation</h4>
             <ul className="space-y-4 md:space-y-5">
               {['Home', 'Courses', 'About', 'Contact'].map((item) => (
                 <li key={item}>
-                  <a href={`#${item.toLowerCase()}`} className="text-white/40 hover:text-primary transition-colors text-sm font-medium">
+                  <a href={`#${item.toLowerCase()}`} className="text-white/40 hover:text-primary transition-colors text-sm font-semibold">
                     {item}
                   </a>
                 </li>
@@ -45,10 +49,10 @@ const Footer = () => {
 
           <div className="space-y-10 text-center md:text-left">
             <div>
-               <h4 className="text-white font-bold uppercase tracking-[0.2em] text-[10px] mb-6 md:mb-8">Reach Us</h4>
+               <h4 className="text-white font-bold uppercase tracking-[0.2em] text-[10px] mb-6 md:mb-8 font-mono-label">Reach Us</h4>
                <div className="space-y-6 md:space-y-8">
                   <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-5">
-                    <div className="w-6 h-6 text-primary flex-shrink-0">📍</div>
+                    <div className="w-6 h-6 text-primary flex-shrink-0" aria-hidden="true">📍</div>
                     <div className="text-white/40 text-sm leading-relaxed">
                       <p className="mb-4">Pujari Ka Tabela, Tunga Village,<br />Powai, Mumbai 400072</p>
                       <div className="rounded-2xl overflow-hidden border border-white/5 glass h-32 md:h-24 w-full relative group">
@@ -67,7 +71,7 @@ const Footer = () => {
                   </div>
 
                   <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-5">
-                    <div className="w-6 h-6 text-primary flex-shrink-0">📞</div>
+                    <div className="w-6 h-6 text-primary flex-shrink-0" aria-hidden="true">📞</div>
                     <div className="text-white/40 text-sm font-bold space-y-1">
                       <p className="hover:text-primary transition-colors cursor-pointer">+91 877 956 0903</p>
                       <p className="hover:text-primary transition-colors cursor-pointer">+91 98331 87969</p>
@@ -75,7 +79,7 @@ const Footer = () => {
                   </div>
 
                   <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-5">
-                    <div className="w-6 h-6 text-primary flex-shrink-0">✉️</div>
+                    <div className="w-6 h-6 text-primary flex-shrink-0" aria-hidden="true">✉️</div>
                     <p className="text-white/40 text-sm font-bold hover:text-primary cursor-pointer">info@tiwaritutorials.com</p>
                   </div>
                </div>
@@ -85,7 +89,7 @@ const Footer = () => {
 
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col gap-2">
-            <p className="text-white/20 text-[10px] md:text-xs font-medium tracking-wider text-center md:text-left">
+            <p className="text-white/20 text-[10px] md:text-xs font-semibold tracking-wider text-center md:text-left">
               © 2026 TIWARI TUTORIALS. CRAFTED BY PROFESSIONAL MENTORS.
             </p>
             <p className="text-white/10 text-[9px] md:text-[10px] font-medium tracking-[0.1em] text-center md:text-left">
@@ -93,12 +97,13 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex gap-8">
-             <a href="#" className="text-white/20 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors">Privacy</a>
-             <a href="#" className="text-white/20 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors">Terms</a>
+             <a href="#" className="text-white/20 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors font-mono-label">Privacy</a>
+             <a href="#" className="text-white/20 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors font-mono-label">Terms</a>
           </div>
           <button 
             onClick={scrollToTop}
-            className="w-10 h-10 md:w-12 md:h-12 btn-secondary rounded-xl md:rounded-2xl flex items-center justify-center hover:bg-primary hover:text-slate-950 transition-all shadow-xl active:scale-95"
+            className="w-10 h-10 md:w-12 md:h-12 btn-secondary circuit-btn ripple-btn rounded-xl md:rounded-2xl flex items-center justify-center hover:bg-primary hover:text-slate-950 transition-all shadow-xl active:scale-95"
+            aria-label="Scroll to top"
           >
             ↑
           </button>
