@@ -1,6 +1,9 @@
+import { useState, useEffect } from 'react';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { db } from '../firebase';
 import useTilt from '../hooks/useTilt';
 
-const faculty = [
+const DEFAULT_FACULTY = [
   {
     name: "Anjali Mam",
     subject: "Biology",
@@ -79,6 +82,26 @@ const FacultyCard = ({ member }) => {
 };
 
 const Faculty = () => {
+  const [facultyList, setFacultyList] = useState([]);
+
+  useEffect(() => {
+    const fetchFaculty = async () => {
+      try {
+        const q = query(collection(db, 'faculty'), orderBy('name', 'asc'));
+        const snap = await getDocs(q);
+        if (!snap.empty) {
+          setFacultyList(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        } else {
+          setFacultyList(DEFAULT_FACULTY);
+        }
+      } catch (err) {
+        console.error("Error fetching faculty:", err);
+        setFacultyList(DEFAULT_FACULTY);
+      }
+    };
+    fetchFaculty();
+  }, []);
+
   return (
     <section id="faculty" className="py-16 md:py-32 px-4 md:px-12 bg-mesh relative overflow-hidden">
       {/* Decorative Background Elements */}
@@ -94,8 +117,8 @@ const Faculty = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-          {faculty.map((member, idx) => (
-            <FacultyCard key={idx} member={member} />
+          {facultyList.map((member, idx) => (
+            <FacultyCard key={member.id || idx} member={member} />
           ))}
         </div>
       </div>

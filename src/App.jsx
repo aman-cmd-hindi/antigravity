@@ -5,6 +5,7 @@ import EnrollmentPage from './pages/EnrollmentPage';
 import SubmitReviewPage from './pages/SubmitReviewPage';
 import DashboardPage from './pages/DashboardPage';
 import AboutDeveloper from './pages/AboutDeveloper';
+import GalleryPage from './pages/GalleryPage';
 import AnimatedBackground from './components/AnimatedBackground';
 import BookLoader from './components/BookLoader';
 
@@ -26,6 +27,7 @@ function App() {
         <div className="relative z-10">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/enroll" element={<EnrollmentPage />} />
             <Route path="/review" element={<SubmitReviewPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />

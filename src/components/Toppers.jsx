@@ -1,6 +1,9 @@
+import { useState, useEffect } from 'react';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { db } from '../firebase';
 import useTilt from '../hooks/useTilt';
 
-const toppers = [
+const DEFAULT_TOPPERS = [
   {
     name: "Gitanjali Vishwakarma",
     exam: "SSC 10th Board",
@@ -65,6 +68,26 @@ const TopperCard = ({ topper }) => {
 };
 
 const Toppers = () => {
+  const [toppersList, setToppersList] = useState([]);
+
+  useEffect(() => {
+    const fetchToppers = async () => {
+      try {
+        const q = query(collection(db, 'toppers'), orderBy('year', 'desc'));
+        const snap = await getDocs(q);
+        if (!snap.empty) {
+          setToppersList(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        } else {
+          setToppersList(DEFAULT_TOPPERS);
+        }
+      } catch (err) {
+        console.error("Error fetching toppers:", err);
+        setToppersList(DEFAULT_TOPPERS);
+      }
+    };
+    fetchToppers();
+  }, []);
+
   return (
     <section id="toppers" className="py-16 md:py-32 px-4 md:px-12 relative overflow-hidden bg-mesh">
       <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px] pointer-events-none -translate-y-1/2"></div>
@@ -77,8 +100,8 @@ const Toppers = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-          {toppers.map((topper, idx) => (
-            <TopperCard key={idx} topper={topper} />
+          {toppersList.map((topper, idx) => (
+            <TopperCard key={topper.id || idx} topper={topper} />
           ))}
         </div>
       </div>
