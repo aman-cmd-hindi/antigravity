@@ -167,8 +167,12 @@ const EnrollmentPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
-    generateOTP();
-    setShowOtpModal(true);
+    
+    // Defer modal opening and OTP generation to yield to the main thread and prevent INP (Interaction to Next Paint) issues
+    setTimeout(() => {
+      generateOTP();
+      setShowOtpModal(true);
+    }, 0);
   };
 
   const handleVerifyOTP = async (e) => {
