@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -26,6 +26,80 @@ const EnrollmentPage = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // OTP States
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [otpCode, setOtpCode] = useState('');
+  const [otpInput, setOtpInput] = useState(['', '', '', '', '', '']);
+  const [otpTimer, setOtpTimer] = useState(60);
+  const [otpError, setOtpError] = useState('');
+  const [otpVerifying, setOtpVerifying] = useState(false);
+  const [toastMessage, setToastMessage] = useState(null);
+
+  const inputRefs = useRef([]);
+
+  // Timer countdown
+  useEffect(() => {
+    let interval = null;
+    if (showOtpModal && otpTimer > 0) {
+      interval = setInterval(() => {
+        setOtpTimer((prev) => prev - 1);
+      }, 1000);
+    } else if (otpTimer === 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [showOtpModal, otpTimer]);
+
+  // Toast Message auto-dismiss
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => {
+        setToastMessage(null);
+      }, 8000);
+      return () => clearTimeout(timer);
+    }
+  }, [toastMessage]);
+
+  const generateOTP = () => {
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    setOtpCode(code);
+    setOtpInput(['', '', '', '', '', '']);
+    setOtpTimer(60);
+    setOtpError('');
+    
+    // Trigger floating notification toast
+    setToastMessage({
+      id: Date.now(),
+      title: '💬 Message from Tiwari Tutorials',
+      message: `Your verification OTP code is ${code}. It is valid for 60 seconds.`
+    });
+  };
+
+  const handleOtpChange = (element, index) => {
+    const value = element.value.replace(/[^0-9]/g, '');
+    if (!value && element.value !== '') return;
+
+    const newOtp = [...otpInput];
+    newOtp[index] = value;
+    setOtpInput(newOtp);
+
+    // Auto-advance to next input
+    if (value && index < 5) {
+      inputRefs.current[index + 1].focus();
+    }
+  };
+
+  const handleOtpKeyDown = (e, index) => {
+    if (e.key === 'Backspace') {
+      if (!otpInput[index] && index > 0) {
+        inputRefs.current[index - 1].focus();
+        const newOtp = [...otpInput];
+        newOtp[index - 1] = '';
+        setOtpInput(newOtp);
+      }
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -90,10 +164,29 @@ const EnrollmentPage = () => {
     setFormData(newFormData);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
+    generateOTP();
+    setShowOtpModal(true);
+  };
+
+  const handleVerifyOTP = async (e) => {
+    e.preventDefault();
+    const enteredOtp = otpInput.join('');
+    if (enteredOtp.length < 6) {
+      setOtpError('Please enter all 6 digits of the OTP.');
+      return;
+    }
+    if (enteredOtp !== otpCode) {
+      setOtpError('Invalid verification code. Please check and try again.');
+      return;
+    }
+
+    setOtpVerifying(true);
+    setOtpError('');
+    setLoading(true);
+
     try {
       await addDoc(collection(db, 'enrollments'), {
         ...formData,
@@ -105,12 +198,15 @@ const EnrollmentPage = () => {
       await sendSMSNotification(formData.phone, `Hello ${formData.name}, your enrollment at Tiwari Tutorials for ${formData.standard} has been received!`);
 
       setSubmitted(true);
+      setShowOtpModal(false);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error(err);
       setError('Something went wrong. Please try again.');
+      setShowOtpModal(false);
     } finally {
       setLoading(false);
+      setOtpVerifying(false);
     }
   };
 
@@ -474,6 +570,108 @@ const EnrollmentPage = () => {
           </form>
         </div>
       </div>
+
+      {/* Premium Notification Toast (Simulating SMS) */}
+      {toastMessage && (
+        <div className="fixed top-6 right-6 z-50 max-w-sm w-full bg-slate-900/95 border border-white/10 backdrop-blur-xl rounded-2xl p-4 shadow-[0_10px_50px_rgba(0,0,0,0.5)] animate-slide-in pointer-events-auto">
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-10 h-10 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-lg">
+              💬
+            </div>
+            <div className="flex-1">
+              <p className="text-xs font-bold text-white/40 uppercase tracking-wider">{toastMessage.title}</p>
+              <p className="text-sm font-semibold text-white mt-1 leading-relaxed">{toastMessage.message}</p>
+              <div className="mt-2 text-[10px] text-blue-400 font-bold uppercase tracking-wider">
+                Now arriving via SMS
+              </div>
+            </div>
+            <button
+              onClick={() => setToastMessage(null)}
+              className="text-white/25 hover:text-white/60 transition-colors font-bold text-sm cursor-pointer"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Glassmorphism OTP Verification Modal */}
+      {showOtpModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-md">
+          <div className="glass-card w-full max-w-md p-10 rounded-[40px] border border-white/10 shadow-[0_0_100px_rgba(59,130,246,0.15)] text-center animate-fade-in relative overflow-hidden">
+            {/* Glow effect inside modal */}
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-600/10 rounded-full blur-2xl -z-10"></div>
+            
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-blue-500/20">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+
+            <h3 className="text-2xl font-extrabold text-white mb-2">Phone Verification</h3>
+            <p className="text-white/50 text-sm leading-relaxed mb-6">
+              We've sent a 6-digit verification code to <span className="text-blue-400 font-bold">{formData.phone || 'your number'}</span>
+            </p>
+
+            {/* Demo/Testing Helper Badge */}
+            <div className="mb-8 px-4 py-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl inline-flex items-center gap-3">
+              <span className="text-blue-400 text-sm font-bold">🔑 Demo OTP Code:</span>
+              <span className="bg-blue-600 text-white font-extrabold px-3 py-1 rounded-lg text-sm tracking-wider select-all">{otpCode}</span>
+            </div>
+
+            <form onSubmit={handleVerifyOTP} className="space-y-6">
+              <div className="flex justify-between gap-2 max-w-[300px] mx-auto">
+                {otpInput.map((digit, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    maxLength={1}
+                    value={digit}
+                    ref={(el) => (inputRefs.current[index] = el)}
+                    onChange={(e) => handleOtpChange(e.target, index)}
+                    onKeyDown={(e) => handleOtpKeyDown(e, index)}
+                    onFocus={(e) => e.target.select()}
+                    className="w-12 h-14 bg-white/5 border border-white/10 rounded-xl text-center text-xl text-white font-bold focus:border-blue-500 focus:bg-white/10 outline-none transition-all"
+                  />
+                ))}
+              </div>
+
+              {otpError && <p className="text-red-400 text-xs font-bold">{otpError}</p>}
+
+              <div className="text-xs font-semibold">
+                {otpTimer > 0 ? (
+                  <span className="text-white/40">Resend code in <span className="text-blue-400">{otpTimer}s</span></span>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={generateOTP}
+                    className="text-blue-400 hover:text-blue-300 font-bold transition-all cursor-pointer"
+                  >
+                    Resend Code
+                  </button>
+                )}
+              </div>
+
+              <div className="flex gap-4 pt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowOtpModal(false)}
+                  className="flex-1 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-2xl border border-white/10 active:scale-95 transition-all text-sm uppercase tracking-wider"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={otpVerifying || loading}
+                  className="flex-1 py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl active:scale-95 shadow-lg shadow-blue-600/30 transition-all text-sm uppercase tracking-wider disabled:opacity-50"
+                >
+                  {otpVerifying ? 'Verifying...' : 'Verify'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
