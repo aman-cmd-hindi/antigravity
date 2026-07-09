@@ -47,7 +47,6 @@ const Header = () => {
     { name: 'Toppers', href: '/#toppers', id: 'toppers' },
     { name: 'Contact', href: '/#contact', id: 'contact' },
     { name: 'Gallery', href: '/gallery', isRoute: true },
-    { name: 'Dev', href: '/about-developer', isRoute: true },
   ];
 
   return (

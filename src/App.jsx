@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage';
 import EnrollmentPage from './pages/EnrollmentPage';
 import SubmitReviewPage from './pages/SubmitReviewPage';
 import DashboardPage from './pages/DashboardPage';
-import AboutDeveloper from './pages/AboutDeveloper';
+
 import GalleryPage from './pages/GalleryPage';
 import AnimatedBackground from './components/AnimatedBackground';
 import BookLoader from './components/BookLoader';
@@ -31,7 +31,7 @@ function App() {
             <Route path="/enroll" element={<EnrollmentPage />} />
             <Route path="/review" element={<SubmitReviewPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/about-developer" element={<AboutDeveloper />} />
+
           </Routes>
         </div>
       </div>

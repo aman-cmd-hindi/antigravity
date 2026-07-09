@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -91,9 +90,6 @@ const Footer = () => {
           <div className="flex flex-col gap-2">
             <p className="text-white/20 text-[10px] md:text-xs font-semibold tracking-wider text-center md:text-left">
               © 2026 TIWARI TUTORIALS. CRAFTED BY PROFESSIONAL MENTORS.
-            </p>
-            <p className="text-white/10 text-[9px] md:text-[10px] font-medium tracking-[0.1em] text-center md:text-left">
-              This website is created by <Link to="/about-developer" className="text-primary/40 hover:text-primary font-bold uppercase transition-colors">Aman Vishwakarma</Link>. For queries: <a href="tel:8928875553" className="hover:text-primary/60 transition-colors">8928875553</a> | <a href="mailto:websitebyaman@gmail.com" className="hover:text-primary/60 transition-colors">websitebyaman@gmail.com</a>
             </p>
           </div>
           <div className="flex gap-8">
