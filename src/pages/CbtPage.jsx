@@ -139,10 +139,120 @@ const QUESTIONS = [
     rationale: "Using Binomial distribution P(X = k) = ⁿCₖ * pᵏ * qⁿ⁻ᵏ. Here n = 5, k = 3, p = 1/2, q = 1/2. P(X = 3) = ⁵C₃ * (1/2)³ * (1/2)² = 10 * (1/32) = 10/32 = 5/16.",
     hint: "Use Bernoulli trials. The formula is P(r) = ⁿCᵣ * pʳ * qⁿ⁻ʳ where p and q are probability of success and failure."
   },
+  {
+    id: 11,
+    subject: 'Mathematics',
+    topic: 'Continuity',
+    level: 'Class 12',
+    question: "If f(x) = (e^(3x) - 1) / sin(2x) for x ≠ 0 is continuous at x = 0, then f(0) is equal to:",
+    options: ["3/2", "2/3", "3", "2"],
+    correct: 0,
+    rationale: "Since f(x) is continuous at x=0, f(0) = lim (x->0) (e^(3x) - 1)/sin(2x) = lim (x->0) [(e^(3x)-1)/(3x) * 3x] / [sin(2x)/(2x) * 2x] = (1 * 3) / (1 * 2) = 3/2.",
+    hint: "Apply standard limits: lim (t->0) (e^t - 1)/t = 1 and lim (t->0) sin(t)/t = 1."
+  },
+  {
+    id: 12,
+    subject: 'Mathematics',
+    topic: 'Probability',
+    level: 'Class 11',
+    question: "Two dice are thrown simultaneously. What is the probability that the sum of the numbers on the faces is a prime number?",
+    options: ["5/12", "7/12", "1/2", "1/3"],
+    correct: 0,
+    rationale: "Total outcomes = 36. Prime sums possible are 2, 3, 5, 7, 11. Favorable outcomes: (1,1)[1]; (1,2),(2,1)[2]; (1,4),(4,1),(2,3),(3,2)[4]; (1,6),(6,1),(2,5),(5,2),(3,4),(4,3)[6]; (5,6),(6,5)[2]. Total favorable = 15. Probability = 15/36 = 5/12.",
+    hint: "Find all possible pairs that sum to 2, 3, 5, 7, or 11 out of 36 total outcomes."
+  },
+  {
+    id: 13,
+    subject: 'Mathematics',
+    topic: 'Linear Programming',
+    level: 'Class 12',
+    question: "The objective function Z = 4x + 3y is to be maximized subject to constraints x + y ≤ 4, x ≥ 0, y ≥ 0. The maximum value of Z is:",
+    options: ["16", "12", "15", "0"],
+    correct: 0,
+    rationale: "Corner points of the feasible region are (0,0), (4,0), and (0,4). At (0,0), Z = 0. At (4,0), Z = 16. At (0,4), Z = 12. Maximum value of Z is 16.",
+    hint: "Evaluate the objective function at the corner points of the feasible region."
+  },
+  {
+    id: 14,
+    subject: 'Mathematics',
+    topic: 'Limits',
+    level: 'Class 11',
+    question: "Evaluate the limit: lim (x → 0) (cos(3x) - cos(5x)) / x².",
+    options: ["8", "4", "2", "16"],
+    correct: 0,
+    rationale: "Using L'Hopital's: lim (x->0) (cos(3x) - cos(5x))/x² = lim (x->0) [-3sin(3x) + 5sin(5x)] / (2x) = lim (x->0) [-9cos(3x) + 25cos(5x)] / 2 = (-9 + 25)/2 = 16/2 = 8.",
+    hint: "Apply L'Hopital's rule twice or use trigonometric identity cos C - cos D = 2 sin((C+D)/2) sin((D-C)/2)."
+  },
+  {
+    id: 15,
+    subject: 'Mathematics',
+    topic: 'Differential Equations',
+    level: 'Class 12',
+    question: "The order and degree of the differential equation [1 + (dy/dx)²]^(3/2) = d²y/dx² are:",
+    options: ["2, 2", "2, 1", "1, 2", "1, 1"],
+    correct: 0,
+    rationale: "Square both sides to eliminate the fractional power: [1 + (dy/dx)²]³ = (d²y/dx²)². The highest order derivative is d²y/dx² (order 2), and its power is 2 (degree 2).",
+    hint: "Eliminate fractional indices from the derivatives first to find the degree of the equation."
+  },
+  {
+    id: 16,
+    subject: 'Mathematics',
+    topic: 'Probability Distribution',
+    level: 'Class 12',
+    question: "For a binomial distribution with mean = 6 and variance = 2, the parameters n and p are:",
+    options: ["n = 9, p = 2/3", "n = 12, p = 1/2", "n = 18, p = 1/3", "n = 10, p = 0.6"],
+    correct: 0,
+    rationale: "Mean = np = 6, Variance = npq = 2. Dividing them: npq / np = 2/6 = 1/3 => q = 1/3. So p = 1 - q = 2/3. Since np = 6, n * (2/3) = 6 => n = 9.",
+    hint: "Divide variance by mean to find q (probability of failure) and then use p = 1 - q and np = mean."
+  },
+  {
+    id: 17,
+    subject: 'Mathematics',
+    topic: 'Integration',
+    level: 'Class 12',
+    question: "Evaluate the indefinite integral: ∫ e^x * (1 + x * log x) / x dx.",
+    options: ["e^x * log x + C", "e^x / x + C", "e^x * x + C", "e^x * (1 + x) + C"],
+    correct: 0,
+    rationale: "Let's rewrite the integral: ∫ e^x * (1/x + log x) dx. This is of the form ∫ e^x [f(x) + f'(x)] dx where f(x) = log x and f'(x) = 1/x. The integral is e^x * f(x) + C = e^x * log x + C.",
+    hint: "Look for the form ∫ e^x [f(x) + f'(x)] dx, which integrates to e^x * f(x) + C."
+  },
+  {
+    id: 18,
+    subject: 'Mathematics',
+    topic: 'Vectors',
+    level: 'Class 12',
+    question: "The area of a parallelogram whose adjacent sides are represented by the vectors a = i - j + 3k and b = 2i - 7j + k is:",
+    options: ["15√2", "15", "10√2", "20"],
+    correct: 0,
+    rationale: "a x b = i(-1 + 21) - j(1 - 6) + k(-7 + 2) = 20i + 5j - 5k. Area = |a x b| = √(20² + 5² + (-5)²) = √(400 + 25 + 25) = √450 = 15√2.",
+    hint: "Use vector cross product magnitude: Area = |a x b|."
+  },
+  {
+    id: 19,
+    subject: 'Mathematics',
+    topic: 'Matrices',
+    level: 'Class 12',
+    question: "If matrix A = [[1, 2], [0, 1]], then the value of A^n is:",
+    options: ["[[1, 2n], [0, 1]]", "[[1, 2^n], [0, 1]]", "[[n, 2n], [0, n]]", "[[1, n], [0, 1]]"],
+    correct: 0,
+    rationale: "A² = [[1, 4], [0, 1]]. A³ = [[1, 6], [0, 1]]. By mathematical induction, A^n = [[1, 2n], [0, 1]].",
+    hint: "Calculate A² and A³ to observe the pattern of the top-right element."
+  },
+  {
+    id: 20,
+    subject: 'Mathematics',
+    topic: 'Trigonometric Equations',
+    level: 'Class 12',
+    question: "The general solution of the trigonometric equation sin θ = √3/2 is:",
+    options: ["nπ + (-1)^n * π/3", "nπ + (-1)^n * π/6", "2nπ ± π/3", "nπ + π/3"],
+    correct: 0,
+    rationale: "The principal value of sin⁻¹(√3/2) is π/3. The general solution of sin θ = sin α is θ = nπ + (-1)^n * α, so θ = nπ + (-1)^n * π/3.",
+    hint: "Find the principal solution first, and recall the general solution formula for sine."
+  },
 
   // ================= PHYSICS (+1 Mark each) =================
   {
-    id: 11,
+    id: 21,
     subject: 'Physics',
     topic: 'Rotational Dynamics',
     level: 'Class 12',
@@ -153,7 +263,7 @@ const QUESTIONS = [
     hint: "Find the moment of inertia about the diameter of the disc first, then apply the Parallel Axis Theorem with distance d = R."
   },
   {
-    id: 12,
+    id: 22,
     subject: 'Physics',
     topic: 'Mechanical Properties of Fluids',
     level: 'Class 12',
@@ -164,7 +274,7 @@ const QUESTIONS = [
     hint: "Remember that soap bubbles have both an inner and an outer surface interacting with air, multiplying the total surface area by 2."
   },
   {
-    id: 13,
+    id: 23,
     subject: 'Physics',
     topic: 'Kinetic Theory of Gases',
     level: 'Class 12',
@@ -175,7 +285,7 @@ const QUESTIONS = [
     hint: "Be sure to convert temperatures to Kelvin scale before establishing direct and square-root relationships."
   },
   {
-    id: 14,
+    id: 24,
     subject: 'Physics',
     topic: 'Thermodynamics',
     level: 'Class 12',
@@ -186,7 +296,7 @@ const QUESTIONS = [
     hint: "Use the formula η = 1 - (T_L / T_H), ensuring temperatures are in absolute Kelvin units."
   },
   {
-    id: 15,
+    id: 25,
     subject: 'Physics',
     topic: 'Oscillations',
     level: 'Class 12',
@@ -197,7 +307,7 @@ const QUESTIONS = [
     hint: "Equate the mathematical equations: 1/2 m ω² (A² - x²) = 1/2 m ω² x² and solve directly for x."
   },
   {
-    id: 16,
+    id: 26,
     subject: 'Physics',
     topic: 'Superposition of Waves',
     level: 'Class 12',
@@ -208,7 +318,7 @@ const QUESTIONS = [
     hint: "Remember that the fundamental wavelength of a closed pipe is equal to four times the length of the air column (λ = 4L)."
   },
   {
-    id: 17,
+    id: 27,
     subject: 'Physics',
     topic: 'Wave Optics',
     level: 'Class 12',
@@ -219,7 +329,7 @@ const QUESTIONS = [
     hint: "Review the formula for fringe width. D is proportional to fringe width, whereas slit separation d is inversely proportional."
   },
   {
-    id: 18,
+    id: 28,
     subject: 'Physics',
     topic: 'Electrostatics',
     level: 'Class 12',
@@ -230,7 +340,7 @@ const QUESTIONS = [
     hint: "Unlike resistors, capacitors connected in series add up reciprocally: 1/C_total = ∑(1/C_i)."
   },
   {
-    id: 19,
+    id: 29,
     subject: 'Physics',
     topic: 'Current Electricity',
     level: 'Class 12',
@@ -241,7 +351,7 @@ const QUESTIONS = [
     hint: "Set up a simple direct proportion: L₂ = (E₂ * L₁) / E₁ since the potential gradient along the potentiometer wire remains constant."
   },
   {
-    id: 20,
+    id: 30,
     subject: 'Physics',
     topic: 'Magnetic Fields',
     level: 'Class 11',
@@ -251,10 +361,120 @@ const QUESTIONS = [
     rationale: "Magnetic force F = q * v * B * sin θ. Since the proton enters perpendicularly, sin θ = sin(90°) = 1. F = (1.6 x 10⁻¹⁹ C) * (2 x 10⁶ m/s) * (0.5 T) = 1.6 x 10⁻¹³ N.",
     hint: "Use the Lorentz magnetic force formula: F = qvB sin(θ), where θ is the angle between the velocity vector and the magnetic field lines."
   },
+  {
+    id: 31,
+    subject: 'Physics',
+    topic: 'Semiconductor Devices',
+    level: 'Class 11',
+    question: "In a half-wave rectifier, if the input frequency is 50 Hz, then the output ripple frequency is:",
+    options: ["50 Hz", "100 Hz", "25 Hz", "200 Hz"],
+    correct: 0,
+    rationale: "For a half-wave rectifier, the output frequency is equal to the input frequency (50 Hz). For a full-wave rectifier, the output frequency is twice the input frequency (100 Hz).",
+    hint: "Recall that half-wave rectifiers do not double the input cycle frequency."
+  },
+  {
+    id: 32,
+    subject: 'Physics',
+    topic: 'Electrostatics',
+    level: 'Class 12',
+    question: "The electric potential at a point on the axis of an electric dipole at distance r from its center is proportional to:",
+    options: ["1 / r²", "1 / r", "1 / r³", "r²"],
+    correct: 0,
+    rationale: "The electric potential V of a dipole is V = (1 / 4πε₀) * (p cos θ / r²). Along the axis, θ = 0°, so V ∝ 1/r².",
+    hint: "The potential of an electric dipole drops off faster with distance than that of a point charge."
+  },
+  {
+    id: 33,
+    subject: 'Physics',
+    topic: 'Dual Nature of Matter',
+    level: 'Class 12',
+    question: "If the work function of a metal is 2.0 eV, the threshold frequency of photons for photoelectric emission is approximately:",
+    options: ["4.8 x 10^14 Hz", "8.0 x 10^14 Hz", "3.0 x 10^14 Hz", "6.2 x 10^14 Hz"],
+    correct: 0,
+    rationale: "Work function Φ = h * ν₀. ν₀ = Φ / h. Given Φ = 2.0 eV = 3.2 x 10^-19 J. ν₀ = 3.2 x 10^-19 / (6.63 x 10^-34) ≈ 4.8 x 10^14 Hz.",
+    hint: "Convert the work function from eV to Joules first by multiplying by 1.6 x 10^-19."
+  },
+  {
+    id: 34,
+    subject: 'Physics',
+    topic: 'Electromagnetic Induction',
+    level: 'Class 12',
+    question: "A coil of self-inductance 2.0 H carries a current of 2.0 A. The energy stored in the magnetic field of the coil is:",
+    options: ["4.0 J", "2.0 J", "8.0 J", "1.0 J"],
+    correct: 0,
+    rationale: "Energy stored E = 1/2 * L * I² = 0.5 * 2.0 * 2.0² = 4.0 Joules.",
+    hint: "Use the inductive energy storage formula: E = 0.5 * L * I²."
+  },
+  {
+    id: 35,
+    subject: 'Physics',
+    topic: 'AC Circuits',
+    level: 'Class 12',
+    question: "In a series LCR resonance circuit, the impedance of the circuit is equal to:",
+    options: ["Resistance (R)", "Inductive Reactance (X_L)", "Capacitive Reactance (X_C)", "Zero (0)"],
+    correct: 0,
+    rationale: "At resonance, X_L = X_C. The impedance Z = √[R² + (X_L - X_C)²] reduces to Z = √R² = R.",
+    hint: "At resonance, inductive and capacitive reactances cancel each other out, making the circuit purely resistive."
+  },
+  {
+    id: 36,
+    subject: 'Physics',
+    topic: 'Atoms and Nuclei',
+    level: 'Class 12',
+    question: "The ratio of the wavelengths of the first line of the Lyman series to the first line of the Balmer series in the hydrogen spectrum is:",
+    options: ["5 / 27", "27 / 5", "9 / 4", "4 / 9"],
+    correct: 0,
+    rationale: "Lyman first: 1/λ_L = R * (1 - 1/4) = 3R/4. Balmer first: 1/λ_B = R * (1/4 - 1/9) = 5R/36. Ratio λ_L / λ_B = (5R/36) / (3R/4) = 5/27.",
+    hint: "Use the Rydberg formula 1/λ = R * (1/n₁² - 1/n₂²) for both series transitions."
+  },
+  {
+    id: 37,
+    subject: 'Physics',
+    topic: 'Magnetic Materials',
+    level: 'Class 12',
+    question: "The susceptibility of a diamagnetic substance is:",
+    options: ["Small and negative", "Small and positive", "Large and positive", "Zero"],
+    correct: 0,
+    rationale: "Diamagnetic substances are weakly repelled by magnetic fields and have small, negative magnetic susceptibilities.",
+    hint: "Diamagnetic materials oppose the external magnetic field, leading to a negative susceptibility value."
+  },
+  {
+    id: 38,
+    subject: 'Physics',
+    topic: 'Dual Nature of Matter',
+    level: 'Class 12',
+    question: "The de Broglie wavelength of an electron accelerated through a potential difference of 100 V is approximately:",
+    options: ["1.227 Å", "12.27 Å", "0.123 Å", "122.7 Å"],
+    correct: 0,
+    rationale: "Using de Broglie wavelength of electron λ = 12.27 / √V Å. For V = 100 V, λ = 1.227 Å.",
+    hint: "Use the shortcut formula for electrons: λ = 12.27 / √V in Angstroms."
+  },
+  {
+    id: 39,
+    subject: 'Physics',
+    topic: 'Electromagnetic Induction',
+    level: 'Class 12',
+    question: "When the current in a coil changes from 8 A to 2 A in 3 x 10^-2 s, an EMF of 2 V is induced. The self-inductance of the coil is:",
+    options: ["1.0 x 10^-2 H", "2.0 x 10^-2 H", "3.0 x 10^-2 H", "4.0 x 10^-2 H"],
+    correct: 0,
+    rationale: "Induced EMF e = -L * (dI/dt). 2 = L * (6 / (3 x 10^-2)) = L * 200 => L = 2/200 = 0.01 H = 1.0 x 10^-2 H.",
+    hint: "Use the formula e = L * (ΔI / Δt) and solve for L."
+  },
+  {
+    id: 40,
+    subject: 'Physics',
+    topic: 'Wave Optics',
+    level: 'Class 12',
+    question: "The Brewster's angle for a medium of refractive index √3 is:",
+    options: ["60°", "30°", "45°", "90°"],
+    correct: 0,
+    rationale: "According to Brewster's law, refractive index μ = tan(i_p). Here μ = √3, so tan(i_p) = √3 => i_p = 60°.",
+    hint: "Brewster's law states that refractive index is equal to the tangent of the polarising angle."
+  },
 
   // ================= CHEMISTRY (+1 Mark each) =================
   {
-    id: 21,
+    id: 41,
     subject: 'Chemistry',
     topic: 'Solid State',
     level: 'Class 12',
@@ -265,7 +485,7 @@ const QUESTIONS = [
     hint: "Do not confuse packing efficiency (space occupied) with the void percentage (empty space). Read the question carefully!"
   },
   {
-    id: 22,
+    id: 42,
     subject: 'Chemistry',
     topic: 'Solutions',
     level: 'Class 12',
@@ -276,18 +496,18 @@ const QUESTIONS = [
     hint: "Think about which technique can be safely executed at room temperature without denaturing proteins."
   },
   {
-    id: 23,
+    id: 43,
     subject: 'Chemistry',
     topic: 'Ionic Equilibria',
     level: 'Class 12',
     question: "The solubility product (Ksp) of a sparingly soluble salt AB₂ is 3.2 x 10⁻¹¹. Its molar solubility in pure water is:",
-    options: ["2.0 x 10⁻⁴ M", "4.0 x 10⁻⁴ M", "1.0 x 10⁻⁴ M", "8.0 x 10⁻⁵ M"],
+    options: ["2.0 x 10⁻⁴ M", "4.0 x 10⁻⁴ M", "1.0 h 10⁻⁴ M", "8.0 x 10⁻⁵ M"],
     correct: 0,
     rationale: "For salt AB₂ dissociating as A²⁺ + 2B⁻, Ksp = s * (2s)² = 4s³. Given Ksp = 3.2 x 10⁻¹¹. So, 4s³ = 3.2 x 10⁻¹¹ => 4s³ = 32 x 10⁻¹² => s³ = 8 x 10⁻¹² => s = 2 x 10⁻⁴ M.",
     hint: "Express Ksp in terms of solubility 's'. For an AB₂ salt, Ksp = 4s³. Rearrange the expression to compute the cube root."
   },
   {
-    id: 24,
+    id: 44,
     subject: 'Chemistry',
     topic: 'Chemical Thermodynamics',
     level: 'Class 12',
@@ -298,18 +518,18 @@ const QUESTIONS = [
     hint: "Write down the Gibbs-Helmholtz equation. We want the mathematical result of ΔG to be strictly less than zero at any temperature."
   },
   {
-    id: 25,
+    id: 45,
     subject: 'Chemistry',
     topic: 'Electrochemistry',
     level: 'Class 12',
     question: "During the electrolysis of aqueous copper sulfate solution using inert platinum electrodes, the product obtained at the anode is:",
     options: ["Copper metal", "Hydrogen gas", "Oxygen gas", "Sulfur dioxide gas"],
     correct: 2,
-    rationale: "At the anode, oxidation takes place. Water has a higher oxidation potential than ... ( sulfate ), so water is oxidized to release oxygen gas: 2H₂O → O₂ + 4H⁺ + 4e⁻.",
+    rationale: "At the anode, oxidation takes place. Water has a higher oxidation potential than sulfate, so water is oxidized to release oxygen gas: 2H₂O → O₂ + 4H⁺ + 4e⁻.",
     hint: "Compare the oxidation potentials of sulfate ions and water. Water is oxidized preferentially over stable polyatomic anions."
   },
   {
-    id: 26,
+    id: 46,
     subject: 'Chemistry',
     topic: 'Chemical Kinetics',
     level: 'Class 12',
@@ -320,7 +540,7 @@ const QUESTIONS = [
     hint: "Use the standard expression: t_1/2 = ln(2) / k ≈ 0.693 / k."
   },
   {
-    id: 27,
+    id: 47,
     subject: 'Chemistry',
     topic: 'Transition Elements',
     level: 'Class 12',
@@ -331,7 +551,7 @@ const QUESTIONS = [
     hint: "Write the electronic configuration for each d-block ion and determine which has the maximum number of unpaired electrons."
   },
   {
-    id: 28,
+    id: 48,
     subject: 'Chemistry',
     topic: 'Coordination Compounds',
     level: 'Class 12',
@@ -342,7 +562,7 @@ const QUESTIONS = [
     hint: "Identify the oxidation state of Cobalt and whether ammonia behaves as a strong field ligand capable of pairing 3d electrons."
   },
   {
-    id: 29,
+    id: 49,
     subject: 'Chemistry',
     topic: 'Halogen Derivatives',
     level: 'Class 12',
@@ -353,7 +573,7 @@ const QUESTIONS = [
     hint: "Alcoholic KOH acts as a strong base inducing elimination, whereas aqueous KOH acts as a nucleophile leading to substitution."
   },
   {
-    id: 30,
+    id: 50,
     subject: 'Chemistry',
     topic: 'Alcohols, Phenols & Ethers',
     level: 'Class 11',
@@ -362,6 +582,116 @@ const QUESTIONS = [
     correct: 2,
     rationale: "Lucas reagent reacts with alcohols via a carbocation intermediate. Tertiary alcohols (like 2-methylpropan-2-ol) form highly stable tertiary carbocations, giving instant turbidity at room temperature.",
     hint: "Identify the tertiary alcohol among the choices. Lucas test reactivity order is 3° > 2° > 1°."
+  },
+  {
+    id: 51,
+    subject: 'Chemistry',
+    topic: 'Halogen Derivatives',
+    level: 'Class 12',
+    question: "Which of the following alkyl halides undergoes Sn1 reaction most readily?",
+    options: ["tert-Butyl bromide", "Isopropyl bromide", "Ethyl bromide", "Methyl bromide"],
+    correct: 0,
+    rationale: "Sn1 reaction proceeds via a carbocation intermediate. tert-Butyl bromide forms a highly stable 3° carbocation, making it the most reactive towards Sn1 nucleophilic substitution.",
+    hint: "Look for the alkyl halide that forms the most stable carbocation intermediate."
+  },
+  {
+    id: 52,
+    subject: 'Chemistry',
+    topic: 'Aldehydes, Ketones & Carboxylic Acids',
+    level: 'Class 12',
+    question: "Which of the following compounds does not undergo Cannizzaro reaction?",
+    options: ["Acetaldehyde", "Formaldehyde", "Benzaldehyde", "Trimethylacetaldehyde"],
+    correct: 0,
+    rationale: "Cannizzaro reaction is given by aldehydes which do not contain any alpha-hydrogen atoms. Acetaldehyde contains three alpha-hydrogens, so it undergoes aldol condensation instead.",
+    hint: "Identify the aldehyde that has alpha-hydrogens."
+  },
+  {
+    id: 53,
+    subject: 'Chemistry',
+    topic: 'Coordination Compounds',
+    level: 'Class 12',
+    question: "The coordination number and oxidation state of cobalt in the complex [Co(en)₃]Cl₃ are:",
+    options: ["6 and +3", "3 and +3", "6 and +2", "3 and +2"],
+    correct: 0,
+    rationale: "Ethylenediamine (en) is a bidentate ligand. Since there are 3 'en' ligands, the coordination number is 3 * 2 = 6. The overall complex is neutral, and en is neutral, so Co has an oxidation state of +3.",
+    hint: "Remember that ethylenediamine is bidentate, meaning it binds at two coordination sites."
+  },
+  {
+    id: 54,
+    subject: 'Chemistry',
+    topic: 'Transition Elements',
+    level: 'Class 12',
+    question: "The most common oxidation state exhibited by lanthanides in their compounds is:",
+    options: ["+3", "+2", "+4", "+6"],
+    correct: 0,
+    rationale: "The +3 oxidation state is the most stable and common oxidation state for all lanthanide elements.",
+    hint: "Lanthanide contraction is associated with the stability of this main oxidation state."
+  },
+  {
+    id: 55,
+    subject: 'Chemistry',
+    topic: 'Solutions',
+    level: 'Class 12',
+    question: "An ideal solution is one which obeys:",
+    options: ["Raoult's Law", "Henry's Law", "Dalton's Law", "Van 't Hoff's Equation"],
+    correct: 0,
+    rationale: "Ideal solutions obey Raoult's law over the entire range of concentrations.",
+    hint: "Think of the law relating vapor pressure of solvent in solution to its mole fraction."
+  },
+  {
+    id: 56,
+    subject: 'Chemistry',
+    topic: 'Ionic Equilibria',
+    level: 'Class 12',
+    question: "What is the pH of a 1.0 x 10^-3 M NaOH solution at 25°C?",
+    options: ["11", "3", "7", "14"],
+    correct: 0,
+    rationale: "pOH = -log[OH⁻] = -log(1.0 x 10⁻³) = 3. Since pH + pOH = 14, pH = 14 - 3 = 11.",
+    hint: "Compute the pOH of the strong base first, then subtract it from 14."
+  },
+  {
+    id: 57,
+    subject: 'Chemistry',
+    topic: 'Chemical Kinetics',
+    level: 'Class 12',
+    question: "The activation energy of a chemical reaction can be determined using which equation?",
+    options: ["Arrhenius Equation", "Van 't Hoff Equation", "Gibbs Helmholtz Equation", "Nernst Equation"],
+    correct: 0,
+    rationale: "The Arrhenius equation k = A * e^(-Ea/RT) relates the rate constant k to the activation energy Ea.",
+    hint: "Look for the equation that relates the rate constant to temperature and activation energy."
+  },
+  {
+    id: 58,
+    subject: 'Chemistry',
+    topic: 'Biomolecules',
+    level: 'Class 12',
+    question: "Which of the following base pairs is not present in DNA?",
+    options: ["Adenine - Uracil", "Adenine - Thymine", "Guanine - Cytosine", "Thymine - Adenine"],
+    correct: 0,
+    rationale: "Uracil is present in RNA but not in DNA. DNA contains Thymine instead of Uracil.",
+    hint: "Think about the nitrogenous base that is unique to RNA."
+  },
+  {
+    id: 59,
+    subject: 'Chemistry',
+    topic: 'Green Chemistry',
+    level: 'Class 12',
+    question: "In green chemistry, the efficiency of a synthetic reaction is best measured by:",
+    options: ["Atom economy", "Percentage yield", "Reaction time", "Catalyst quantity"],
+    correct: 0,
+    rationale: "Atom economy is a key principle of green chemistry, measuring how much of the starting materials end up in the desired final product.",
+    hint: "It evaluates the percentage of starting atoms that are incorporated into the final product."
+  },
+  {
+    id: 60,
+    subject: 'Chemistry',
+    topic: 'Solid State',
+    level: 'Class 12',
+    question: "A metal crystallizes in a body-centered cubic (BCC) lattice. The relationship between atomic radius r and edge length a of the unit cell is:",
+    options: ["r = √3 a / 4", "r = a / 2", "r = √2 a / 4", "r = √3 a / 2"],
+    correct: 0,
+    rationale: "For a BCC unit cell, the body diagonal of the cube is 4r = √3 a. Thus, the atomic radius r = √3 a / 4.",
+    hint: "Think of the diagonal of the cube where atoms touch in a BCC lattice."
   }
 ];
 
@@ -375,35 +705,27 @@ const COLLEGES_DATA = [
   { name: "Shri Ramdeobaba College of Engineering (RCOEM), Nagpur", minPercentile: 95.5, stream: "Mechanical Engineering", color: "from-slate-700 to-slate-900" }
 ];
 
-const shuffleArray = (array) => {
-  const arr = [...array];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
+const getRandomSubset = (array, size) => {
+  const shuffled = [...array].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, size);
 };
 
-const prepareShuffledQuestions = () => {
-  // 1. Shuffle the order of the questions
-  const shuffledQs = shuffleArray(QUESTIONS);
-  // 2. For each question, shuffle its options and update the correct index
-  return shuffledQs.map(q => {
-    const originalCorrectOption = q.options[q.correct];
-    const shuffledOptions = shuffleArray(q.options);
-    const newCorrectIndex = shuffledOptions.indexOf(originalCorrectOption);
-    return {
-      ...q,
-      options: shuffledOptions,
-      correct: newCorrectIndex
-    };
-  });
+const prepareNewQuestions = () => {
+  const mathPool = QUESTIONS.filter(q => q.subject === 'Mathematics');
+  const physicsPool = QUESTIONS.filter(q => q.subject === 'Physics');
+  const chemistryPool = QUESTIONS.filter(q => q.subject === 'Chemistry');
+
+  const selectedMath = getRandomSubset(mathPool, 10);
+  const selectedPhysics = getRandomSubset(physicsPool, 10);
+  const selectedChemistry = getRandomSubset(chemistryPool, 10);
+
+  return [...selectedMath, ...selectedPhysics, ...selectedChemistry];
 };
 
 const CbtPage = () => {
   // --- State Configuration ---
   const [view, setView] = useState('home');
-  const [sessionQuestions, setSessionQuestions] = useState(() => prepareShuffledQuestions());
+  const [sessionQuestions, setSessionQuestions] = useState(() => prepareNewQuestions());
   const [answers, setAnswers] = useState({});
   const [markedForReview, setMarkedForReview] = useState({});
   const [visitedQuestions, setVisitedQuestions] = useState({});
@@ -500,11 +822,11 @@ const CbtPage = () => {
   };
 
   const startTest = () => {
-    const shuffled = prepareShuffledQuestions();
-    setSessionQuestions(shuffled);
+    const freshQs = prepareNewQuestions();
+    setSessionQuestions(freshQs);
     setAnswers({});
     setMarkedForReview({});
-    setVisitedQuestions({ [shuffled[0].id]: true });
+    setVisitedQuestions({ [freshQs[0].id]: true });
     setCurrentIdx(0);
     setTimeLeft(5400);
     setIsTimerRunning(true);
@@ -518,7 +840,7 @@ const CbtPage = () => {
     setCurrentIdx(0);
     setTimeLeft(5400);
     setIsTimerRunning(true);
-    setSessionQuestions(prepareShuffledQuestions());
+    setSessionQuestions(prepareNewQuestions());
     setView('home');
   };
 
@@ -582,7 +904,7 @@ const CbtPage = () => {
       incorrectCount,
       percentile: parseFloat(percentileVal.toFixed(2))
     };
-  }, [answers]);
+  }, [answers, sessionQuestions]);
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-800">
