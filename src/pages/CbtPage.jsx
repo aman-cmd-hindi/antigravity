@@ -375,12 +375,38 @@ const COLLEGES_DATA = [
   { name: "Shri Ramdeobaba College of Engineering (RCOEM), Nagpur", minPercentile: 95.5, stream: "Mechanical Engineering", color: "from-slate-700 to-slate-900" }
 ];
 
+const shuffleArray = (array) => {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+};
+
+const prepareShuffledQuestions = () => {
+  // 1. Shuffle the order of the questions
+  const shuffledQs = shuffleArray(QUESTIONS);
+  // 2. For each question, shuffle its options and update the correct index
+  return shuffledQs.map(q => {
+    const originalCorrectOption = q.options[q.correct];
+    const shuffledOptions = shuffleArray(q.options);
+    const newCorrectIndex = shuffledOptions.indexOf(originalCorrectOption);
+    return {
+      ...q,
+      options: shuffledOptions,
+      correct: newCorrectIndex
+    };
+  });
+};
+
 const CbtPage = () => {
   // --- State Configuration ---
   const [view, setView] = useState('home');
+  const [sessionQuestions, setSessionQuestions] = useState(() => prepareShuffledQuestions());
   const [answers, setAnswers] = useState({});
   const [markedForReview, setMarkedForReview] = useState({});
-  const [visitedQuestions, setVisitedQuestions] = useState({ 1: true });
+  const [visitedQuestions, setVisitedQuestions] = useState({});
   const [currentIdx, setCurrentIdx] = useState(0);
   const [timeLeft, setTimeLeft] = useState(5400); // 90 minutes in seconds
   const [isTimerRunning, setIsTimerRunning] = useState(true);
@@ -393,13 +419,13 @@ const CbtPage = () => {
 
   // --- Filtered Questions based on UI Selection ---
   const filteredQuestions = useMemo(() => {
-    return QUESTIONS.filter(q => {
+    return sessionQuestions.filter(q => {
       const matchSubject = selectedSubjectFilter === 'All' || q.subject === selectedSubjectFilter;
       const matchSearch = q.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           q.topic.toLowerCase().includes(searchTerm.toLowerCase());
       return matchSubject && matchSearch;
     });
-  }, [selectedSubjectFilter, searchTerm]);
+  }, [selectedSubjectFilter, searchTerm, sessionQuestions]);
 
   // Sync index boundary when filter changes
   useEffect(() => {
@@ -426,7 +452,7 @@ const CbtPage = () => {
     return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const currentQ = filteredQuestions[currentIdx] || QUESTIONS[0];
+  const currentQ = filteredQuestions[currentIdx] || sessionQuestions[0];
 
   // --- Interactive Handlers ---
   const handleSelectOption = (qId, optionIdx) => {
@@ -473,13 +499,26 @@ const CbtPage = () => {
     setView('results');
   };
 
-  const restartTest = () => {
+  const startTest = () => {
+    const shuffled = prepareShuffledQuestions();
+    setSessionQuestions(shuffled);
     setAnswers({});
     setMarkedForReview({});
-    setVisitedQuestions({ 1: true });
+    setVisitedQuestions({ [shuffled[0].id]: true });
     setCurrentIdx(0);
     setTimeLeft(5400);
     setIsTimerRunning(true);
+    setView('test');
+  };
+
+  const restartTest = () => {
+    setAnswers({});
+    setMarkedForReview({});
+    setVisitedQuestions({});
+    setCurrentIdx(0);
+    setTimeLeft(5400);
+    setIsTimerRunning(true);
+    setSessionQuestions(prepareShuffledQuestions());
     setView('home');
   };
 
@@ -495,7 +534,7 @@ const CbtPage = () => {
     let correctCount = 0;
     let incorrectCount = 0;
 
-    QUESTIONS.forEach(q => {
+    sessionQuestions.forEach(q => {
       const isAttempted = answers[q.id] !== undefined;
       const isCorrect = answers[q.id] === q.correct;
 
@@ -595,7 +634,7 @@ const CbtPage = () => {
 
           {view !== 'test' && (
             <button 
-              onClick={() => { setView('test'); setIsTimerRunning(true); }}
+              onClick={startTest}
               className="bg-gradient-to-r from-amber-500 to-rose-600 text-slate-950 hover:opacity-90 font-black px-6 py-2.5 rounded-xl text-sm shadow-md transition-all active:scale-95 cursor-pointer border-none"
             >
               Start Practice Session
@@ -661,7 +700,7 @@ const CbtPage = () => {
                 </div>
 
                 <button 
-                  onClick={() => { setView('test'); setIsTimerRunning(true); }}
+                  onClick={startTest}
                   className="w-full bg-gradient-to-r from-amber-500 to-rose-600 text-slate-950 font-black py-4 rounded-2xl shadow-lg hover:shadow-xl hover:opacity-95 transition-all flex items-center justify-center gap-2 text-base cursor-pointer border-none"
                 >
                   Enter Exam Arena Now <ChevronRight className="w-5 h-5" />
@@ -1062,15 +1101,15 @@ const CbtPage = () => {
                   <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 grid grid-cols-3 gap-2 text-[10px] text-center font-bold">
                     <div className="p-1.5 bg-white border rounded-lg text-blue-600">
                       <span>Math</span>
-                      <p className="text-xs font-black">{Object.keys(answers).filter(k => QUESTIONS.find(q => q.id === Number(k))?.subject === 'Mathematics').length}/10</p>
+                      <p className="text-xs font-black">{Object.keys(answers).filter(k => sessionQuestions.find(q => q.id === Number(k))?.subject === 'Mathematics').length}/10</p>
                     </div>
                     <div className="p-1.5 bg-white border rounded-lg text-rose-600">
                       <span>Physics</span>
-                      <p className="text-xs font-black">{Object.keys(answers).filter(k => QUESTIONS.find(q => q.id === Number(k))?.subject === 'Physics').length}/10</p>
+                      <p className="text-xs font-black">{Object.keys(answers).filter(k => sessionQuestions.find(q => q.id === Number(k))?.subject === 'Physics').length}/10</p>
                     </div>
                     <div className="p-1.5 bg-white border rounded-lg text-emerald-600">
                       <span>Chem</span>
-                      <p className="text-xs font-black">{Object.keys(answers).filter(k => QUESTIONS.find(q => q.id === Number(k))?.subject === 'Chemistry').length}/10</p>
+                      <p className="text-xs font-black">{Object.keys(answers).filter(k => sessionQuestions.find(q => q.id === Number(k))?.subject === 'Chemistry').length}/10</p>
                     </div>
                   </div>
 
@@ -1353,7 +1392,7 @@ const CbtPage = () => {
               </div>
 
               <div className="space-y-4">
-                {QUESTIONS.map((q, idx) => {
+                {sessionQuestions.map((q, idx) => {
                   const userAnswer = answers[q.id];
                   const isCorrect = userAnswer === q.correct;
                   const isAttempted = userAnswer !== undefined;
