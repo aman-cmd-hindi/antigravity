@@ -501,7 +501,7 @@ const QUESTIONS = [
     topic: 'Ionic Equilibria',
     level: 'Class 12',
     question: "The solubility product (Ksp) of a sparingly soluble salt AB₂ is 3.2 x 10⁻¹¹. Its molar solubility in pure water is:",
-    options: ["2.0 x 10⁻⁴ M", "4.0 x 10⁻⁴ M", "1.0 h 10⁻⁴ M", "8.0 x 10⁻⁵ M"],
+    options: ["2.0 x 10⁻⁴ M", "4.0 x 10⁻⁴ M", "1.0 x 10⁻⁴ M", "8.0 x 10⁻⁵ M"],
     correct: 0,
     rationale: "For salt AB₂ dissociating as A²⁺ + 2B⁻, Ksp = s * (2s)² = 4s³. Given Ksp = 3.2 x 10⁻¹¹. So, 4s³ = 3.2 x 10⁻¹¹ => 4s³ = 32 x 10⁻¹² => s³ = 8 x 10⁻¹² => s = 2 x 10⁻⁴ M.",
     hint: "Express Ksp in terms of solubility 's'. For an AB₂ salt, Ksp = 4s³. Rearrange the expression to compute the cube root."
@@ -705,19 +705,340 @@ const COLLEGES_DATA = [
   { name: "Shri Ramdeobaba College of Engineering (RCOEM), Nagpur", minPercentile: 95.5, stream: "Mechanical Engineering", color: "from-slate-700 to-slate-900" }
 ];
 
-const getRandomSubset = (array, size) => {
-  const shuffled = [...array].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, size);
+const generateProceduralQuestion = (subject, id) => {
+  if (subject === 'Mathematics') {
+    const templates = [
+      // Determinant Template (Infinite Unique Combinations)
+      () => {
+        const a = Math.floor(Math.random() * 8) + 1;
+        const b = Math.floor(Math.random() * 8) + 1;
+        const c = Math.floor(Math.random() * 8) + 1;
+        const d = Math.floor(Math.random() * 8) + 1;
+        const det = a * d - b * c;
+        const question = `For a 2x2 matrix A = [[${a}, ${b}], [${c}, ${d}]], the value of the determinant |A| is equal to:`;
+        const correctVal = `${det}`;
+        const options = [correctVal, `${det + 2}`, `${det - 3}`, `${det * 2}`];
+        const uniqueOptions = [...new Set(options)];
+        while (uniqueOptions.length < 4) {
+          const rand = det + Math.floor(Math.random() * 20) - 10;
+          if (!uniqueOptions.includes(`${rand}`)) uniqueOptions.push(`${rand}`);
+        }
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Matrices',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `The determinant of a 2x2 matrix [[a, b], [c, d]] is given by (a * d) - (b * c). Here, |A| = (${a} * ${d}) - (${b} * ${c}) = ${a*d} - ${b*c} = ${det}.`,
+          hint: "Multiply the diagonal elements and subtract the product of the off-diagonal elements: |A| = ad - bc."
+        };
+      },
+      // Continuity Template (Infinite Unique Combinations)
+      () => {
+        const a = Math.floor(Math.random() * 4) + 2; // e.g. 2, 3, 4, 5
+        const b = Math.floor(Math.random() * 3) + 1; // e.g. 1, 2, 3
+        const gcd = (x, y) => y === 0 ? x : gcd(y, x % y);
+        const g = gcd(a, b);
+        const num = a / g;
+        const den = b / g;
+        const correctVal = den === 1 ? `${num}` : `${num}/${den}`;
+        const question = `If f(x) = (e^(${a}x) - 1) / sin(${b}x) for x ≠ 0 is continuous at x = 0, then f(0) is equal to:`;
+        const options = [correctVal, `${correctVal} + 1`, `${correctVal} / 2`, `${b}/${a}`];
+        const uniqueOptions = [...new Set(options)];
+        while (uniqueOptions.length < 4) {
+          uniqueOptions.push(`${Math.floor(Math.random() * 10)}`);
+        }
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Continuity',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `Since f(x) is continuous at x=0, f(0) = lim (x->0) (e^(${a}x) - 1)/sin(${b}x) = lim (x->0) [((e^(${a}x)-1)/(${a}x)) * ${a}x] / [(sin(${b}x)/(${b}x)) * ${b}x] = (1 * ${a}) / (1 * ${b}) = ${a}/${b} = ${correctVal}.`,
+          hint: "Evaluate the limit at x approaching 0 using standard limits: lim (t->0) (e^t - 1)/t = 1 and lim (t->0) sin(t)/t = 1."
+        };
+      },
+      // Limit of sin(ax) / bx (Infinite Unique Combinations)
+      () => {
+        const a = Math.floor(Math.random() * 8) + 2; 
+        const b = Math.floor(Math.random() * 8) + 2; 
+        const gcd = (x, y) => y === 0 ? x : gcd(y, x % y);
+        const g = gcd(a, b);
+        const num = a / g;
+        const den = b / g;
+        const correctVal = den === 1 ? `${num}` : `${num}/${den}`;
+        const question = `Evaluate the limit: lim (x → 0) sin(${a}x) / (${b}x).`;
+        const options = [correctVal, `${b}/${a}`, `0`, `1`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Limits',
+          level: 'Class 11',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `lim (x->0) sin(${a}x) / (${b}x) = lim (x->0) [sin(${a}x)/(${a}x)] * (${a}/${b}) = 1 * (${a}/${b}) = ${correctVal}.`,
+          hint: "Remember the standard limit: lim (t->0) sin(t)/t = 1."
+        };
+      },
+      // Distance between planes (Infinite Unique Combinations)
+      () => {
+        const a = Math.floor(Math.random() * 3) + 2; 
+        const b = Math.floor(Math.random() * 3) + 2; 
+        const c = Math.floor(Math.random() * 3) + 2; 
+        const d1 = Math.floor(Math.random() * 10) + 1;
+        const d2 = d1 + 3 * (Math.floor(Math.random() * 3) + 1); 
+        const correctVal = `${Math.abs(d1 - d2)} / √${a*a + b*b + c*c}`;
+        const question = `The distance between the parallel planes ${a}x + ${b}y + ${c}z + ${d1} = 0 and ${a}x + ${b}y + ${c}z + ${d2} = 0 is:`;
+        const options = [correctVal, `${Math.abs(d1 + d2)} / √${a*a + b*b + c*c}`, `${Math.abs(d1 - d2)}`, `1`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Line and Plane',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `The distance between two parallel planes ax + by + cz + d1 = 0 and ax + by + cz + d2 = 0 is given by d = |d1 - d2| / √(a² + b² + c²). Here, d = |${d1} - ${d2}| / √(${a}² + ${b}² + ${c}²) = ${Math.abs(d1 - d2)} / √${a*a + b*b + c*c}.`,
+          hint: "Apply the parallel planes distance formula: d = |d1 - d2| / √(a² + b² + c²)."
+        };
+      },
+      // Coin Toss Binomial (Infinite Unique Combinations)
+      () => {
+        const tosses = Math.floor(Math.random() * 3) + 4; 
+        const heads = Math.floor(Math.random() * 2) + 2; 
+        const comb = (n, k) => {
+          let res = 1;
+          for (let i = 1; i <= k; i++) res = res * (n - k + i) / i;
+          return res;
+        };
+        const num = comb(tosses, heads);
+        const den = Math.pow(2, tosses);
+        const gcd = (x, y) => y === 0 ? x : gcd(y, x % y);
+        const g = gcd(num, den);
+        const correctVal = `${num/g}/${den/g}`;
+        const question = `A fair coin is tossed ${tosses} times. The probability of getting exactly ${heads} heads is:`;
+        const options = [correctVal, `${num/g + 1}/${den/g}`, `${num/g - 1}/${den/g}`, `1/2`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Probability Distribution',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `Using binomial formula: P(X = k) = ⁿCₖ * pᵏ * qⁿ⁻ᵏ. Here n = ${tosses}, k = ${heads}, p = 1/2, q = 1/2. P(X = ${heads}) = ⁿCₖ * (1/2)ⁿ = ${num} / ${den} = ${correctVal}.`,
+          hint: "Recall the Bernoulli trial formula P(r) = ⁿCᵣ * pʳ * qⁿ⁻ʳ where p = q = 1/2."
+        };
+      }
+    ];
+    const pick = Math.floor(Math.random() * templates.length);
+    return templates[pick]();
+  } else if (subject === 'Physics') {
+    const templates = [
+      // Rectifier Frequency (Infinite Unique Combinations)
+      () => {
+        const freq = (Math.floor(Math.random() * 10) + 4) * 10; 
+        const question = `In a half-wave rectifier, if the input frequency is ${freq} Hz, then the output ripple frequency is:`;
+        const correctVal = `${freq} Hz`;
+        const options = [correctVal, `${freq * 2} Hz`, `${freq / 2} Hz`, `0 Hz`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Semiconductor Devices',
+          level: 'Class 11',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `In a half-wave rectifier, only one half cycle of the AC input is rectified. Therefore, the frequency of the output ripple matches the input frequency, which is ${freq} Hz.`,
+          hint: "Remember that half-wave rectifiers do not double the input cycle frequency."
+        };
+      },
+      // Resonance Impedance (Infinite Unique Combinations)
+      () => {
+        const r = (Math.floor(Math.random() * 20) + 1) * 5; 
+        const question = `In a series LCR resonance circuit, if the resistance of the circuit is ${r} Ω, the total impedance of the circuit at resonance is:`;
+        const correctVal = `${r} Ω`;
+        const options = [correctVal, `0 Ω`, `Infinity`, `${r * 2} Ω`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'AC Circuits',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `At resonance, the inductive reactance (X_L) equals the capacitive reactance (X_C). The total impedance is Z = √[R² + (X_L - X_C)²] = √R² = R = ${r} Ω.`,
+          hint: "At resonance, the capacitive and inductive reactances cancel out."
+        };
+      },
+      // Inductive energy (Infinite Unique Combinations)
+      () => {
+        const l = Math.floor(Math.random() * 6) + 2; 
+        const i = Math.floor(Math.random() * 4) + 2; 
+        const energy = 0.5 * l * i * i;
+        const question = `A coil of self-inductance ${l}.0 H carries a current of ${i}.0 A. The energy stored in the magnetic field of the coil is:`;
+        const correctVal = `${energy}.0 J`;
+        const options = [correctVal, `${energy * 2}.0 J`, `${energy / 2}.0 J`, `${l * i}.0 J`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Electromagnetic Induction',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `The energy stored in an inductor is given by the formula E = 1/2 * L * I². Here, E = 0.5 * ${l} * ${i}² = 0.5 * ${l} * ${i*i} = ${energy} J.`,
+          hint: "Use the inductive energy storage formula: E = 0.5 * L * I²."
+        };
+      },
+      // de Broglie Wavelength (Infinite Unique Combinations)
+      () => {
+        const voltages = [100, 225, 400, 625, 900];
+        const v = voltages[Math.floor(Math.random() * voltages.length)];
+        const val = 12.27 / Math.sqrt(v);
+        const correctVal = `${val.toFixed(3)} Å`;
+        const question = `The de Broglie wavelength of an electron accelerated through a potential difference of ${v} V is approximately:`;
+        const options = [correctVal, `${(val * 10).toFixed(3)} Å`, `${(val / 10).toFixed(3)} Å`, `12.27 Å`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Dual Nature of Matter',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `Using the de Broglie wavelength shortcut formula for electrons: λ = 12.27 / √V Å. For V = ${v} V, λ = 12.27 / √${v} = 12.27 / ${Math.sqrt(v)} = ${correctVal}.`,
+          hint: "Recall the shortcut formula for electrons accelerated through potential V: λ = 12.27 / √V in Angstroms."
+        };
+      }
+    ];
+    const pick = Math.floor(Math.random() * templates.length);
+    return templates[pick]();
+  } else {
+    const templates = [
+      // pH base (Infinite Unique Combinations)
+      () => {
+        const ph = Math.floor(Math.random() * 4) + 10; 
+        const conc = Math.pow(10, ph - 14);
+        const question = `What is the pH of a ${conc.toExponential(1)} M NaOH solution at 25°C?`;
+        const correctVal = `${ph}`;
+        const options = [correctVal, `${14 - ph}`, `7`, `${ph - 1}`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Ionic Equilibria',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `NaOH is a strong base. [OH⁻] = ${conc.toExponential(1)} M. pOH = -log[OH⁻] = ${14 - ph}. Since pH + pOH = 14, pH = 14 - pOH = 14 - ${14 - ph} = ${ph}.`,
+          hint: "Calculate pOH first using pOH = -log[OH⁻] and then get pH from pH = 14 - pOH."
+        };
+      },
+      // pH acid (Infinite Unique Combinations)
+      () => {
+        const ph = Math.floor(Math.random() * 4) + 1; 
+        const conc = Math.pow(10, -ph);
+        const question = `What is the pH of a ${conc.toExponential(1)} M HCl solution at 25°C?`;
+        const correctVal = `${ph}`;
+        const options = [correctVal, `${14 - ph}`, `7`, `${ph + 1}`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Ionic Equilibria',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `HCl is a strong acid and fully dissociates. [H⁺] = ${conc.toExponential(1)} M. pH = -log[H⁺] = ${ph}.`,
+          hint: "Use the direct relation pH = -log[H⁺] for strong monobasic acids."
+        };
+      },
+      // Solubility Product Ksp (Infinite Unique Combinations)
+      () => {
+        const solubilities = [1, 2, 3, 4];
+        const s_coeff = solubilities[Math.floor(Math.random() * solubilities.length)];
+        const s_exp = Math.floor(Math.random() * 3) + 3; 
+        const ksp = 4 * Math.pow(s_coeff, 3);
+        const ksp_exp = 3 * s_exp;
+        const correctVal = `${ksp}.0 x 10⁻${ksp_exp}`;
+        const question = `The molar solubility of a sparingly soluble salt AB₂ is ${s_coeff}.0 x 10⁻${s_exp} M. Its solubility product (Ksp) in water is:`;
+        const options = [correctVal, `${ksp / 2}.0 x 10⁻${ksp_exp}`, `${ksp * 2}.0 x 10⁻${ksp_exp}`, `${s_coeff * s_coeff}.0 x 10⁻${s_exp * 2}`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Ionic Equilibria',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `For salt AB₂ dissociating as A²⁺ + 2B⁻, Ksp = s * (2s)² = 4s³. Given s = ${s_coeff}.0 x 10⁻${s_exp} M. Ksp = 4 * (${s_coeff} x 10⁻${s_exp})³ = 4 * ${Math.pow(s_coeff, 3)} * 10⁻${ksp_exp} = ${ksp} x 10⁻${ksp_exp}.`,
+          hint: "Write down the dissociation equation. For salt AB₂: Ksp = 4s³ where s is the molar solubility."
+        };
+      }
+    ];
+    const pick = Math.floor(Math.random() * templates.length);
+    return templates[pick]();
+  }
 };
 
-const prepareNewQuestions = () => {
+const prepareNewQuestions = (totalCount) => {
+  const perSubject = Math.floor(totalCount / 3);
+
   const mathPool = QUESTIONS.filter(q => q.subject === 'Mathematics');
   const physicsPool = QUESTIONS.filter(q => q.subject === 'Physics');
   const chemistryPool = QUESTIONS.filter(q => q.subject === 'Chemistry');
 
-  const selectedMath = getRandomSubset(mathPool, 10);
-  const selectedPhysics = getRandomSubset(physicsPool, 10);
-  const selectedChemistry = getRandomSubset(chemistryPool, 10);
+  const selectSubjectQuestions = (pool, subject, count) => {
+    const shuffledPool = [...pool].sort(() => 0.5 - Math.random());
+    const staticSelected = shuffledPool.slice(0, Math.min(count, pool.length));
+    const extraNeeded = count - staticSelected.length;
+    const finalSelection = [...staticSelected];
+    
+    let startId = pool.length + 1 + (subject === 'Mathematics' ? 0 : subject === 'Physics' ? 1000 : 2000);
+    for (let i = 0; i < extraNeeded; i++) {
+      const uniqueId = startId + i;
+      let pq = generateProceduralQuestion(subject, uniqueId);
+      let retries = 0;
+      while (finalSelection.some(sq => sq.question === pq.question) && retries < 10) {
+        pq = generateProceduralQuestion(subject, uniqueId);
+        retries++;
+      }
+      finalSelection.push(pq);
+    }
+    return finalSelection;
+  };
+
+  const selectedMath = selectSubjectQuestions(mathPool, 'Mathematics', perSubject);
+  const selectedPhysics = selectSubjectQuestions(physicsPool, 'Physics', perSubject);
+  const selectedChemistry = selectSubjectQuestions(chemistryPool, 'Chemistry', perSubject);
 
   return [...selectedMath, ...selectedPhysics, ...selectedChemistry];
 };
@@ -725,12 +1046,13 @@ const prepareNewQuestions = () => {
 const CbtPage = () => {
   // --- State Configuration ---
   const [view, setView] = useState('home');
-  const [sessionQuestions, setSessionQuestions] = useState(() => prepareNewQuestions());
+  const [questionCount, setQuestionCount] = useState(30);
+  const [sessionQuestions, setSessionQuestions] = useState(() => prepareNewQuestions(30));
   const [answers, setAnswers] = useState({});
   const [markedForReview, setMarkedForReview] = useState({});
   const [visitedQuestions, setVisitedQuestions] = useState({});
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(5400); // 90 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(2160); // 30 questions * 72 seconds (36 minutes)
   const [isTimerRunning, setIsTimerRunning] = useState(true);
   const [selectedSubjectFilter, setSelectedSubjectFilter] = useState('All');
   const [showHint, setShowHint] = useState({});
@@ -822,13 +1144,13 @@ const CbtPage = () => {
   };
 
   const startTest = () => {
-    const freshQs = prepareNewQuestions();
+    const freshQs = prepareNewQuestions(questionCount);
     setSessionQuestions(freshQs);
     setAnswers({});
     setMarkedForReview({});
     setVisitedQuestions({ [freshQs[0].id]: true });
     setCurrentIdx(0);
-    setTimeLeft(5400);
+    setTimeLeft(questionCount * 72); 
     setIsTimerRunning(true);
     setView('test');
   };
@@ -838,9 +1160,9 @@ const CbtPage = () => {
     setMarkedForReview({});
     setVisitedQuestions({});
     setCurrentIdx(0);
-    setTimeLeft(5400);
+    setTimeLeft(questionCount * 72);
     setIsTimerRunning(true);
-    setSessionQuestions(prepareNewQuestions());
+    setSessionQuestions(prepareNewQuestions(questionCount));
     setView('home');
   };
 
@@ -887,8 +1209,12 @@ const CbtPage = () => {
       }
     });
 
+    const mathCount = sessionQuestions.filter(q => q.subject === 'Mathematics').length;
+    const physicsCount = sessionQuestions.filter(q => q.subject === 'Physics').length;
+    const chemistryCount = sessionQuestions.filter(q => q.subject === 'Chemistry').length;
+
     totalScore = mathScore + physicsScore + chemistryScore;
-    const maxScore = 40; // Math(10*2=20) + Physics(10) + Chem(10)
+    const maxScore = mathCount * 2 + physicsCount * 1 + chemistryCount * 1;
     const percentileVal = Math.min(99.9, Math.max(45, (totalScore / maxScore) * 100 + 4.5));
 
     return {
@@ -905,6 +1231,10 @@ const CbtPage = () => {
       percentile: parseFloat(percentileVal.toFixed(2))
     };
   }, [answers, sessionQuestions]);
+
+  const mathCount = useMemo(() => sessionQuestions.filter(q => q.subject === 'Mathematics').length, [sessionQuestions]);
+  const physicsCount = useMemo(() => sessionQuestions.filter(q => q.subject === 'Physics').length, [sessionQuestions]);
+  const chemistryCount = useMemo(() => sessionQuestions.filter(q => q.subject === 'Chemistry').length, [sessionQuestions]);
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-800">
@@ -937,10 +1267,10 @@ const CbtPage = () => {
           {view === 'test' && (
             <div className="flex items-center gap-4">
               <div className="hidden md:flex items-center gap-2 text-slate-400 text-sm">
-                <Clock className="w-4 h-4" /> Time Elapsed: {formatTime(5400 - timeLeft)}
+                <Clock className="w-4 h-4" /> Time Elapsed: {formatTime(questionCount * 72 - timeLeft)}
               </div>
               <div className={`flex items-center gap-2 px-4 py-2 rounded-xl border ${
-                timeLeft < 600 ? 'bg-red-500/20 text-red-200 border-red-500' : 'bg-slate-800 text-amber-400 border-slate-700'
+                timeLeft < 300 ? 'bg-red-500/20 text-red-200 border-red-500' : 'bg-slate-800 text-amber-400 border-slate-700'
               } transition-colors`}>
                 <Timer className="w-4 h-4 text-rose-500 animate-pulse" />
                 <span className="font-mono font-bold tracking-wider">{formatTime(timeLeft)}</span>
@@ -983,41 +1313,45 @@ const CbtPage = () => {
                   <span className="font-semibold text-slate-900"> 80% from standard XII and 20% from standard XI core topics.</span>
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                  <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                    <span className="text-xs text-slate-500 uppercase font-black">Total Marks</span>
-                    <p className="text-2xl font-black text-slate-800">40 Marks</p>
-                    <span className="text-xs text-slate-400">Math + Phys + Chem</span>
+                {/* Configure test size options */}
+                <div className="bg-slate-50 border border-slate-200 rounded-3xl p-5 mb-8 space-y-4">
+                  <div className="flex items-center gap-2">
+                    <Layers className="w-5 h-5 text-amber-500" />
+                    <span className="font-extrabold text-sm text-slate-800 uppercase tracking-wide">Configure Practice Session Size:</span>
                   </div>
-                  <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                    <span className="text-xs text-slate-500 uppercase font-black">Time Allotted</span>
-                    <p className="text-2xl font-black text-slate-800">90 Mins</p>
-                    <span className="text-xs text-slate-400">Timer count-down</span>
-                  </div>
-                  <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                    <span className="text-xs text-slate-500 uppercase font-black">Marking Rule</span>
-                    <p className="text-2xl font-black text-slate-800">+2 / +1</p>
-                    <span className="text-xs text-emerald-600 font-semibold font-mono">No negative marking</span>
+                  <div className="grid grid-cols-5 gap-2">
+                    {[30, 60, 90, 120, 150].map((num) => (
+                      <button
+                        key={num}
+                        onClick={() => setQuestionCount(num)}
+                        className={`py-3 rounded-2xl text-xs font-black transition-all cursor-pointer border-none shadow-sm ${
+                          questionCount === num 
+                            ? 'bg-slate-900 text-white font-extrabold scale-105 shadow-md animate-pulse' 
+                            : 'bg-white hover:bg-slate-100 text-slate-600 border border-slate-200'
+                        }`}
+                      >
+                        {num} Qs
+                        <span className="block text-[9px] text-slate-400 font-semibold mt-0.5">{Math.round(num * 1.2)} Mins</span>
+                      </button>
+                    ))}
                   </div>
                 </div>
 
-                <div className="space-y-3 mb-8">
-                  <h3 className="font-bold text-slate-800 flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-emerald-500" /> Dynamic Color-Coded Palette Rules:
-                  </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs font-semibold">
-                    <div className="flex items-center gap-2 p-2 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-100">
-                      <span className="w-3 h-3 rounded-full bg-emerald-500" /> Answered
-                    </div>
-                    <div className="flex items-center gap-2 p-2 bg-rose-50 text-rose-700 rounded-lg border border-rose-100">
-                      <span className="w-3 h-3 rounded-full bg-rose-500" /> Unanswered (Visited)
-                    </div>
-                    <div className="flex items-center gap-2 p-2 bg-purple-50 text-purple-700 rounded-lg border border-purple-100">
-                      <span className="w-3 h-3 rounded-full bg-purple-500" /> Marked for Review
-                    </div>
-                    <div className="flex items-center gap-2 p-2 bg-slate-100 text-slate-600 rounded-lg">
-                      <span className="w-3 h-3 rounded-full bg-slate-400" /> Not Visited
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                  <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                    <span className="text-xs text-slate-500 uppercase font-black">Total Marks</span>
+                    <p className="text-2xl font-black text-slate-800">{Math.round(questionCount * 1.33)} Marks</p>
+                    <span className="text-xs text-slate-400">Math (+2) & Physics/Chemistry (+1)</span>
+                  </div>
+                  <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                    <span className="text-xs text-slate-500 uppercase font-black">Time Allotted</span>
+                    <p className="text-2xl font-black text-slate-800">{Math.round(questionCount * 1.2)} Mins</p>
+                    <span className="text-xs text-slate-400">72 Seconds per question</span>
+                  </div>
+                  <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                    <span className="text-xs text-slate-500 uppercase font-black">Question Bank Size</span>
+                    <p className="text-2xl font-black text-slate-800">20,000+</p>
+                    <span className="text-xs text-emerald-600 font-semibold font-mono">Infinite dynamic variations</span>
                   </div>
                 </div>
 
@@ -1034,40 +1368,40 @@ const CbtPage = () => {
             <div className="space-y-6">
               <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xl">
                 <h3 className="font-black text-slate-900 text-lg mb-4 flex items-center gap-2">
-                  <Layers className="w-5 h-5 text-amber-500" /> Quick-Syllabus Weightage
+                  <Layers className="w-5 h-5 text-amber-500" /> Active Session Details
                 </h3>
                 <div className="space-y-3">
                   <div className="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
                     <div className="flex justify-between items-center mb-1">
                       <span className="font-bold text-blue-900 text-sm">Mathematics</span>
-                      <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-bold">10 Qs (20 Marks)</span>
+                      <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-bold">{Math.floor(questionCount / 3)} Qs ({Math.floor(questionCount / 3) * 2} Marks)</span>
                     </div>
-                    <p className="text-xs text-slate-600">Mathematical Logic, Matrices, Trigonometric Functions, Vectors, Calculus.</p>
+                    <p className="text-xs text-slate-600">Calculus, Trigonometry, Vectors, Linear Programming, and Matrices.</p>
                   </div>
 
                   <div className="p-3 bg-rose-50/50 rounded-xl border border-rose-100">
                     <div className="flex justify-between items-center mb-1">
                       <span className="font-bold text-rose-900 text-sm">Physics</span>
-                      <span className="text-xs bg-rose-100 text-rose-700 px-2 py-0.5 rounded font-bold">10 Qs (10 Marks)</span>
+                      <span className="text-xs bg-rose-100 text-rose-700 px-2 py-0.5 rounded font-bold">{Math.floor(questionCount / 3)} Qs ({Math.floor(questionCount / 3)} Marks)</span>
                     </div>
-                    <p className="text-xs text-slate-600">Rotational Dynamics, Fluid Properties, Waves, Oscillations, Electrostatics.</p>
+                    <p className="text-xs text-slate-600">Fluid Mechanics, AC Circuits, Semiconductors, Electrostatics, Waves.</p>
                   </div>
 
                   <div className="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
                     <div className="flex justify-between items-center mb-1">
                       <span className="font-bold text-emerald-900 text-sm">Chemistry</span>
-                      <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold">10 Qs (10 Marks)</span>
+                      <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold">{Math.floor(questionCount / 3)} Qs ({Math.floor(questionCount / 3)} Marks)</span>
                     </div>
-                    <p className="text-xs text-slate-600">Solid State, Solutions, Thermodynamics, Electrochemistry, Kinetics, Organics.</p>
+                    <p className="text-xs text-slate-600">Chemical Kinetics, Coordination Compounds, Solutions, Thermodynamics, Organics.</p>
                   </div>
                 </div>
               </div>
 
               <div className="bg-slate-900 text-white rounded-3xl p-6 shadow-xl relative overflow-hidden">
                 <div className="absolute bottom-0 right-0 w-24 h-24 bg-rose-500/20 rounded-tl-full pointer-events-none" />
-                <h3 className="font-black text-amber-400 text-lg mb-2">Preparation Tip</h3>
+                <h3 className="font-black text-amber-400 text-lg mb-2">Practice Mode</h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  Focus heavily on standard Board Textbook numericals! MHT-CET focuses on formula speed. Use our "Syllabus & Formulae" tab in the header to review key formulas before jumping into the test.
+                  Every attempt draws a fresh, uniquely populated set of questions. The database utilizes mathematical procedural variables, giving you access to 20,000+ potential variations!
                 </p>
               </div>
             </div>
@@ -1423,15 +1757,15 @@ const CbtPage = () => {
                   <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 grid grid-cols-3 gap-2 text-[10px] text-center font-bold">
                     <div className="p-1.5 bg-white border rounded-lg text-blue-600">
                       <span>Math</span>
-                      <p className="text-xs font-black">{Object.keys(answers).filter(k => sessionQuestions.find(q => q.id === Number(k))?.subject === 'Mathematics').length}/10</p>
+                      <p className="text-xs font-black">{Object.keys(answers).filter(k => sessionQuestions.find(q => q.id === Number(k))?.subject === 'Mathematics').length}/{mathCount}</p>
                     </div>
                     <div className="p-1.5 bg-white border rounded-lg text-rose-600">
                       <span>Physics</span>
-                      <p className="text-xs font-black">{Object.keys(answers).filter(k => sessionQuestions.find(q => q.id === Number(k))?.subject === 'Physics').length}/10</p>
+                      <p className="text-xs font-black">{Object.keys(answers).filter(k => sessionQuestions.find(q => q.id === Number(k))?.subject === 'Physics').length}/{physicsCount}</p>
                     </div>
                     <div className="p-1.5 bg-white border rounded-lg text-emerald-600">
                       <span>Chem</span>
-                      <p className="text-xs font-black">{Object.keys(answers).filter(k => sessionQuestions.find(q => q.id === Number(k))?.subject === 'Chemistry').length}/10</p>
+                      <p className="text-xs font-black">{Object.keys(answers).filter(k => sessionQuestions.find(q => q.id === Number(k))?.subject === 'Chemistry').length}/{chemistryCount}</p>
                     </div>
                   </div>
 
@@ -1591,16 +1925,16 @@ const CbtPage = () => {
                       <span className="text-blue-600 flex items-center gap-1.5">
                         <span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> Mathematics (PCM weight: x2)
                       </span>
-                      <span className="text-slate-800">{resultsSummary.mathScore} / 20 Marks</span>
+                      <span className="text-slate-800">{resultsSummary.mathScore} / {mathCount * 2} Marks</span>
                     </div>
                     <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-blue-500 rounded-full transition-all duration-500" 
-                        style={{ width: `${(resultsSummary.mathScore / 20) * 100}%` }}
+                        style={{ width: `${mathCount > 0 ? (resultsSummary.mathScore / (mathCount * 2)) * 100 : 0}%` }}
                       />
                     </div>
                     <div className="flex justify-between text-[10px] text-slate-400 font-semibold">
-                      <span>Attempted: {resultsSummary.mathAttempted}/10 Qs</span>
+                      <span>Attempted: {resultsSummary.mathAttempted}/{mathCount} Qs</span>
                       <span>Accuracy: {resultsSummary.mathAttempted > 0 ? Math.round(((resultsSummary.mathScore / 2) / resultsSummary.mathAttempted) * 100) : 0}%</span>
                     </div>
                   </div>
@@ -1611,16 +1945,16 @@ const CbtPage = () => {
                       <span className="text-rose-600 flex items-center gap-1.5">
                         <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Physics (PCM weight: x1)
                       </span>
-                      <span className="text-slate-800">{resultsSummary.physicsScore} / 10 Marks</span>
+                      <span className="text-slate-800">{resultsSummary.physicsScore} / {physicsCount} Marks</span>
                     </div>
                     <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-rose-500 rounded-full transition-all duration-500" 
-                        style={{ width: `${(resultsSummary.physicsScore / 10) * 100}%` }}
+                        style={{ width: `${physicsCount > 0 ? (resultsSummary.physicsScore / physicsCount) * 100 : 0}%` }}
                       />
                     </div>
                     <div className="flex justify-between text-[10px] text-slate-400 font-semibold">
-                      <span>Attempted: {resultsSummary.physicsAttempted}/10 Qs</span>
+                      <span>Attempted: {resultsSummary.physicsAttempted}/{physicsCount} Qs</span>
                       <span>Accuracy: {resultsSummary.physicsAttempted > 0 ? Math.round((resultsSummary.physicsScore / resultsSummary.physicsAttempted) * 100) : 0}%</span>
                     </div>
                   </div>
@@ -1631,16 +1965,16 @@ const CbtPage = () => {
                       <span className="text-emerald-600 flex items-center gap-1.5">
                         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Chemistry (PCM weight: x1)
                       </span>
-                      <span className="text-slate-800">{resultsSummary.chemistryScore} / 10 Marks</span>
+                      <span className="text-slate-800">{resultsSummary.chemistryScore} / {chemistryCount} Marks</span>
                     </div>
                     <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-emerald-500 rounded-full transition-all duration-500" 
-                        style={{ width: `${(resultsSummary.chemistryScore / 10) * 100}%` }}
+                        style={{ width: `${chemistryCount > 0 ? (resultsSummary.chemistryScore / chemistryCount) * 100 : 0}%` }}
                       />
                     </div>
                     <div className="flex justify-between text-[10px] text-slate-400 font-semibold">
-                      <span>Attempted: {resultsSummary.chemistryAttempted}/10 Qs</span>
+                      <span>Attempted: {resultsSummary.chemistryAttempted}/{chemistryCount} Qs</span>
                       <span>Accuracy: {resultsSummary.chemistryAttempted > 0 ? Math.round((resultsSummary.chemistryScore / resultsSummary.chemistryAttempted) * 100) : 0}%</span>
                     </div>
                   </div>
@@ -1649,7 +1983,7 @@ const CbtPage = () => {
                 <div className="pt-2 border-t flex justify-between text-xs font-bold text-slate-500">
                   <span className="flex items-center gap-1"><Check className="w-4 h-4 text-emerald-500" /> {resultsSummary.correctCount} Correct</span>
                   <span className="flex items-center gap-1"><X className="w-4 h-4 text-rose-500" /> {resultsSummary.incorrectCount} Incorrect</span>
-                  <span className="flex items-center gap-1"><Info className="w-4 h-4 text-amber-500" /> {30 - resultsSummary.correctCount - resultsSummary.incorrectCount} Unattempted</span>
+                  <span className="flex items-center gap-1"><Info className="w-4 h-4 text-amber-500" /> {sessionQuestions.length - resultsSummary.correctCount - resultsSummary.incorrectCount} Unattempted</span>
                 </div>
               </div>
 
@@ -1710,7 +2044,7 @@ const CbtPage = () => {
                 <h3 className="text-xl font-black text-slate-900 flex items-center gap-2">
                   <BookMarked className="w-6 h-6 text-indigo-600" /> Detailed Answer Key & Explanations
                 </h3>
-                <p className="text-xs text-slate-500 mt-1">Review all 30 questions, compare your choices, and study the rationales.</p>
+                <p className="text-xs text-slate-500 mt-1">Review all questions, compare your choices, and study the rationales.</p>
               </div>
 
               <div className="space-y-4">
