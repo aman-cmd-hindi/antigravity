@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import EnrollmentPage from './pages/EnrollmentPage';
 import SubmitReviewPage from './pages/SubmitReviewPage';
 import DashboardPage from './pages/DashboardPage';
+import CbtPage from './pages/CbtPage';
 
 import GalleryPage from './pages/GalleryPage';
 import AnimatedBackground from './components/AnimatedBackground';
@@ -31,7 +32,7 @@ function App() {
             <Route path="/enroll" element={<EnrollmentPage />} />
             <Route path="/review" element={<SubmitReviewPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
-
+            <Route path="/cbt" element={<CbtPage />} />
           </Routes>
         </div>
       </div>
