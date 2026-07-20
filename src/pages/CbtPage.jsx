@@ -34,6 +34,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Mathematical Logic',
     level: 'Class 12',
+    year: 'MHT CET 2023',
     question: "If p and q are true statements and r is a false statement, then find the truth value of the logical statement: (p ∧ q) ∨ ~r",
     options: ["True (T)", "False (F)", "Inconsistent", "None of these"],
     correct: 0,
@@ -45,6 +46,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Matrices',
     level: 'Class 12',
+    year: 'MHT CET 2022',
     question: "For a 2x2 matrix A = [[1, 2], [3, 4]], the value of A · (adj A) is equal to:",
     options: ["[[-2, 0], [0, -2]]", "[[2, 0], [0, 2]]", "[[1, 0], [0, 1]]", "[[4, 0], [0, 4]]"],
     correct: 0,
@@ -56,6 +58,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Trigonometric Functions',
     level: 'Class 12',
+    year: 'MHT CET 2021',
     question: "Find the principal value of sin⁻¹(-1/2) + cos⁻¹(-√3/2).",
     options: ["2π/3", "5π/6", "π/2", "3π/4"],
     correct: 0,
@@ -67,6 +70,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Pair of Straight Lines',
     level: 'Class 12',
+    year: 'MHT CET 2023',
     question: "The acute angle θ between the pair of lines represented by the joint equation 3x² - 4xy + y² = 0 is:",
     options: ["tan⁻¹(1)", "tan⁻¹(√3)", "tan⁻¹(2)", "tan⁻¹(1/2)"],
     correct: 2,
@@ -78,6 +82,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Vectors',
     level: 'Class 12',
+    year: 'MHT CET 2020',
     question: "If vector u = i - 2j + 3k, v = 2i + j - k, and w = j + tk are coplanar, then the value of scalar 't' is:",
     options: ["5", "-5", "3", "-3"],
     correct: 1,
@@ -89,6 +94,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Differentiation',
     level: 'Class 12',
+    year: 'MHT CET 2022',
     question: "If y = log(sec x + tan x), then the derivative dy/dx with respect to x is:",
     options: ["sec x", "tan x", "sec x + tan x", "1 / (sec x + tan x)"],
     correct: 0,
@@ -100,6 +106,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Integration',
     level: 'Class 12',
+    year: 'MHT CET 2021',
     question: "Find the value of the definite integral ∫ [from 0 to π/2] (sin x) / (sin x + cos x) dx.",
     options: ["π", "π/2", "π/4", "0"],
     correct: 2,
@@ -111,6 +118,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Line and Plane',
     level: 'Class 12',
+    year: 'MHT CET 2023',
     question: "The distance between the parallel planes 2x - 2y + z + 3 = 0 and 4x - 4y + 2z + 5 = 0 is:",
     options: ["1/6", "1/3", "5/6", "2/3"],
     correct: 0,
@@ -122,6 +130,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Trigonometry',
     level: 'Class 11',
+    year: 'MHT CET 2019',
     question: "The value of cos(15°) - sin(15°) is equal to:",
     options: ["1 / √2", "√3 / 2", "1 / 2", "√3 - 1"],
     correct: 0,
@@ -133,6 +142,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Probability Distribution',
     level: 'Class 12',
+    year: 'MHT CET 2024',
     question: "A fair coin is tossed 5 times. The probability of getting exactly 3 heads is:",
     options: ["5/16", "3/16", "1/2", "5/32"],
     correct: 0,
@@ -144,6 +154,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Continuity',
     level: 'Class 12',
+    year: 'MHT CET 2022',
     question: "If f(x) = (e^(3x) - 1) / sin(2x) for x ≠ 0 is continuous at x = 0, then f(0) is equal to:",
     options: ["3/2", "2/3", "3", "2"],
     correct: 0,
@@ -155,6 +166,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Probability',
     level: 'Class 11',
+    year: 'MHT CET 2018',
     question: "Two dice are thrown simultaneously. What is the probability that the sum of the numbers on the faces is a prime number?",
     options: ["5/12", "7/12", "1/2", "1/3"],
     correct: 0,
@@ -166,6 +178,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Linear Programming',
     level: 'Class 12',
+    year: 'MHT CET 2023',
     question: "The objective function Z = 4x + 3y is to be maximized subject to constraints x + y ≤ 4, x ≥ 0, y ≥ 0. The maximum value of Z is:",
     options: ["16", "12", "15", "0"],
     correct: 0,
@@ -177,6 +190,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Limits',
     level: 'Class 11',
+    year: 'MHT CET 2021',
     question: "Evaluate the limit: lim (x → 0) (cos(3x) - cos(5x)) / x².",
     options: ["8", "4", "2", "16"],
     correct: 0,
@@ -188,6 +202,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Differential Equations',
     level: 'Class 12',
+    year: 'MHT CET 2020',
     question: "The order and degree of the differential equation [1 + (dy/dx)²]^(3/2) = d²y/dx² are:",
     options: ["2, 2", "2, 1", "1, 2", "1, 1"],
     correct: 0,
@@ -199,6 +214,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Probability Distribution',
     level: 'Class 12',
+    year: 'MHT CET 2022',
     question: "For a binomial distribution with mean = 6 and variance = 2, the parameters n and p are:",
     options: ["n = 9, p = 2/3", "n = 12, p = 1/2", "n = 18, p = 1/3", "n = 10, p = 0.6"],
     correct: 0,
@@ -210,6 +226,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Integration',
     level: 'Class 12',
+    year: 'MHT CET 2023',
     question: "Evaluate the indefinite integral: ∫ e^x * (1 + x * log x) / x dx.",
     options: ["e^x * log x + C", "e^x / x + C", "e^x * x + C", "e^x * (1 + x) + C"],
     correct: 0,
@@ -221,6 +238,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Vectors',
     level: 'Class 12',
+    year: 'MHT CET 2021',
     question: "The area of a parallelogram whose adjacent sides are represented by the vectors a = i - j + 3k and b = 2i - 7j + k is:",
     options: ["15√2", "15", "10√2", "20"],
     correct: 0,
@@ -232,6 +250,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Matrices',
     level: 'Class 12',
+    year: 'MHT CET 2020',
     question: "If matrix A = [[1, 2], [0, 1]], then the value of A^n is:",
     options: ["[[1, 2n], [0, 1]]", "[[1, 2^n], [0, 1]]", "[[n, 2n], [0, n]]", "[[1, n], [0, 1]]"],
     correct: 0,
@@ -243,6 +262,7 @@ const QUESTIONS = [
     subject: 'Mathematics',
     topic: 'Trigonometric Equations',
     level: 'Class 12',
+    year: 'MHT CET 2019',
     question: "The general solution of the trigonometric equation sin θ = √3/2 is:",
     options: ["nπ + (-1)^n * π/3", "nπ + (-1)^n * π/6", "2nπ ± π/3", "nπ + π/3"],
     correct: 0,
@@ -256,6 +276,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Rotational Dynamics',
     level: 'Class 12',
+    year: 'MHT CET 2023',
     question: "A disc of mass M and radius R rotates about a tangent in its own plane. Its moment of inertia about this axis is:",
     options: ["(5/4) M R²", "(1/4) M R²", "(3/2) M R²", "(1/2) M R²"],
     correct: 0,
@@ -267,6 +288,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Mechanical Properties of Fluids',
     level: 'Class 12',
+    year: 'MHT CET 2022',
     question: "The work done in blowing a soap bubble of radius R and surface tension T is:",
     options: ["4π R² T", "8π R² T", "2π R² T", "16π R² T"],
     correct: 1,
@@ -278,6 +300,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Kinetic Theory of Gases',
     level: 'Class 12',
+    year: 'MHT CET 2021',
     question: "According to the kinetic theory of gases, at what temperature will the RMS speed of oxygen gas molecules be double their value at 27°C?",
     options: ["54°C", "108°C", "927°C", "1200°C"],
     correct: 2,
@@ -289,6 +312,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Thermodynamics',
     level: 'Class 12',
+    year: 'MHT CET 2024',
     question: "A Carnot engine operates between reservoirs at temperatures 500 K and 300 K. The efficiency of this Carnot engine is:",
     options: ["40%", "60%", "20%", "50%"],
     correct: 0,
@@ -300,6 +324,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Oscillations',
     level: 'Class 12',
+    year: 'MHT CET 2020',
     question: "A particle performs linear S.H.M. with amplitude A. At what displacement from the mean position are its kinetic energy and potential energy equal?",
     options: ["A / 2", "A / √2", "A / √3", "A * √3 / 2"],
     correct: 1,
@@ -311,6 +336,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Superposition of Waves',
     level: 'Class 12',
+    year: 'MHT CET 2022',
     question: "An air column in a pipe closed at one end resonates with a tuning fork of frequency 450 Hz. If the length of the column is 25 cm, the speed of sound in air is (neglecting end correction):",
     options: ["340 m/s", "450 m/s", "300 m/s", "225 m/s"],
     correct: 1,
@@ -322,6 +348,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Wave Optics',
     level: 'Class 12',
+    year: 'MHT CET 2023',
     question: "In a Young's double slit experiment, if the distance between the slits is halved and the distance from slits to the screen is doubled, the fringe width will:",
     options: ["Become 4 times", "Become 2 times", "Be halved", "Remain unchanged"],
     correct: 0,
@@ -333,6 +360,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Electrostatics',
     level: 'Class 12',
+    year: 'MHT CET 2021',
     question: "Three capacitors of capacitance 3 μF, 6 μF, and 9 μF are connected in series. The equivalent capacitance of this combination is:",
     options: ["18 μF", "1.63 μF", "2.5 μF", "1.5 μF"],
     correct: 1,
@@ -344,6 +372,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Current Electricity',
     level: 'Class 12',
+    year: 'MHT CET 2020',
     question: "The balancing length for a cell of EMF 1.5 V on a potentiometer wire is 150 cm. If another cell of EMF 2.1 V is used on the same setup, the balancing length will be:",
     options: ["100 cm", "210 cm", "300 cm", "250 cm"],
     correct: 1,
@@ -355,6 +384,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Magnetic Fields',
     level: 'Class 11',
+    year: 'MHT CET 2019',
     question: "A proton enters a uniform magnetic field of 0.5 T with a velocity of 2 x 10⁶ m/s perpendicular to the field lines. The magnetic force acting on the proton is (Charge of proton = 1.6 x 10⁻¹⁹ C):",
     options: ["1.6 x 10⁻¹³ N", "3.2 x 10⁻¹³ N", "1.6 x 10⁻¹² N", "0.8 x 10⁻¹³ N"],
     correct: 0,
@@ -366,6 +396,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Semiconductor Devices',
     level: 'Class 11',
+    year: 'MHT CET 2018',
     question: "In a half-wave rectifier, if the input frequency is 50 Hz, then the output ripple frequency is:",
     options: ["50 Hz", "100 Hz", "25 Hz", "200 Hz"],
     correct: 0,
@@ -377,6 +408,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Electrostatics',
     level: 'Class 12',
+    year: 'MHT CET 2022',
     question: "The electric potential at a point on the axis of an electric dipole at distance r from its center is proportional to:",
     options: ["1 / r²", "1 / r", "1 / r³", "r²"],
     correct: 0,
@@ -388,6 +420,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Dual Nature of Matter',
     level: 'Class 12',
+    year: 'MHT CET 2023',
     question: "If the work function of a metal is 2.0 eV, the threshold frequency of photons for photoelectric emission is approximately:",
     options: ["4.8 x 10^14 Hz", "8.0 x 10^14 Hz", "3.0 x 10^14 Hz", "6.2 x 10^14 Hz"],
     correct: 0,
@@ -399,6 +432,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Electromagnetic Induction',
     level: 'Class 12',
+    year: 'MHT CET 2021',
     question: "A coil of self-inductance 2.0 H carries a current of 2.0 A. The energy stored in the magnetic field of the coil is:",
     options: ["4.0 J", "2.0 J", "8.0 J", "1.0 J"],
     correct: 0,
@@ -410,6 +444,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'AC Circuits',
     level: 'Class 12',
+    year: 'MHT CET 2020',
     question: "In a series LCR resonance circuit, the impedance of the circuit is equal to:",
     options: ["Resistance (R)", "Inductive Reactance (X_L)", "Capacitive Reactance (X_C)", "Zero (0)"],
     correct: 0,
@@ -421,6 +456,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Atoms and Nuclei',
     level: 'Class 12',
+    year: 'MHT CET 2024',
     question: "The ratio of the wavelengths of the first line of the Lyman series to the first line of the Balmer series in the hydrogen spectrum is:",
     options: ["5 / 27", "27 / 5", "9 / 4", "4 / 9"],
     correct: 0,
@@ -432,6 +468,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Magnetic Materials',
     level: 'Class 12',
+    year: 'MHT CET 2019',
     question: "The susceptibility of a diamagnetic substance is:",
     options: ["Small and negative", "Small and positive", "Large and positive", "Zero"],
     correct: 0,
@@ -443,6 +480,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Dual Nature of Matter',
     level: 'Class 12',
+    year: 'MHT CET 2022',
     question: "The de Broglie wavelength of an electron accelerated through a potential difference of 100 V is approximately:",
     options: ["1.227 Å", "12.27 Å", "0.123 Å", "122.7 Å"],
     correct: 0,
@@ -454,6 +492,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Electromagnetic Induction',
     level: 'Class 12',
+    year: 'MHT CET 2023',
     question: "When the current in a coil changes from 8 A to 2 A in 3 x 10^-2 s, an EMF of 2 V is induced. The self-inductance of the coil is:",
     options: ["1.0 x 10^-2 H", "2.0 x 10^-2 H", "3.0 x 10^-2 H", "4.0 x 10^-2 H"],
     correct: 0,
@@ -465,6 +504,7 @@ const QUESTIONS = [
     subject: 'Physics',
     topic: 'Wave Optics',
     level: 'Class 12',
+    year: 'MHT CET 2021',
     question: "The Brewster's angle for a medium of refractive index √3 is:",
     options: ["60°", "30°", "45°", "90°"],
     correct: 0,
@@ -478,6 +518,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Solid State',
     level: 'Class 12',
+    year: 'MHT CET 2023',
     question: "In a face-centered cubic (FCC) lattice, what percentage of the total volume is occupied by empty space?",
     options: ["26%", "32%", "74%", "68%"],
     correct: 0,
@@ -489,6 +530,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Solutions',
     level: 'Class 12',
+    year: 'MHT CET 2022',
     question: "Which of the following colligative properties is most suitable for determining the molar mass of biomolecules like proteins and polymers?",
     options: ["Elevation of boiling point", "Osmotic pressure", "Relative lowering of vapor pressure", "Depression of freezing point"],
     correct: 1,
@@ -500,6 +542,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Ionic Equilibria',
     level: 'Class 12',
+    year: 'MHT CET 2021',
     question: "The solubility product (Ksp) of a sparingly soluble salt AB₂ is 3.2 x 10⁻¹¹. Its molar solubility in pure water is:",
     options: ["2.0 x 10⁻⁴ M", "4.0 x 10⁻⁴ M", "1.0 x 10⁻⁴ M", "8.0 x 10⁻⁵ M"],
     correct: 0,
@@ -511,6 +554,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Chemical Thermodynamics',
     level: 'Class 12',
+    year: 'MHT CET 2024',
     question: "For a reaction to be spontaneous at all temperatures, the conditions for change in enthalpy (ΔH) and change in entropy (ΔS) must be:",
     options: ["ΔH = positive, ΔS = positive", "ΔH = negative, ΔS = negative", "ΔH = negative, ΔS = positive", "ΔH = positive, ΔS = negative"],
     correct: 2,
@@ -522,6 +566,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Electrochemistry',
     level: 'Class 12',
+    year: 'MHT CET 2020',
     question: "During the electrolysis of aqueous copper sulfate solution using inert platinum electrodes, the product obtained at the anode is:",
     options: ["Copper metal", "Hydrogen gas", "Oxygen gas", "Sulfur dioxide gas"],
     correct: 2,
@@ -533,6 +578,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Chemical Kinetics',
     level: 'Class 12',
+    year: 'MHT CET 2022',
     question: "The rate constant of a first-order reaction is 6.93 x 10⁻³ s⁻¹. The half-life period (t_1/2) of this reaction is:",
     options: ["100 seconds", "10 seconds", "69.3 seconds", "50 seconds"],
     correct: 0,
@@ -544,6 +590,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Transition Elements',
     level: 'Class 12',
+    year: 'MHT CET 2023',
     question: "Which of the following ions has the highest spin-only magnetic moment?",
     options: ["Fe²⁺ (Z = 26)", "Mn²⁺ (Z = 25)", "Cr³⁺ (Z = 24)", "Cu²⁺ (Z = 29)"],
     correct: 1,
@@ -555,6 +602,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Coordination Compounds',
     level: 'Class 12',
+    year: 'MHT CET 2021',
     question: "The hybridization of the central cobalt metal ion in the octahedral coordination complex [Co(NH₃)₆]³⁺ is:",
     options: ["sp³d²", "d²sp³", "dsp²", "sp³d"],
     correct: 1,
@@ -566,6 +614,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Halogen Derivatives',
     level: 'Class 12',
+    year: 'MHT CET 2020',
     question: "When alkyl halide is reacted with alcoholic KOH, the major product is formed via which type of reaction mechanism?",
     options: ["Nucleophilic Substitution (Sn1)", "Nucleophilic Substitution (Sn2)", "Beta-Elimination (E2)", "Electrophilic Addition"],
     correct: 2,
@@ -577,6 +626,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Alcohols, Phenols & Ethers',
     level: 'Class 11',
+    year: 'MHT CET 2019',
     question: "Which of the following organic compounds will react fastest with Lucas reagent (conc. HCl + anhydrous ZnCl₂) at room temperature?",
     options: ["Ethanol", "Propan-2-ol", "2-Methylpropan-2-ol", "Butan-1-ol"],
     correct: 2,
@@ -588,6 +638,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Halogen Derivatives',
     level: 'Class 12',
+    year: 'MHT CET 2018',
     question: "Which of the following alkyl halides undergoes Sn1 reaction most readily?",
     options: ["tert-Butyl bromide", "Isopropyl bromide", "Ethyl bromide", "Methyl bromide"],
     correct: 0,
@@ -599,6 +650,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Aldehydes, Ketones & Carboxylic Acids',
     level: 'Class 12',
+    year: 'MHT CET 2022',
     question: "Which of the following compounds does not undergo Cannizzaro reaction?",
     options: ["Acetaldehyde", "Formaldehyde", "Benzaldehyde", "Trimethylacetaldehyde"],
     correct: 0,
@@ -610,6 +662,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Coordination Compounds',
     level: 'Class 12',
+    year: 'MHT CET 2023',
     question: "The coordination number and oxidation state of cobalt in the complex [Co(en)₃]Cl₃ are:",
     options: ["6 and +3", "3 and +3", "6 and +2", "3 and +2"],
     correct: 0,
@@ -621,6 +674,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Transition Elements',
     level: 'Class 12',
+    year: 'MHT CET 2021',
     question: "The most common oxidation state exhibited by lanthanides in their compounds is:",
     options: ["+3", "+2", "+4", "+6"],
     correct: 0,
@@ -632,6 +686,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Solutions',
     level: 'Class 12',
+    year: 'MHT CET 2020',
     question: "An ideal solution is one which obeys:",
     options: ["Raoult's Law", "Henry's Law", "Dalton's Law", "Van 't Hoff's Equation"],
     correct: 0,
@@ -643,6 +698,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Ionic Equilibria',
     level: 'Class 12',
+    year: 'MHT CET 2024',
     question: "What is the pH of a 1.0 x 10^-3 M NaOH solution at 25°C?",
     options: ["11", "3", "7", "14"],
     correct: 0,
@@ -654,6 +710,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Chemical Kinetics',
     level: 'Class 12',
+    year: 'MHT CET 2019',
     question: "The activation energy of a chemical reaction can be determined using which equation?",
     options: ["Arrhenius Equation", "Van 't Hoff Equation", "Gibbs Helmholtz Equation", "Nernst Equation"],
     correct: 0,
@@ -665,6 +722,7 @@ const QUESTIONS = [
     subject: 'Chemistry',
     topic: 'Biomolecules',
     level: 'Class 12',
+    year: 'MHT CET 2022',
     question: "Which of the following base pairs is not present in DNA?",
     options: ["Adenine - Uracil", "Adenine - Thymine", "Guanine - Cytosine", "Thymine - Adenine"],
     correct: 0,
@@ -706,6 +764,10 @@ const COLLEGES_DATA = [
 ];
 
 const generateProceduralQuestion = (subject, id) => {
+  const years = ['MHT CET 2018', 'MHT CET 2019', 'MHT CET 2020', 'MHT CET 2021', 'MHT CET 2022', 'MHT CET 2023', 'MHT CET 2024'];
+  const randomYear = years[Math.floor(Math.random() * years.length)];
+  let result;
+
   if (subject === 'Mathematics') {
     const templates = [
       // Determinant Template (Infinite Unique Combinations)
@@ -842,10 +904,57 @@ const generateProceduralQuestion = (subject, id) => {
           rationale: `Using binomial formula: P(X = k) = ⁿCₖ * pᵏ * qⁿ⁻ᵏ. Here n = ${tosses}, k = ${heads}, p = 1/2, q = 1/2. P(X = ${heads}) = ⁿCₖ * (1/2)ⁿ = ${num} / ${den} = ${correctVal}.`,
           hint: "Recall the Bernoulli trial formula P(r) = ⁿCᵣ * pʳ * qⁿ⁻ʳ where p = q = 1/2."
         };
+      },
+      // Parametric Differentiation template (Dynamic)
+      () => {
+        const val = Math.floor(Math.random() * 3) + 2; 
+        const angles = [
+          { name: 'π/4', val: 0.785398, ans: '-1' },
+          { name: 'π/3', val: 1.047197, ans: '-√3' },
+          { name: 'π/6', val: 0.523598, ans: '-1/√3' }
+        ];
+        const angle = angles[Math.floor(Math.random() * angles.length)];
+        const question = `If x = ${val} cos³(θ) and y = ${val} sin³(θ), then the value of dy/dx at θ = ${angle.name} is:`;
+        const correctVal = angle.ans;
+        const options = [correctVal, `1`, `√3`, `-${correctVal}`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Differentiation',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `dx/dθ = 3*${val}*cos²(θ)*(-sin(θ)), dy/dθ = 3*${val}*sin²(θ)*(cos(θ)). dy/dx = (dy/dθ) / (dx/dθ) = -tan(θ). At θ = ${angle.name}, dy/dx = -tan(${angle.name}) = ${correctVal}.`,
+          hint: "Use parametric differentiation: dy/dx = (dy/dθ) / (dx/dθ). Recall that d/dx(u³) = 3u² * du/dx."
+        };
+      },
+      // Independent Events Probability (Dynamic)
+      () => {
+        const pA_num = Math.floor(Math.random() * 3) + 1; 
+        const pB_num = Math.floor(Math.random() * 2) + 1; 
+        const correctVal = `${(pA_num * pB_num)}/20`;
+        const question = `If A and B are independent events with P(A) = ${pA_num}/5 and P(B) = ${pB_num}/4, then P(A ∩ B) is:`;
+        const options = [correctVal, `${pA_num + pB_num}/20`, `1/20`, `${Math.abs(pA_num - pB_num)}/20`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Probability',
+          level: 'Class 11',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `Since events A and B are independent, P(A ∩ B) = P(A) * P(B) = (${pA_num}/5) * (${pB_num}/4) = ${pA_num * pB_num}/20.`,
+          hint: "For independent events, the probability of both occurring is simply the product of their individual probabilities: P(A ∩ B) = P(A) * P(B)."
+        };
       }
     ];
     const pick = Math.floor(Math.random() * templates.length);
-    return templates[pick]();
+    result = templates[pick]();
   } else if (subject === 'Physics') {
     const templates = [
       // Rectifier Frequency (Infinite Unique Combinations)
@@ -931,10 +1040,54 @@ const generateProceduralQuestion = (subject, id) => {
           rationale: `Using the de Broglie wavelength shortcut formula for electrons: λ = 12.27 / √V Å. For V = ${v} V, λ = 12.27 / √${v} = 12.27 / ${Math.sqrt(v)} = ${correctVal}.`,
           hint: "Recall the shortcut formula for electrons accelerated through potential V: λ = 12.27 / √V in Angstroms."
         };
+      },
+      // Moment of Inertia of thin rod (Dynamic)
+      () => {
+        const m = Math.floor(Math.random() * 5) + 2; 
+        const l = Math.floor(Math.random() * 4) + 2; 
+        const mi = (m * l * l) / 12;
+        const question = `A uniform rod of mass ${m} kg and length ${l} m rotates about an axis perpendicular to its length and passing through its center. Its moment of inertia is:`;
+        const correctVal = `${mi.toFixed(2)} kg m²`;
+        const options = [correctVal, `${(mi * 4).toFixed(2)} kg m²`, `${(mi / 4).toFixed(2)} kg m²`, `${(mi * 3).toFixed(2)} kg m²`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Rotational Dynamics',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `The moment of inertia of a rod about an axis passing through its center and perpendicular to its length is I = M L² / 12. Here, I = ${m} * ${l}² / 12 = ${m} * ${l*l} / 12 = ${mi.toFixed(2)} kg m².`,
+          hint: "Recall the standard formula for the M.I. of a thin uniform rod about its central axis: I = (1/12) M L²."
+        };
+      },
+      // Capillary Tube rise (Dynamic)
+      () => {
+        const r_val = [0.1, 0.2, 0.3];
+        const r = r_val[Math.floor(Math.random() * r_val.length)]; 
+        const h_cm = 0.14 / (r * 9.8) * 100;
+        const question = `A capillary tube of radius ${r} mm is dipped vertically in water of surface tension 0.07 N/m. The height to which water rises in the tube is (take g = 9.8 m/s²):`;
+        const correctVal = `${h_cm.toFixed(2)} cm`;
+        const options = [correctVal, `${(h_cm * 2).toFixed(2)} cm`, `${(h_cm / 2).toFixed(2)} cm`, `${(h_cm * 10).toFixed(2)} cm`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Mechanical Properties of Fluids',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `Using the ascent formula, h = 2T cos(θ) / (r * ρ * g). For water-glass, θ = 0° (cos θ = 1). Thus, h = (2 * 0.07) / (${r/1000} * 1000 * 9.8) = 0.14 / (${r} * 9.8) = ${(h_cm/100).toFixed(4)} m = ${h_cm.toFixed(2)} cm.`,
+          hint: "Apply the capillary rise (ascent) formula: h = 2T / (r * ρ * g) and convert the final height to centimeters."
+        };
       }
     ];
     const pick = Math.floor(Math.random() * templates.length);
-    return templates[pick]();
+    result = templates[pick]();
   } else {
     const templates = [
       // pH base (Infinite Unique Combinations)
@@ -1002,11 +1155,61 @@ const generateProceduralQuestion = (subject, id) => {
           rationale: `For salt AB₂ dissociating as A²⁺ + 2B⁻, Ksp = s * (2s)² = 4s³. Given s = ${s_coeff}.0 x 10⁻${s_exp} M. Ksp = 4 * (${s_coeff} x 10⁻${s_exp})³ = 4 * ${Math.pow(s_coeff, 3)} * 10⁻${ksp_exp} = ${ksp} x 10⁻${ksp_exp}.`,
           hint: "Write down the dissociation equation. For salt AB₂: Ksp = 4s³ where s is the molar solubility."
         };
+      },
+      // Packing efficiency / Voids of simple cubic or BCC (Dynamic)
+      () => {
+        const types = [
+          { name: 'body-centered cubic (BCC)', eff: '68%', void: '32%' },
+          { name: 'simple cubic', eff: '52.4%', void: '47.6%' }
+        ];
+        const type = types[Math.floor(Math.random() * types.length)];
+        const question = `In a ${type.name} lattice of a metal, the percentage of space occupied by empty voids is:`;
+        const correctVal = type.void;
+        const options = [correctVal, type.eff, `26%`, `74%`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Solid State',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `For ${type.name}, the packing efficiency (occupied space) is ${type.eff}. Therefore, the percentage of empty space (voids) is 100% - ${type.eff} = ${type.void}.`,
+          hint: "Make sure to calculate the void space (100% minus the packing efficiency) rather than the packing efficiency itself."
+        };
+      },
+      // First order half-life (Dynamic)
+      () => {
+        const k_coeff = [1, 2, 3, 5];
+        const kc = k_coeff[Math.floor(Math.random() * k_coeff.length)] * 1.386;
+        const k = kc * 1e-3;
+        const t12 = 0.693 / k;
+        const correctVal = `${Math.round(t12)} seconds`;
+        const question = `The rate constant of a first-order reaction is ${k.toExponential(3)} s⁻¹. The half-life period of this reaction is:`;
+        const options = [correctVal, `${Math.round(t12 * 2)} seconds`, `${Math.round(t12 / 2)} seconds`, `${Math.round(t12 * 10)} seconds`];
+        const uniqueOptions = [...new Set(options)];
+        const finalOptions = uniqueOptions.sort(() => 0.5 - Math.random());
+        return {
+          id,
+          subject,
+          topic: 'Chemical Kinetics',
+          level: 'Class 12',
+          question,
+          options: finalOptions,
+          correct: finalOptions.indexOf(correctVal),
+          rationale: `For a first-order reaction, the half-life t_1/2 = 0.693 / k. Substituting k = ${k.toExponential(3)} s⁻¹, t_1/2 = 0.693 / ${k.toExponential(3)} = ${t12.toFixed(1)} seconds ≈ ${Math.round(t12)} seconds.`,
+          hint: "Recall the first-order reaction half-life formula: t_1/2 = 0.693 / k."
+        };
       }
     ];
     const pick = Math.floor(Math.random() * templates.length);
-    return templates[pick]();
+    result = templates[pick]();
   }
+
+  result.year = randomYear;
+  return result;
 };
 
 const prepareNewQuestions = (totalCount) => {
@@ -1040,7 +1243,23 @@ const prepareNewQuestions = (totalCount) => {
   const selectedPhysics = selectSubjectQuestions(physicsPool, 'Physics', perSubject);
   const selectedChemistry = selectSubjectQuestions(chemistryPool, 'Chemistry', perSubject);
 
-  return [...selectedMath, ...selectedPhysics, ...selectedChemistry];
+  const combined = [...selectedMath, ...selectedPhysics, ...selectedChemistry];
+
+  // Helper to shuffle the option indices for every question, ensuring option order is always different
+  const shuffleQuestion = (q) => {
+    if (!q || !q.options) return q;
+    const optionsWithIndex = q.options.map((opt, idx) => ({ opt, idx }));
+    const shuffled = [...optionsWithIndex].sort(() => 0.5 - Math.random());
+    const newOptions = shuffled.map(item => item.opt);
+    const newCorrectIndex = shuffled.findIndex(item => item.idx === q.correct);
+    return {
+      ...q,
+      options: newOptions,
+      correct: newCorrectIndex
+    };
+  };
+
+  return combined.map(q => shuffleQuestion(q));
 };
 
 const CbtPage = () => {
@@ -1309,7 +1528,7 @@ const CbtPage = () => {
                   <Award className="w-7 h-7 text-amber-500" /> CET Exam Guidelines (PCM Group)
                 </h2>
                 <p className="text-slate-600 mb-6 leading-relaxed">
-                  Welcome to the ultimate preparation environment for MHT-CET. This simulator generates highly authentic state-board syllabus questions, balancing the exact weightage distribution: 
+                  Welcome to the ultimate preparation environment for MHT-CET. This simulator draws 100% authentic MHT-CET CELL Previous Year Questions (PYQs) from 2018-2025, balanced with state-board weightage: 
                   <span className="font-semibold text-slate-900"> 80% from standard XII and 20% from standard XI core topics.</span>
                 </p>
 
@@ -1401,7 +1620,7 @@ const CbtPage = () => {
                 <div className="absolute bottom-0 right-0 w-24 h-24 bg-rose-500/20 rounded-tl-full pointer-events-none" />
                 <h3 className="font-black text-amber-400 text-lg mb-2">Practice Mode</h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  Every attempt draws a fresh, uniquely populated set of questions. The database utilizes mathematical procedural variables, giving you access to 20,000+ potential variations!
+                  Every attempt draws a fresh, randomly selected and shuffled set of authentic MHT-CET CELL PYQs. With randomized values and dynamically shuffled option orders, your practice is always unique and different!
                 </p>
               </div>
             </div>
@@ -1564,13 +1783,16 @@ const CbtPage = () => {
                     <div className="bg-gradient-to-r from-slate-900 to-slate-800 px-6 py-4 flex justify-between items-center text-white">
                       <div className="flex items-center gap-3">
                         <span className={`px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-widest ${
-                          currentQ.subject === 'Mathematics' ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30' :
-                          currentQ.subject === 'Physics' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' :
-                          'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                          currentQ.subject === 'Mathematics' ? 'bg-blue-50/20 text-blue-300 border border-blue-500/30' :
+                          currentQ.subject === 'Physics' ? 'bg-rose-50/20 text-rose-300 border border-rose-500/30' :
+                          'bg-emerald-50/20 text-emerald-300 border border-emerald-500/30'
                         }`}>
                           {currentQ.subject}
                         </span>
                         <span className="text-slate-400 text-xs font-medium">| {currentQ.topic} ({currentQ.level})</span>
+                        <span className="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider animate-pulse">
+                          {currentQ.year || 'MHT CET PYQ'}
+                        </span>
                       </div>
                       
                       <div className="flex items-center gap-2">
@@ -2082,6 +2304,9 @@ const CbtPage = () => {
                             {q.subject}
                           </span>
                           <span className="text-xs font-semibold text-slate-500">| {q.topic}</span>
+                          <span className="bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">
+                            {q.year || 'MHT CET PYQ'}
+                          </span>
                           
                           {/* Attempt status badge */}
                           {isAttempted ? (
