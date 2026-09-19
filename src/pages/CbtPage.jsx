@@ -1308,6 +1308,28 @@ const CbtPage = () => {
     return () => clearInterval(timer);
   }, [timeLeft, isTimerRunning, view]);
 
+  // Security through Obscurity: Anti-tampering & inspect protection during active exam
+  useEffect(() => {
+    if (view !== 'test') return;
+    const blockInspect = (e) => {
+      // Prevent F12 DevTools
+      if (e.key === 'F12') {
+        e.preventDefault();
+        return false;
+      }
+      // Prevent Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U (view source)
+      if ((e.ctrlKey || e.metaKey) && (
+        (e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
+        e.key.toUpperCase() === 'U'
+      )) {
+        e.preventDefault();
+        return false;
+      }
+    };
+    window.addEventListener('keydown', blockInspect);
+    return () => window.removeEventListener('keydown', blockInspect);
+  }, [view]);
+
   const formatTime = (seconds) => {
     const hours = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
@@ -1741,7 +1763,10 @@ const CbtPage = () => {
 
         {/* VIEW 3: FULL DYNAMIC CBT INTERFACE PANEL */}
         {view === 'test' && (
-          <div className="flex-1 flex overflow-hidden">
+          <div 
+            className="flex-1 flex overflow-hidden select-none"
+            onContextMenu={(e) => e.preventDefault()}
+          >
             
             {/* Main Question & Option Body */}
             <main className="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col justify-between bg-slate-50">

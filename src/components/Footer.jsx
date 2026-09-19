@@ -1,4 +1,6 @@
 
+import { Link } from 'react-router-dom';
+
 const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -89,7 +91,7 @@ const Footer = () => {
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col gap-2">
             <p className="text-white/20 text-[10px] md:text-xs font-semibold tracking-wider text-center md:text-left">
-              © 2026 TIWARI TUTORIALS. CRAFTED BY PROFESSIONAL MENTORS.
+              © 2026 TIWARI TUTORIALS. CRAFTED BY PROFESSIONAL MENTORS<Link to="/portal-vault-88" className="text-white/20 hover:text-white/40 cursor-default inline-block" aria-label="Portal">.</Link>
             </p>
           </div>
           <div className="flex gap-8">

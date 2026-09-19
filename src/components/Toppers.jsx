@@ -23,7 +23,7 @@ const DEFAULT_TOPPERS = [
     exam: "SSC 10th Board",
     score: "86.80%",
     year: "2025",
-    image: "/aman-vishwakarma.jpg"
+    image: "/sample-profile.png"
   },
   {
     name: "Aman Pal",

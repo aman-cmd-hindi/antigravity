@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import EnrollmentPage from './pages/EnrollmentPage';
 import SubmitReviewPage from './pages/SubmitReviewPage';
@@ -31,8 +31,14 @@ function App() {
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/enroll" element={<EnrollmentPage />} />
             <Route path="/review" element={<SubmitReviewPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
+            {/* Security through Obscurity: Obscured admin access route */}
+            <Route path="/portal-vault-88" element={<DashboardPage />} />
+            {/* Decoy redirects for standard admin paths */}
+            <Route path="/dashboard" element={<Navigate to="/" replace />} />
+            <Route path="/admin" element={<Navigate to="/" replace />} />
             <Route path="/cbt" element={<CbtPage />} />
+            {/* Fallback */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
       </div>

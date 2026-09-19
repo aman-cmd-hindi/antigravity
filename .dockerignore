@@ -1,5 +1,49 @@
+# Dependencies & build artifacts
 node_modules
 dist
+build
+.cache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Version control & internal IDE / AI tooling
 .git
+.gitignore
+.gitattributes
+.gemini
+.agents
+.vscode
+.idea
+
+# Secrets, environment variables & credentials
 .env
+.env.*
+*.env
+*.pem
+*.key
+*.crt
+
+# Backups, disabled code & legacy files (obscurity)
+*.backup
+*.off
+*.bak
+*.old
+*.orig
+*.tmp
+*.swp
+*~
 .DS_Store
+Thumbs.db
+
+# Database security rules & Firebase internal configurations
+firestore.rules
+storage.rules
+firebase.json
+.firebaserc
+
+# Documentation & repository metadata
+*.md
+LICENSE
+eslint.config.js
+postcss.config.js

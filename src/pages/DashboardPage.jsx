@@ -4,7 +4,19 @@ import { collection, getDocs, orderBy, query, deleteDoc, doc, addDoc, updateDoc,
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
 import { db, storage } from '../firebase';
 
-const ADMIN_PASSWORD = '@Aman6227';
+// Pre-computed SHA-256 hash of the administrative key (Security through Obscurity)
+const ADMIN_HASH = '3d71fbedca959944b53f34769a6326ba4d8f464d5db25e181f4777821b954494';
+const LOCKOUT_KEY = '__sec_gate_lock';
+const ATTEMPTS_KEY = '__sec_gate_att';
+const SESSION_KEY = '__sec_adm_session';
+const MAX_ATTEMPTS = 5;
+const LOCKOUT_DURATION_MS = 5 * 60 * 1000; // 5 minutes
+
+async function hashKey(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 const GALLERY_CATEGORIES = ['Classroom', 'Events', 'Toppers', 'Activities', 'Other'];
 const FACULTY_SUBJECTS = ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'English', 'Other'];
 
@@ -12,7 +24,7 @@ const FACULTY_SUBJECTS = ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'Eng
 const INITIAL_TOPPERS = [
   { name: "Gitanjali Vishwakarma", exam: "SSC 10th Board", score: "91.20%", year: "2025", image: "/sample-profile.png" },
   { name: "Lekhraj Maurya", exam: "SSC 10th Board", score: "87.60%", year: "2025", image: "/lekhraj-maurya.jpeg" },
-  { name: "Aman Vishwakarma", exam: "SSC 10th Board", score: "86.80%", year: "2025", image: "/aman-vishwakarma.jpg" },
+  { name: "Aman Vishwakarma", exam: "SSC 10th Board", score: "86.80%", year: "2025", image: "/sample-profile.png" },
   { name: "Aman Pal", exam: "SSC 10th Board", score: "85.20%", year: "2025", image: "/sample-profile.png" }
 ];
 
@@ -26,7 +38,9 @@ const INITIAL_FACULTY = [
 ];
 
 const DashboardPage = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return sessionStorage.getItem(SESSION_KEY) === 'active';
+  });
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -82,14 +96,46 @@ const DashboardPage = () => {
   const [facultySuccess, setFacultySuccess] = useState(false);
   const [facultyEditingId, setFacultyEditingId] = useState(null); // ID of faculty being edited
 
-  const handleLogin = (e) => {
+  const getLockoutRemaining = () => {
+    const lockUntil = Number(sessionStorage.getItem(LOCKOUT_KEY) || 0);
+    const diff = lockUntil - Date.now();
+    return diff > 0 ? Math.ceil(diff / 1000) : 0;
+  };
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setIsAuthenticated(true);
-      setPasswordError('');
-    } else {
-      setPasswordError('Incorrect password. Access denied.');
+    const remaining = getLockoutRemaining();
+    if (remaining > 0) {
+      setPasswordError(`Access suspended due to repeated failures. Try again in ${remaining}s.`);
+      return;
     }
+
+    try {
+      const enteredHash = await hashKey(password);
+      if (enteredHash === ADMIN_HASH) {
+        sessionStorage.setItem(SESSION_KEY, 'active');
+        sessionStorage.removeItem(ATTEMPTS_KEY);
+        sessionStorage.removeItem(LOCKOUT_KEY);
+        setIsAuthenticated(true);
+        setPasswordError('');
+      } else {
+        const attempts = Number(sessionStorage.getItem(ATTEMPTS_KEY) || 0) + 1;
+        sessionStorage.setItem(ATTEMPTS_KEY, String(attempts));
+        if (attempts >= MAX_ATTEMPTS) {
+          sessionStorage.setItem(LOCKOUT_KEY, String(Date.now() + LOCKOUT_DURATION_MS));
+          setPasswordError('Maximum invalid attempts reached. Portal suspended for 5 minutes.');
+        } else {
+          setPasswordError(`Invalid key. Access denied (${MAX_ATTEMPTS - attempts} attempt(s) left).`);
+        }
+      }
+    } catch {
+      setPasswordError('Verification failed.');
+    }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem(SESSION_KEY);
+    setIsAuthenticated(false);
   };
 
   const fetchData = async () => {
@@ -540,7 +586,7 @@ const DashboardPage = () => {
             🔄 Refresh
           </button>
           <button
-            onClick={() => setIsAuthenticated(false)}
+            onClick={handleLogout}
             className="px-4 py-2 bg-red-600/10 border border-red-500/20 text-red-400 hover:bg-red-600/20 rounded-xl text-xs font-bold uppercase tracking-widest transition-all cursor-pointer"
           >
             🔒 Logout
