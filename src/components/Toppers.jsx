@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase';
-import { Award, Trophy, CheckCircle2 } from 'lucide-react';
+import { Award, Trophy } from 'lucide-react';
 
 const DEFAULT_TOPPERS = [
   {

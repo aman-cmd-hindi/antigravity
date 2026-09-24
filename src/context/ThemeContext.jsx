@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useState, useEffect } from 'react';
 import { Moon, Sun } from 'lucide-react';
 
 const ThemeContext = createContext({
@@ -57,7 +58,7 @@ export const useTheme = () => useContext(ThemeContext);
  * Minimalist, high-end Theme Switcher Pill
  */
 export const ThemeToggle = ({ className = '' }) => {
-  const { theme, toggleTheme, isDark } = useTheme();
+  const { toggleTheme, isDark } = useTheme();
 
   return (
     <button

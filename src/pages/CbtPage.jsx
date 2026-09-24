@@ -1,30 +1,24 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Timer, 
   CheckCircle, 
-  AlertCircle, 
-  Menu, 
   ChevronLeft, 
   ChevronRight, 
   Send, 
-  HelpCircle, 
   Bookmark, 
   BookOpen, 
   Award, 
-  RefreshCw, 
   Compass, 
   Clock, 
   BarChart2, 
   X, 
-  Check, 
   AlertTriangle,
   Lightbulb,
   Search,
   BookMarked,
   Layers,
-  Flag,
-  Info
+  Flag
 } from 'lucide-react';
 
 import { useCbtTimer, formatTime } from '../hooks/useCbtTimer';
@@ -42,7 +36,6 @@ const CbtPage = () => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const {
     timeLeft,
-    isTimerRunning,
     pauseTimer,
     resetTimer
   } = useCbtTimer(questionCount * 72, view === 'test', () => {
@@ -53,7 +46,6 @@ const CbtPage = () => {
   const [bookmarked, setBookmarked] = useState({});
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [expandedRationale, setExpandedRationale] = useState({});
 
   // --- Filtered Questions based on UI Selection ---
   const filteredQuestions = useMemo(() => {
@@ -65,10 +57,6 @@ const CbtPage = () => {
     });
   }, [selectedSubjectFilter, searchTerm, sessionQuestions]);
 
-  // Sync index boundary when filter changes
-  useEffect(() => {
-    setCurrentIdx(0);
-  }, [selectedSubjectFilter]);
 
   // Timer is managed reactively via useCbtTimer hook
 
@@ -166,7 +154,6 @@ const CbtPage = () => {
 
   // --- Score Calculator and Diagnostics ---
   const resultsSummary = useMemo(() => {
-    let totalScore = 0;
     let mathScore = 0;
     let physicsScore = 0;
     let chemistryScore = 0;
@@ -211,7 +198,7 @@ const CbtPage = () => {
     const physicsCount = sessionQuestions.filter(q => q.subject === 'Physics').length;
     const chemistryCount = sessionQuestions.filter(q => q.subject === 'Chemistry').length;
 
-    totalScore = mathScore + physicsScore + chemistryScore;
+    const totalScore = mathScore + physicsScore + chemistryScore;
     const maxScore = mathCount * 2 + physicsCount * 1 + chemistryCount * 1;
     const percentileVal = Math.min(99.9, Math.max(45, (totalScore / maxScore) * 100 + 4.5));
 
@@ -538,7 +525,7 @@ const CbtPage = () => {
                     {['All', 'Mathematics', 'Physics', 'Chemistry'].map(sub => (
                       <button
                         key={sub}
-                        onClick={() => setSelectedSubjectFilter(sub)}
+                        onClick={() => { setSelectedSubjectFilter(sub); setCurrentIdx(0); }}
                         className={`px-4 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer border-none ${
                           selectedSubjectFilter === sub 
                             ? 'bg-slate-900 text-white shadow-md' 

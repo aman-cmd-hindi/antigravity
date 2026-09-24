@@ -1,4 +1,4 @@
-import { Users, Target, FileText, Award, ShieldCheck, CheckCircle } from 'lucide-react';
+import { Users, Target, FileText, Award, ShieldCheck } from 'lucide-react';
 
 const About = () => {
   return (

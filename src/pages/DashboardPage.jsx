@@ -238,30 +238,25 @@ const DashboardPage = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated) fetchData();
+    let isSubscribed = true;
+    if (isAuthenticated) {
+      Promise.resolve().then(() => {
+        if (isSubscribed) fetchData();
+      });
+    }
+    return () => { isSubscribed = false; };
   }, [isAuthenticated]);
 
-  // Image previews
-  useEffect(() => {
-    if (!galleryFile) { setGalleryFilePreview(''); return; }
-    const url = URL.createObjectURL(galleryFile);
-    setGalleryFilePreview(url);
-    return () => URL.revokeObjectURL(url);
-  }, [galleryFile]);
+  const handleFileChange = (e, setFile, setPreview) => {
+    const file = e.target.files?.[0] || null;
+    setFile(file);
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    } else {
+      setPreview('');
+    }
+  };
 
-  useEffect(() => {
-    if (!topperFile) { setTopperFilePreview(''); return; }
-    const url = URL.createObjectURL(topperFile);
-    setTopperFilePreview(url);
-    return () => URL.revokeObjectURL(url);
-  }, [topperFile]);
-
-  useEffect(() => {
-    if (!facultyFile) { setFacultyFilePreview(''); return; }
-    const url = URL.createObjectURL(facultyFile);
-    setFacultyFilePreview(url);
-    return () => URL.revokeObjectURL(url);
-  }, [facultyFile]);
 
   // General delete handler
   const handleDelete = async (collectionName, id, storagePath = null) => {
@@ -769,7 +764,7 @@ const DashboardPage = () => {
                   <div className="space-y-3">
                     <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] px-1">File</label>
                     <div className="relative border border-dashed border-white/20 rounded-xl p-4 flex flex-col items-center justify-center hover:border-blue-500 bg-white/3">
-                      <input type="file" accept="image/*" onChange={(e) => setGalleryFile(e.target.files[0])} className="absolute inset-0 opacity-0 cursor-pointer" />
+                      <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, setGalleryFile, setGalleryFilePreview)} className="absolute inset-0 opacity-0 cursor-pointer" />
                       {galleryFilePreview ? (
                         <div className="w-full aspect-video rounded-lg overflow-hidden border border-white/10">
                           <img src={galleryFilePreview} alt="Preview" className="w-full h-full object-cover" />
@@ -908,7 +903,7 @@ const DashboardPage = () => {
                   <div className="space-y-3">
                     <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] px-1">Photo</label>
                     <div className="relative border border-dashed border-white/20 rounded-xl p-4 flex flex-col items-center justify-center hover:border-blue-500 bg-white/3">
-                      <input type="file" accept="image/*" onChange={(e) => setTopperFile(e.target.files[0])} className="absolute inset-0 opacity-0 cursor-pointer" />
+                      <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, setTopperFile, setTopperFilePreview)} className="absolute inset-0 opacity-0 cursor-pointer" />
                       {topperFilePreview ? (
                         <div className="w-full aspect-square rounded-lg overflow-hidden border border-white/10">
                           <img src={topperFilePreview} alt="Preview" className="w-full h-full object-cover" />
@@ -1046,7 +1041,7 @@ const DashboardPage = () => {
                   <div className="space-y-3">
                     <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] px-1">Photo</label>
                     <div className="relative border border-dashed border-white/20 rounded-xl p-4 flex flex-col items-center justify-center hover:border-blue-500 bg-white/3">
-                      <input type="file" accept="image/*" onChange={(e) => setFacultyFile(e.target.files[0])} className="absolute inset-0 opacity-0 cursor-pointer" />
+                      <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, setFacultyFile, setFacultyFilePreview)} className="absolute inset-0 opacity-0 cursor-pointer" />
                       {facultyFilePreview ? (
                         <div className="w-full aspect-square rounded-lg overflow-hidden border border-white/10">
                           <img src={facultyFilePreview} alt="Preview" className="w-full h-full object-cover" />

@@ -3,7 +3,6 @@ import { COLLEGES_DATA } from '../data/cbtQuestions';
 
 // Scoring utility function extracted for testing core business rules
 export function calculateCbtScore(questions, answers) {
-  let totalScore = 0;
   let mathScore = 0;
   let physicsScore = 0;
   let chemistryScore = 0;
@@ -42,7 +41,7 @@ export function calculateCbtScore(questions, answers) {
   const physicsCount = questions.filter(q => q.subject === 'Physics').length;
   const chemistryCount = questions.filter(q => q.subject === 'Chemistry').length;
 
-  totalScore = mathScore + physicsScore + chemistryScore;
+  const totalScore = mathScore + physicsScore + chemistryScore;
   const maxScore = mathCount * 2 + physicsCount * 1 + chemistryCount * 1;
   const percentile = maxScore > 0 
     ? Math.min(99.9, Math.max(45, parseFloat(((totalScore / maxScore) * 100 + 4.5).toFixed(2))))

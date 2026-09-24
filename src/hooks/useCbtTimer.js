@@ -16,9 +16,6 @@ export const useCbtTimer = (initialSeconds = 2160, isActive = false, onTimeUp = 
   const [timeLeft, setTimeLeft] = useState(initialSeconds);
   const [isTimerRunning, setIsTimerRunning] = useState(true);
 
-  useEffect(() => {
-    setTimeLeft(initialSeconds);
-  }, [initialSeconds]);
 
   useEffect(() => {
     if (!isTimerRunning || !isActive) return;

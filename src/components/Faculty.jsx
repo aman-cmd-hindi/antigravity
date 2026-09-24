@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase';
-import { Star, UserCheck, BookOpen, ShieldCheck } from 'lucide-react';
+import { Star, UserCheck } from 'lucide-react';
 
 const DEFAULT_FACULTY = [
   {

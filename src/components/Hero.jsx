@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight, Terminal, CheckCircle2, ChevronRight } from 'lucide-react';
+import { ArrowRight, Terminal, ChevronRight } from 'lucide-react';
 
 const programs = ['NEET-UG', 'IIT-JEE', 'HSC / CBSE BOARDS', 'COMMERCE'];
 
 const Hero = () => {
   const [currentWordIdx, setCurrentWordIdx] = useState(0);
-  const [currentText, setCurrentText] = useState('NEET-UG');
+  const currentText = programs[currentWordIdx];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -14,9 +14,6 @@ const Hero = () => {
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    setCurrentText(programs[currentWordIdx]);
-  }, [currentWordIdx]);
 
   return (
     <section id="hero" className="relative pt-24 pb-12 md:pt-28 md:pb-16 px-4 md:px-8 border-b border-zinc-800/80 bg-[#09090b]">

@@ -11,14 +11,11 @@ import {
   Plus, 
   Download, 
   Share2, 
-  Clock, 
   CheckCircle2, 
   AlertCircle, 
-  ChevronRight, 
   Menu, 
   X,
   Compass,
-  GraduationCap,
   BookmarkCheck,
   Printer
 } from 'lucide-react';

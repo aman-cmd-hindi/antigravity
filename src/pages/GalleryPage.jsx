@@ -38,6 +38,14 @@ const GalleryPage = () => {
     ? images
     : images.filter(img => img.category?.toLowerCase() === activeCategory.toLowerCase());
 
+  const handleNext = () => {
+    setSelectedIdx(prev => (prev === null || prev === filteredImages.length - 1 ? 0 : prev + 1));
+  };
+
+  const handlePrev = () => {
+    setSelectedIdx(prev => (prev === null || prev === 0 ? filteredImages.length - 1 : prev - 1));
+  };
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (selectedIdx === null) return;
@@ -48,15 +56,8 @@ const GalleryPage = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedIdx, filteredImages]);
+  });
 
-  const handleNext = () => {
-    setSelectedIdx(prev => (prev === null || prev === filteredImages.length - 1 ? 0 : prev + 1));
-  };
-
-  const handlePrev = () => {
-    setSelectedIdx(prev => (prev === null || prev === 0 ? filteredImages.length - 1 : prev - 1));
-  };
 
   return (
     <>
