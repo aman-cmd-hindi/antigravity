@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MessageSquare, ChevronDown, Menu, X, ArrowUpRight } from 'lucide-react';
+import { ThemeToggle } from '../context/ThemeContext';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -100,6 +101,7 @@ const Header = () => {
 
       {/* Right Action Tools */}
       <div className="flex items-center gap-2.5">
+        <ThemeToggle />
         <div className="relative group hidden md:block">
           <button className="btn-secondary px-3 py-1.5 rounded-sm text-xs font-mono flex items-center gap-1.5 border border-zinc-800 hover:border-zinc-700 bg-zinc-900/80 text-zinc-200">
             <MessageSquare className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
@@ -180,6 +182,10 @@ const Header = () => {
             )
           ))}
           <div className="pt-2 flex flex-col gap-2">
+            <div className="flex items-center justify-between pb-1 border-b border-zinc-800/40">
+              <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono">Theme Mode</span>
+              <ThemeToggle />
+            </div>
             <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono">Direct Communication</span>
             <div className="grid grid-cols-2 gap-2">
               <a 

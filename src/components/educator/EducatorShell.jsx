@@ -22,6 +22,7 @@ import {
   BookmarkCheck,
   Printer
 } from 'lucide-react';
+import { ThemeToggle } from '../../context/ThemeContext';
 
 const NAVIGATION_SECTIONS = [
   {
@@ -184,6 +185,7 @@ export const EducatorShell = () => {
 
           {/* Quick-Jump Index and Action Buttons */}
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-[#f5f5f4] border border-[#e7e5e4] rounded-sm text-xs font-mono-scholastic text-[#78716c] w-64">
               <Search className="w-3.5 h-3.5 text-[#a8a29e]" strokeWidth={1.5} />
               <span>Search syllabi, theorems...</span>

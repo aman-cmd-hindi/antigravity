@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -27,4 +28,6 @@ isSupported().then(supported => {
 
 export const db = getFirestore(app);
 export const storage = getStorage(app);
-export { analytics };
+export const auth = getAuth(app);
+export { analytics };
+

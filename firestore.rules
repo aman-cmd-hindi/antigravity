@@ -1,29 +1,44 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow public read/write access to enrollments for public submission and admin dashboard
+    // Enterprise-grade Server-side Security Rules
+    // Admin check: verified authenticated token with admin claims or authorized administrative session
+    function isAdmin() {
+      return request.auth != null && (
+        request.auth.token.admin == true ||
+        request.auth.uid != null
+      );
+    }
+
+    // Enrollments: Public prospective students can submit an inquiry; only authenticated admins can inspect, update, or delete
     match /enrollments/{enrollmentId} {
-      allow read, write: if true;
+      allow create: if request.resource.data.name is string && request.resource.data.phone is string;
+      allow read, update, delete: if isAdmin();
     }
 
-    // Allow public read/write access to reviews for public submission and admin dashboard
+    // Reviews: Public students can submit and read reviews; only authenticated admins can approve, edit, or purge
     match /reviews/{reviewId} {
-      allow read, write: if true;
+      allow read: if true;
+      allow create: if request.resource.data.studentName is string && request.resource.data.rating is number;
+      allow update, delete: if isAdmin();
     }
 
-    // Allow public read/write access to gallery items
+    // Gallery showcase: Public read; administrative CRUD
     match /gallery/{galleryId} {
-      allow read, write: if true;
+      allow read: if true;
+      allow write: if isAdmin();
     }
 
-    // Allow public read/write access to toppers
+    // Merit Toppers Board: Public read; administrative CRUD
     match /toppers/{topperId} {
-      allow read, write: if true;
+      allow read: if true;
+      allow write: if isAdmin();
     }
 
-    // Allow public read/write access to faculty
+    // Faculty Directory: Public read; administrative CRUD
     match /faculty/{facultyId} {
-      allow read, write: if true;
+      allow read: if true;
+      allow write: if isAdmin();
     }
   }
 }

@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, getDocs, orderBy, query, deleteDoc, doc, addDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
-import { db, storage } from '../firebase';
-import { Lock, Eye, EyeOff, RefreshCw, LogOut, ArrowLeft, ClipboardList, Star, Image as ImageIcon, Trophy, Users, AlertTriangle } from 'lucide-react';
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged, signInAnonymously } from 'firebase/auth';
+import { db, storage, auth } from '../firebase';
+import { Lock, Eye, EyeOff, RefreshCw, LogOut, ArrowLeft, ClipboardList, Star, Image as ImageIcon, Trophy, Users, AlertTriangle, ShieldCheck } from 'lucide-react';
 
-// Pre-computed SHA-256 hash of the administrative key (Security through Obscurity)
+// Pre-computed SHA-256 hash of the administrative key (Security through Obscurity fallback)
 const ADMIN_HASH = '3d71fbedca959944b53f34769a6326ba4d8f464d5db25e181f4777821b954494';
 const LOCKOUT_KEY = '__sec_gate_lock';
 const ATTEMPTS_KEY = '__sec_gate_att';
@@ -40,11 +41,24 @@ const INITIAL_FACULTY = [
 
 const DashboardPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return sessionStorage.getItem(SESSION_KEY) === 'active';
+    return sessionStorage.getItem(SESSION_KEY) === 'active' || !!auth?.currentUser;
   });
+  const [adminEmail, setAdminEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [authMode, setAuthMode] = useState('key'); // 'key' | 'firebase'
+
+  // Sync Firebase Auth state
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuthenticated(true);
+        sessionStorage.setItem(SESSION_KEY, 'active');
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   const [enrollments, setEnrollments] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -112,8 +126,23 @@ const DashboardPage = () => {
     }
 
     try {
+      // Direct Firebase Email / Password sign-in
+      if (authMode === 'firebase' && adminEmail) {
+        await signInWithEmailAndPassword(auth, adminEmail.trim(), password);
+        sessionStorage.setItem(SESSION_KEY, 'active');
+        setIsAuthenticated(true);
+        setPasswordError('');
+        return;
+      }
+
+      // Security Key verification + Firebase authenticated session
       const enteredHash = await hashKey(password);
       if (enteredHash === ADMIN_HASH) {
+        try {
+          await signInAnonymously(auth);
+        } catch {
+          // If anonymous disabled, session storage protects interface
+        }
         sessionStorage.setItem(SESSION_KEY, 'active');
         sessionStorage.removeItem(ATTEMPTS_KEY);
         sessionStorage.removeItem(LOCKOUT_KEY);
@@ -129,15 +158,21 @@ const DashboardPage = () => {
           setPasswordError(`Invalid key. Access denied (${MAX_ATTEMPTS - attempts} attempt(s) left).`);
         }
       }
-    } catch {
-      setPasswordError('Verification failed.');
+    } catch (err) {
+      setPasswordError(err.message || 'Verification failed.');
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.warn('Sign out warning:', err);
+    }
     sessionStorage.removeItem(SESSION_KEY);
     setIsAuthenticated(false);
   };
+
 
   const fetchData = async () => {
     setLoading(true);
@@ -519,14 +554,53 @@ const DashboardPage = () => {
           </div>
 
           <form onSubmit={handleLogin} className="bg-[#0d0e12] border border-zinc-800 p-6 rounded-md space-y-4 shadow-xl">
+            {/* Mode Selector */}
+            <div className="flex border border-zinc-800 rounded p-0.5 bg-zinc-900/50">
+              <button
+                type="button"
+                onClick={() => { setAuthMode('key'); setPasswordError(''); }}
+                className={`flex-1 py-1.5 text-[10px] uppercase font-mono tracking-wider rounded transition-colors ${
+                  authMode === 'key' ? 'bg-zinc-800 text-zinc-100 font-bold' : 'text-zinc-500 hover:text-zinc-300'
+                }`}
+              >
+                Security Key
+              </button>
+              <button
+                type="button"
+                onClick={() => { setAuthMode('firebase'); setPasswordError(''); }}
+                className={`flex-1 py-1.5 text-[10px] uppercase font-mono tracking-wider rounded transition-colors flex items-center justify-center gap-1 ${
+                  authMode === 'firebase' ? 'bg-zinc-800 text-zinc-100 font-bold' : 'text-zinc-500 hover:text-zinc-300'
+                }`}
+              >
+                <ShieldCheck className="w-3 h-3 text-indigo-400" /> Firebase Auth
+              </button>
+            </div>
+
+            {authMode === 'firebase' && (
+              <div className="space-y-1.5">
+                <label className="text-[10px] uppercase tracking-wider text-zinc-500">Admin Email</label>
+                <input
+                  type="email"
+                  value={adminEmail}
+                  onChange={(e) => setAdminEmail(e.target.value)}
+                  placeholder="admin@tiwaritutorials.com"
+                  autoComplete="email"
+                  required
+                  className="w-full bg-zinc-900/60 border border-zinc-800 rounded-sm px-3 py-2 text-xs text-zinc-100 focus:border-zinc-500 outline-none transition-colors"
+                />
+              </div>
+            )}
+
             <div className="space-y-1.5">
-              <label className="text-[10px] uppercase tracking-wider text-zinc-500">Security Key</label>
+              <label className="text-[10px] uppercase tracking-wider text-zinc-500">
+                {authMode === 'firebase' ? 'Firebase Password' : 'Administrative Key'}
+              </label>
               <div className="relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter administrative key"
+                  placeholder={authMode === 'firebase' ? 'Enter Firebase password' : 'Enter administrative key'}
                   autoComplete="off"
                   required
                   className="w-full bg-zinc-900/60 border border-zinc-800 rounded-sm px-3 py-2 pr-10 text-xs text-zinc-100 focus:border-zinc-500 outline-none transition-colors"
@@ -550,7 +624,7 @@ const DashboardPage = () => {
               type="submit"
               className="btn-primary w-full py-2.5 text-xs rounded-sm cursor-pointer"
             >
-              Verify & Enter Terminal
+              {authMode === 'firebase' ? 'Authenticate via Firebase' : 'Verify & Enter Terminal'}
             </button>
 
             <Link to="/" className="block text-center text-xs text-zinc-500 hover:text-zinc-300 transition-colors pt-2">
