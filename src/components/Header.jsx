@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { MessageSquare, ChevronDown, Menu, X, ArrowUpRight } from 'lucide-react';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -7,19 +8,18 @@ const Header = () => {
   const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    // Only track scroll targets on home page path
     if (window.location.pathname !== '/') return;
 
     const sections = ['hero', 'courses', 'about', 'faculty', 'toppers', 'contact'];
     
     const handleScrollSection = () => {
-      const scrollPosition = window.scrollY + 150; // Offset for header height
+      const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
         const el = document.getElementById(section);
@@ -35,111 +35,166 @@ const Header = () => {
     };
 
     window.addEventListener('scroll', handleScrollSection);
-    handleScrollSection(); // Initial invocation
+    handleScrollSection();
     return () => window.removeEventListener('scroll', handleScrollSection);
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '/#hero', id: 'hero' },
     { name: 'Courses', href: '/#courses', id: 'courses' },
-    { name: 'About', href: '/#about', id: 'about' },
-    { name: 'Faculty', href: '/#faculty', id: 'faculty' },
+    { name: 'Faculty Portal', href: '/educator', isRoute: true, badge: 'ACADEMIC' },
     { name: 'Toppers', href: '/#toppers', id: 'toppers' },
-    { name: 'Contact', href: '/#contact', id: 'contact' },
+    { name: 'About', href: '/#about', id: 'about' },
     { name: 'Gallery', href: '/gallery', isRoute: true },
-    { name: 'Mock Test', href: '/cbt', isRoute: true },
+    { name: 'Mock Test', href: '/cbt', isRoute: true, badge: 'CBT' },
+    { name: 'Contact', href: '/#contact', id: 'contact' },
   ];
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${(isScrolled || mobileMenuOpen) ? 'bg-slate-950/80 backdrop-blur-xl py-3 shadow-2xl' : 'py-4 md:py-6'} px-6 md:px-12 flex justify-between items-center`}>
-      <Link to="/" className="text-xl md:text-2xl font-bold tracking-tighter text-white hover:opacity-80 transition-opacity flex items-center gap-2">
-        <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-slate-950 text-sm font-black shadow-lg shadow-primary/20">T</div>
-        TIWARI <span className="text-primary font-mono-label">TUTORIALS</span>
+    <header 
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-200 border-b ${
+        isScrolled || mobileMenuOpen 
+          ? 'bg-[#09090b]/95 backdrop-blur-md border-zinc-800/90 py-2.5 shadow-sm' 
+          : 'bg-[#09090b]/80 backdrop-blur-sm border-zinc-800/50 py-3'
+      } px-4 md:px-8 flex justify-between items-center`}
+    >
+      {/* Brand / Logo */}
+      <Link to="/" className="flex items-center gap-2.5 text-zinc-100 hover:text-white transition-colors group">
+        <div className="w-6 h-6 bg-zinc-900 border border-zinc-700/80 rounded-sm flex items-center justify-center text-zinc-200 text-xs font-mono font-bold group-hover:border-zinc-500 transition-colors">
+          T
+        </div>
+        <div className="flex items-center gap-1.5 text-xs font-mono tracking-tight">
+          <span className="font-semibold text-zinc-100">TIWARI</span>
+          <span className="text-zinc-500 font-normal">TUTORIALS</span>
+          <span className="hidden sm:inline-block px-1.5 py-0.2 bg-zinc-900 border border-zinc-800 text-[10px] text-zinc-400 rounded-sm ml-1 font-mono">
+            ENGINE
+          </span>
+        </div>
       </Link>
 
-      {/* Desktop Nav */}
-      <nav className="hidden md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 font-mono-label">
+      {/* Desktop Horizontal Navigation (Dense & Linear-style) */}
+      <nav className="hidden md:flex items-center gap-1 text-xs font-mono">
         {navLinks.map((link) => {
           const isActive = !link.isRoute && activeSection === link.id;
-          const linkClass = `relative py-1 hover:text-white transition-colors duration-300 ${isActive ? 'text-primary' : 'text-white/50'}`;
+          const linkClass = `relative px-2.5 py-1 rounded-sm transition-colors duration-150 flex items-center gap-1.5 ${
+            isActive 
+              ? 'text-zinc-100 bg-zinc-800/80 font-medium' 
+              : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
+          }`;
           
           return link.isRoute ? (
             <Link key={link.name} to={link.href} className={linkClass}>
               {link.name}
+              {link.badge && (
+                <span className="text-[9px] px-1 py-0.2 bg-zinc-800 text-zinc-300 border border-zinc-700/60 rounded-xs">
+                  {link.badge}
+                </span>
+              )}
             </Link>
           ) : (
             <a key={link.name} href={link.href} className={linkClass}>
               {link.name}
-              {isActive && (
-                <span className="absolute bottom-[-4px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full shadow-[0_0_8px_#f59e0b] animate-pulse" />
-              )}
             </a>
           );
         })}
       </nav>
 
-      <div className="flex items-center gap-4">
+      {/* Right Action Tools */}
+      <div className="flex items-center gap-2.5">
         <div className="relative group hidden md:block">
-          <button className="btn-primary shimmer-effect circuit-btn ripple-btn text-slate-950 px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all shadow-lg active:scale-95 flex items-center gap-2">
-            Chat Now
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
+          <button className="btn-secondary px-3 py-1.5 rounded-sm text-xs font-mono flex items-center gap-1.5 border border-zinc-800 hover:border-zinc-700 bg-zinc-900/80 text-zinc-200">
+            <MessageSquare className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
+            <span>Consult Mentors</span>
+            <ChevronDown className="w-3 h-3 text-zinc-500 transition-transform group-hover:rotate-180" strokeWidth={1.5} />
           </button>
-          <div className="absolute right-0 mt-2 w-48 bg-[#0a1329] p-2 rounded-xl border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 shadow-xl">
-            <a href="https://wa.me/918779560903" target="_blank" rel="noopener noreferrer" className="block px-4 py-3 text-sm font-bold text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-              Chat: Manoj Sir
+          
+          <div className="absolute right-0 mt-1.5 w-52 bg-[#0d0e12] p-1 rounded-md border border-zinc-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 shadow-2xl">
+            <div className="px-2 py-1 text-[10px] font-mono text-zinc-500 uppercase tracking-wider border-b border-zinc-800/60 mb-1">
+              Direct Communication
+            </div>
+            <a 
+              href="https://wa.me/918779560903" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center justify-between px-2.5 py-1.5 text-xs text-zinc-300 hover:text-zinc-100 hover:bg-zinc-800/60 rounded-sm font-mono transition-colors"
+            >
+              <span>Manoj Sir (Director)</span>
+              <ArrowUpRight className="w-3 h-3 text-zinc-500" strokeWidth={1.5} />
             </a>
-            <a href="https://wa.me/919833187969" target="_blank" rel="noopener noreferrer" className="block px-4 py-3 text-sm font-bold text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-              Chat: Sandeep Sir
+            <a 
+              href="https://wa.me/919833187969" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center justify-between px-2.5 py-1.5 text-xs text-zinc-300 hover:text-zinc-100 hover:bg-zinc-800/60 rounded-sm font-mono transition-colors"
+            >
+              <span>Sandeep Sir (Director)</span>
+              <ArrowUpRight className="w-3 h-3 text-zinc-500" strokeWidth={1.5} />
             </a>
           </div>
         </div>
 
-        {/* Mobile Toggle */}
+        <Link 
+          to="/enroll" 
+          className="btn-primary px-3 py-1.5 rounded-sm text-xs font-mono font-medium"
+        >
+          Enroll Now
+        </Link>
+
+        {/* Mobile Menu Toggle */}
         <button 
-          className="md:hidden text-white p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
+          className="md:hidden text-zinc-400 hover:text-zinc-100 p-1.5 rounded-sm border border-zinc-800 bg-zinc-900"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle navigation menu"
         >
-          <div className={`w-6 h-0.5 bg-white mb-1.5 transition-all ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
-          <div className={`w-6 h-0.5 bg-white mb-1.5 transition-all ${mobileMenuOpen ? 'opacity-0' : ''}`}></div>
-          <div className={`w-6 h-0.5 bg-white transition-all ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
+          {mobileMenuOpen ? (
+            <X className="w-4 h-4 text-zinc-300" strokeWidth={1.5} />
+          ) : (
+            <Menu className="w-4 h-4 text-zinc-300" strokeWidth={1.5} />
+          )}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="absolute top-full left-0 w-full bg-slate-950/95 backdrop-blur-2xl p-8 flex flex-col gap-6 md:hidden animate-in fade-in slide-in-from-top-4 duration-300 shadow-2xl h-[calc(100vh-70px)] overflow-y-auto">
+        <div className="absolute top-full left-0 w-full bg-[#09090b] border-b border-zinc-800 p-5 flex flex-col gap-3 md:hidden shadow-2xl animate-fade-in font-mono text-xs">
+          <div className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1">Navigation</div>
           {navLinks.map((link) => (
             link.isRoute ? (
               <Link 
                 key={link.name} 
                 to={link.href} 
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-xl font-bold text-white/70 hover:text-primary transition-colors"
+                className="py-1.5 text-zinc-300 hover:text-zinc-100 flex items-center justify-between border-b border-zinc-800/40"
               >
-                {link.name}
+                <span>{link.name}</span>
+                {link.badge && <span className="text-[9px] bg-zinc-800 px-1.5 py-0.5 rounded-xs text-zinc-400">{link.badge}</span>}
               </Link>
             ) : (
               <a 
                 key={link.name} 
                 href={link.href} 
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-xl font-bold text-white/70 hover:text-primary transition-colors"
+                className="py-1.5 text-zinc-300 hover:text-zinc-100 border-b border-zinc-800/40"
               >
                 {link.name}
               </a>
             )
           ))}
-          <div className="flex flex-col gap-3 mt-4">
-            <span className="text-[10px] text-white/40 uppercase tracking-widest font-bold">WhatsApp Numbers</span>
-            <a href="https://wa.me/918779560903" className="bg-primary hover:bg-primary-dark text-slate-950 p-4 rounded-xl text-center font-bold transition-colors">
-              Chat: Manoj Sir
-            </a>
-            <a href="https://wa.me/919833187969" className="bg-primary hover:bg-primary-dark text-slate-950 p-4 rounded-xl text-center font-bold transition-colors">
-              Chat: Sandeep Sir
-            </a>
+          <div className="pt-2 flex flex-col gap-2">
+            <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono">Direct Communication</span>
+            <div className="grid grid-cols-2 gap-2">
+              <a 
+                href="https://wa.me/918779560903" 
+                className="btn-secondary py-2 text-center text-xs rounded-sm border border-zinc-800 text-zinc-200"
+              >
+                Manoj Sir
+              </a>
+              <a 
+                href="https://wa.me/919833187969" 
+                className="btn-secondary py-2 text-center text-xs rounded-sm border border-zinc-800 text-zinc-200"
+              >
+                Sandeep Sir
+              </a>
+            </div>
           </div>
         </div>
       )}

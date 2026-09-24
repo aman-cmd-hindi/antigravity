@@ -1,63 +1,78 @@
 import { Link } from 'react-router-dom';
-import useTilt from '../hooks/useTilt';
+import { Star, MessageSquarePlus, CheckCircle2 } from 'lucide-react';
 
 const reviewData = [
   {
     name: "Santosh",
     standard: "12th Science",
-    text: "Tiwari Tutorials transformed my approach to physics and chemistry.",
-    rating: 4.8
+    text: "Tiwari Tutorials transformed my approach to physics and chemistry. The conceptual derivations made solving complex board equations systematic.",
+    rating: 5,
+    tag: "PHYSICS & CHEMISTRY"
   },
   {
-    name: "Gitanjali vishwakarma",
-    standard: "10th Std",
-    text: "The personal attention and weekly test series boosted my confidence immensely. I scored 91.20% in my boards thanks to the dedicated faculty.",
-    rating: 4.9
+    name: "Gitanjali Vishwakarma",
+    standard: "10th Std (91.20%)",
+    text: "The personalized attention and weekly test series boosted my confidence immensely. I scored 91.20% in my SSC boards thanks to the dedicated faculty.",
+    rating: 5,
+    tag: "SSC 10TH BOARD"
   },
   {
-    name: "Aman pal",
+    name: "Aman Pal",
     standard: "NEET Aspirant",
-    text: "Shiva Sir's biology lectures are top-notch. The study material is exhaustive and covers all NCERT nuances perfectly. Highly recommended!",
-    rating: 4.8
+    text: "Shiva Sir's biology lectures are top-notch. The study material is exhaustive, covering NCERT nuances line-by-line. Highly recommended!",
+    rating: 5,
+    tag: "NEET MEDICAL"
   },
   {
-    name: "Amit singh",
+    name: "Amit Singh",
     standard: "Commerce 12th",
-    text: "Sandeep Sir's Account and economics lectures are top-notch. The study material is exhaustive and covers all perfectly. Highly recommended!",
-    rating: 4.5
+    text: "Sandeep Sir's Accountancy and Economics lectures are clear and practical. The model answer sessions helped me secure full marks in practical papers.",
+    rating: 5,
+    tag: "COMMERCE SECTION"
   }
 ];
 
 const ReviewCard = ({ review }) => {
-  const { style, onMouseMove, onMouseLeave } = useTilt();
-
   return (
-    <div 
-      style={style}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      className="glass-card edu-card tilt-card p-8 md:p-10 rounded-[30px] md:rounded-[40px] group flex flex-col justify-between"
-    >
+    <div className="bg-[#0d0e12] border border-zinc-800 hover:border-zinc-700 p-5 rounded-md flex flex-col justify-between transition-colors">
       <div>
-        <div className="flex gap-1 mb-6">
-          {[...Array(Math.floor(review.rating))].map((_, i) => (
-            <svg key={i} xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 text-primary" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-          ))}
+        {/* Rating & Tag */}
+        <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-zinc-800/60">
+          <div className="flex items-center gap-1">
+            {[...Array(review.rating)].map((_, i) => (
+              <Star key={i} className="w-3 h-3 text-zinc-200 fill-zinc-200" strokeWidth={1} />
+            ))}
+          </div>
+          <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-wider">
+            {review.tag}
+          </span>
         </div>
-        <p className="text-white/60 italic leading-relaxed text-base md:text-lg mb-8 group-hover:text-white/80 transition-colors">
+
+        {/* Text */}
+        <p className="text-xs md:text-sm text-zinc-300 font-normal leading-relaxed mb-6">
           "{review.text}"
         </p>
       </div>
 
-      <div className="flex items-center gap-4 pt-6 border-t border-white/5">
-        <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-white font-black text-xl shadow-lg">
-          {review.name.charAt(0)}
+      {/* Reviewer Details */}
+      <div className="pt-3 border-t border-zinc-800/60 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="w-7 h-7 rounded-xs bg-zinc-900 border border-zinc-800 flex items-center justify-center text-xs font-mono font-bold text-zinc-300">
+            {review.name.charAt(0)}
+          </div>
+          <div>
+            <div className="text-xs font-semibold text-zinc-200">
+              {review.name}
+            </div>
+            <div className="text-[10px] font-mono text-zinc-500">
+              {review.standard}
+            </div>
+          </div>
         </div>
-        <div>
-          <h4 className="text-white font-bold text-sm md:text-base">{review.name}</h4>
-          <p className="text-primary text-[10px] md:text-xs font-bold uppercase tracking-widest font-mono-label">{review.standard}</p>
+
+        <div className="flex items-center gap-1 text-[10px] font-mono text-zinc-500">
+          <CheckCircle2 className="w-3 h-3 text-emerald-500/80" strokeWidth={1.5} />
+          <span>VERIFIED</span>
         </div>
       </div>
     </div>
@@ -66,19 +81,32 @@ const ReviewCard = ({ review }) => {
 
 const Reviews = () => {
   return (
-    <section className="py-16 md:py-32 px-4 md:px-12 bg-mesh relative">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 md:mb-16 gap-6 text-center md:text-left">
+    <section className="py-12 md:py-16 px-4 md:px-8 border-b border-zinc-800/80 bg-[#09090b]">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
-            <span className="text-primary font-bold uppercase tracking-[0.2em] text-[10px] mb-3 block font-mono-label">Student Success</span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white">What Our <span className="text-primary">Achievers</span> Say</h2>
+            <div className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-zinc-500 mb-1.5">
+              <span>TESTIMONIALS // 06</span>
+              <span>•</span>
+              <span className="text-zinc-400">STUDENT FEEDBACK LOGS</span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-100">
+              Verified Candidate Testimonials
+            </h2>
           </div>
-          <Link to="/review" className="w-full md:w-auto px-8 py-3.5 btn-secondary circuit-btn ripple-btn text-primary font-bold rounded-xl transition-all text-xs uppercase tracking-widest whitespace-nowrap border border-primary/20">
-            Write a Review
+
+          <Link 
+            to="/review" 
+            className="btn-secondary px-3.5 py-2 text-xs font-mono rounded-sm self-start md:self-auto flex items-center gap-2"
+          >
+            <MessageSquarePlus className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
+            <span>Submit Feedback</span>
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {/* Reviews Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
           {reviewData.map((review, idx) => (
             <ReviewCard key={idx} review={review} />
           ))}

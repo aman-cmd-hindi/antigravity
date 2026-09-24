@@ -1481,46 +1481,47 @@ const CbtPage = () => {
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-800">
       
       {/* --- Main Navigation Header --- */}
-      <header className="bg-slate-900 text-white shadow-md px-6 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50">
+      <header className="bg-[#09090b] text-white border-b border-zinc-800 px-6 py-3 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50">
         <div className="flex items-center gap-3">
-          <Link to="/" className="bg-gradient-to-tr from-amber-500 to-rose-600 p-2.5 rounded-xl shadow-inner flex items-center justify-center">
-            <Compass className="w-6 h-6 text-white" />
+          <Link to="/" className="bg-zinc-900 border border-zinc-700 p-2 rounded-sm flex items-center justify-center">
+            <Compass className="w-4 h-4 text-zinc-200" strokeWidth={1.5} />
           </Link>
           <div>
-            <h1 className="text-xl font-black tracking-tight flex items-center gap-2">
-              MHT-CET <span className="bg-rose-500 text-[10px] uppercase py-0.5 px-2 rounded-full font-semibold tracking-wider">CBT Platform</span>
+            <h1 className="text-base font-bold font-mono tracking-tight flex items-center gap-2">
+              MHT-CET <span className="bg-zinc-800 text-[10px] uppercase py-0.5 px-1.5 rounded-xs font-mono border border-zinc-700 text-zinc-300">CBT Platform</span>
             </h1>
-            <p className="text-xs text-slate-400">Maharashtra State Entrance Test Mock Portal</p>
+            <p className="text-[11px] font-mono text-zinc-500">Maharashtra State Entrance Test Mock Portal</p>
           </div>
         </div>
 
         {/* Navigation States */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 font-mono text-xs">
           <button 
             onClick={() => setView('cheat-sheet')}
-            className={`px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all cursor-pointer ${
-              view === 'cheat-sheet' ? 'bg-amber-500 text-slate-950 font-bold' : 'hover:bg-slate-800 text-slate-300'
+            className={`px-3 py-1.5 rounded-sm text-xs font-mono flex items-center gap-2 transition-colors cursor-pointer border ${
+              view === 'cheat-sheet' ? 'bg-zinc-800 text-zinc-100 border-zinc-600' : 'bg-zinc-900/60 border-zinc-800 hover:bg-zinc-800 text-zinc-300'
             }`}
           >
-            <BookOpen className="w-4 h-4" /> Syllabus & Formulae
+            <BookOpen className="w-3.5 h-3.5" strokeWidth={1.5} /> Syllabus & Formulae
           </button>
           
           {view === 'test' && (
-            <div className="flex items-center gap-4">
-              <div className="hidden md:flex items-center gap-2 text-slate-400 text-sm">
-                <Clock className="w-4 h-4" /> Time Elapsed: {formatTime(questionCount * 72 - timeLeft)}
+            <div className="flex items-center gap-3">
+              <div className="hidden md:flex items-center gap-2 text-zinc-500 text-xs font-mono">
+                <Clock className="w-3.5 h-3.5" strokeWidth={1.5} /> Elapsed: {formatTime(questionCount * 72 - timeLeft)}
               </div>
-              <div className={`flex items-center gap-2 px-4 py-2 rounded-xl border ${
-                timeLeft < 300 ? 'bg-red-500/20 text-red-200 border-red-500' : 'bg-slate-800 text-amber-400 border-slate-700'
+              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-sm border ${
+                timeLeft < 300 ? 'bg-red-950/40 text-red-300 border-red-800' : 'bg-zinc-900 text-zinc-200 border-zinc-800'
               } transition-colors`}>
-                <Timer className="w-4 h-4 text-rose-500 animate-pulse" />
-                <span className="font-mono font-bold tracking-wider">{formatTime(timeLeft)}</span>
+                <Timer className="w-3.5 h-3.5 text-zinc-400 animate-pulse" strokeWidth={1.5} />
+                <span className="font-mono font-medium tracking-wider">{formatTime(timeLeft)}</span>
               </div>
               <button 
                 onClick={handleFinalSubmit}
-                className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-xl font-bold text-sm shadow-lg flex items-center gap-2 active:scale-95 transition-all cursor-pointer border-none"
+                className="btn-primary px-4 py-1.5 rounded-sm font-mono text-xs flex items-center gap-1.5 cursor-pointer"
               >
-                Submit Paper <Send className="w-4 h-4" />
+                <span>Submit Paper</span>
+                <Send className="w-3 h-3" strokeWidth={1.5} />
               </button>
             </div>
           )}
@@ -1528,7 +1529,7 @@ const CbtPage = () => {
           {view !== 'test' && (
             <button 
               onClick={startTest}
-              className="bg-gradient-to-r from-amber-500 to-rose-600 text-slate-950 hover:opacity-90 font-black px-6 py-2.5 rounded-xl text-sm shadow-md transition-all active:scale-95 cursor-pointer border-none"
+              className="btn-primary px-4 py-1.5 rounded-sm text-xs font-mono cursor-pointer"
             >
               Start Practice Session
             </button>
@@ -1598,9 +1599,10 @@ const CbtPage = () => {
 
                 <button 
                   onClick={startTest}
-                  className="w-full bg-gradient-to-r from-amber-500 to-rose-600 text-slate-950 font-black py-4 rounded-2xl shadow-lg hover:shadow-xl hover:opacity-95 transition-all flex items-center justify-center gap-2 text-base cursor-pointer border-none"
+                  className="w-full btn-primary py-3 rounded-sm font-mono text-sm flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Enter Exam Arena Now <ChevronRight className="w-5 h-5" />
+                  <span>Enter Exam Arena Now</span>
+                  <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
                 </button>
               </div>
             </div>
@@ -2156,7 +2158,7 @@ const CbtPage = () => {
                 </div>
                 
                 {/* Percentile Tag */}
-                <div className="bg-gradient-to-r from-amber-500 to-rose-600 text-slate-950 py-1.5 px-4 rounded-full font-black text-xs shadow-md">
+                <div className="bg-zinc-900 border border-zinc-700 text-zinc-100 py-1 px-3 rounded-sm font-mono text-xs">
                   Predicted Percentile: {resultsSummary.percentile}%ile
                 </div>
               </div>

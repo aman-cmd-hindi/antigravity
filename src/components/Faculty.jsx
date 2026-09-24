@@ -1,81 +1,96 @@
 import { useState, useEffect } from 'react';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase';
-import useTilt from '../hooks/useTilt';
+import { Star, UserCheck, BookOpen, ShieldCheck } from 'lucide-react';
 
 const DEFAULT_FACULTY = [
   {
     name: "Anjali Mam",
     subject: "Biology",
-    specialization: "Biology Expert",
+    code: "BIO_01",
+    specialization: "Botany & Zoology Expert",
     image: "/sample-profile.png"
   },
   {
     name: "Shiva Sir",
     subject: "Biology",
-    specialization: "NEET Expert",
+    code: "BIO_02",
+    specialization: "NEET Medical Specialist",
     image: "/sample-profile.png"
   },
   {
     name: "Santosh Sir",
     subject: "Chemistry",
-    specialization: "Organic & Inorganic",
+    code: "CHEM_01",
+    specialization: "Organic & Physical Chemistry",
     image: "/sample-profile.png"
   },
   {
     name: "Manoj Sir",
     subject: "Mathematics",
-    specialization: "Calculus Expert",
+    code: "MATH_DIR",
+    specialization: "Calculus & Engineering Analytics",
     image: "/sample-profile.png"
   },
   {
     name: "Sandeep Sir",
     subject: "Mathematics",
-    specialization: "Advanced Calculus",
+    code: "MATH_DIR2",
+    specialization: "Advanced Algebra & Commerce Math",
     image: "/sample-profile.png"
   },
   {
     name: "Expert Faculty",
     subject: "Physics",
-    specialization: "Conceptual Mastery",
+    code: "PHYS_01",
+    specialization: "Mechanics & Electrodynamics",
     image: "/sample-profile.png"
   }
 ];
 
 const FacultyCard = ({ member }) => {
-  const { style, onMouseMove, onMouseLeave } = useTilt();
-
   return (
-    <div 
-      style={style}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      className="glass-card edu-card tilt-card p-6 md:p-8 rounded-[30px] md:rounded-[40px] group transition-all duration-500 hover:bg-white/[0.02]"
-    >
-      <div className="relative mb-6 md:mb-8 aspect-square rounded-[25px] md:rounded-[35px] overflow-hidden group-hover:scale-[1.02] transition-transform duration-500 shadow-2xl">
-        <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-all duration-700 group-hover:brightness-110" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
-
-        <div className="absolute bottom-6 left-6 flex gap-2">
-          {[...Array(5)].map((_, i) => (
-            <span key={i} className="text-primary text-xs">★</span>
-          ))}
-        </div>
-      </div>
-
+    <div className="bg-[#0d0e12] border border-zinc-800 hover:border-zinc-700 p-4 rounded-md transition-colors flex flex-col justify-between group">
       <div>
-        <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] font-mono-label">{member.subject}</span>
-        <h3 className="text-xl md:text-2xl font-extrabold text-white mt-2 mb-1 group-hover:text-primary transition-colors">{member.name}</h3>
-        <p className="text-white/30 text-xs md:text-sm font-medium">{member.specialization}</p>
+        {/* Profile Image & Status Bar */}
+        <div className="relative mb-3.5 aspect-[4/3] rounded-sm overflow-hidden border border-zinc-800 bg-zinc-900">
+          <img 
+            src={member.image} 
+            alt={member.name} 
+            className="w-full h-full object-cover filter grayscale contrast-115 group-hover:filter-none transition-all duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0d0e12] via-transparent to-transparent opacity-60" />
+          
+          <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-[#09090b]/90 border border-zinc-700 text-[10px] font-mono text-zinc-300 rounded-xs">
+            {member.code || "FAC_01"}
+          </div>
+
+          <div className="absolute bottom-2 left-2 flex items-center gap-1 bg-[#09090b]/80 px-1.5 py-0.5 rounded-xs border border-zinc-800">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="w-2.5 h-2.5 text-zinc-300 fill-zinc-300" strokeWidth={1} />
+            ))}
+          </div>
+        </div>
+
+        {/* Member Info */}
+        <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 mb-1">
+          {member.subject}
+        </div>
+        <h3 className="text-base font-semibold text-zinc-100 group-hover:text-white transition-colors">
+          {member.name}
+        </h3>
+        <p className="text-xs text-zinc-400 font-mono mt-0.5">
+          {member.specialization}
+        </p>
       </div>
 
-      <div className="mt-6 pt-6 border-t border-white/5 flex items-center justify-between">
-        <div className="flex -space-x-2">
-          {[1, 2, 3].map(i => (
-            <div key={i} className="w-6 h-6 rounded-full border border-slate-950 bg-slate-800 flex items-center justify-center text-[8px] text-white/50">👤</div>
-          ))}
+      {/* Metrics Bar */}
+      <div className="mt-4 pt-3 border-t border-zinc-800/60 flex items-center justify-between text-[10px] font-mono text-zinc-500">
+        <div className="flex items-center gap-1.5 text-zinc-400">
+          <UserCheck className="w-3.5 h-3.5 text-zinc-500" strokeWidth={1.5} />
+          <span>500+ MENTORED</span>
         </div>
-        <span className="text-[10px] text-white/30 font-bold uppercase tracking-widest font-mono-label">500+ Students Mentored</span>
+        <span className="text-zinc-600">SENIOR FACULTY</span>
       </div>
     </div>
   );
@@ -103,20 +118,27 @@ const Faculty = () => {
   }, []);
 
   return (
-    <section id="faculty" className="py-16 md:py-32 px-4 md:px-12 bg-mesh relative overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px] pointer-events-none"></div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-12 md:mb-20">
-          <span className="text-primary font-bold uppercase tracking-[0.2em] text-[10px] mb-3 block font-mono-label">Expert Mentors</span>
-          <h2 className="text-3xl md:text-6xl font-extrabold text-white mb-4 md:mb-6">The Pillars of <span className="text-primary">Excellence</span></h2>
-          <p className="text-white/40 max-w-lg mx-auto text-base md:text-lg leading-relaxed font-medium">
-            Specialized faculty for JEE, NEET, and Boards with years of proven success.
+    <section id="faculty" className="py-12 md:py-16 px-4 md:px-8 border-b border-zinc-800/80 bg-[#09090b]">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div>
+            <div className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-zinc-500 mb-1.5">
+              <span>FACULTY // 04</span>
+              <span>•</span>
+              <span className="text-zinc-400">PEDAGOGICAL DIRECTORY</span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-100">
+              Senior Academic Mentors
+            </h2>
+          </div>
+          <p className="text-xs font-mono text-zinc-400 max-w-md">
+            Dedicated discipline leads with decades of cumulative classroom experience training candidates for board merit and competitive entrance cutoffs.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+        {/* Dense Roster Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
           {facultyList.map((member, idx) => (
             <FacultyCard key={member.id || idx} member={member} />
           ))}

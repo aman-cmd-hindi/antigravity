@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import { sendConfirmationEmail, sendSMSNotification, getWhatsAppLink } from '../utils/notifications';
+import { ArrowLeft, CheckCircle2, ShieldCheck, Lock, ChevronDown, MessageSquare, KeyRound, X } from 'lucide-react';
 
 const EnrollmentPage = () => {
   const [formData, setFormData] = useState({
@@ -68,11 +69,10 @@ const EnrollmentPage = () => {
     setOtpTimer(60);
     setOtpError('');
     
-    // Trigger floating notification toast
     setToastMessage({
       id: Date.now(),
-      title: '💬 Message from Tiwari Tutorials',
-      message: `Your verification OTP code is ${code}. It is valid for 60 seconds.`
+      title: 'SECURITY PROTOCOL // OTP',
+      message: `Your verification OTP is ${code}. Valid for 60 seconds.`
     });
   };
 
@@ -84,7 +84,6 @@ const EnrollmentPage = () => {
     newOtp[index] = value;
     setOtpInput(newOtp);
 
-    // Auto-advance to next input
     if (value && index < 5) {
       inputRefs.current[index + 1].focus();
     }
@@ -110,7 +109,6 @@ const EnrollmentPage = () => {
         if (updatedLanguages.length < 2) {
           updatedLanguages.push(value);
         } else {
-          // If trying to check a 3rd option, ignore
           return;
         }
       } else {
@@ -175,11 +173,11 @@ const EnrollmentPage = () => {
     e.preventDefault();
     const enteredOtp = otpInput.join('');
     if (enteredOtp.length < 6) {
-      setOtpError('Please enter all 6 digits of the OTP.');
+      setOtpError('Please input all 6 digits of the authentication OTP.');
       return;
     }
     if (enteredOtp !== otpCode) {
-      setOtpError('Invalid verification code. Please check and try again.');
+      setOtpError('Authentication mismatch. Code does not match.');
       return;
     }
 
@@ -193,7 +191,6 @@ const EnrollmentPage = () => {
         submittedAt: serverTimestamp()
       });
 
-      // Trigger Notifications
       await sendConfirmationEmail(formData, 'enrollment');
       await sendSMSNotification(formData.phone, `Hello ${formData.name}, your enrollment at Tiwari Tutorials for ${formData.standard} has been received!`);
 
@@ -208,7 +205,6 @@ const EnrollmentPage = () => {
       setOtpVerifying(false);
     }
   };
-
 
   let courseDetails = formData.standard;
   if (formData.specificClass) {
@@ -233,28 +229,29 @@ const EnrollmentPage = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-6 bg-mesh">
-        <div className="glass-card p-16 rounded-[60px] text-center max-w-xl w-full animate-float shadow-[0_0_100px_rgba(59,130,246,0.1)]">
-          <div className="w-24 h-24 bg-gradient-to-br from-green-400 to-emerald-600 rounded-[35%] flex items-center justify-center mx-auto mb-10 shadow-2xl shadow-green-500/20 rotate-12">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-white -rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-            </svg>
+      <div className="min-h-screen flex items-center justify-center px-4 bg-[#09090b]">
+        <div className="bg-[#0d0e12] border border-zinc-800 p-8 rounded-md text-center max-w-md w-full shadow-2xl">
+          <div className="w-12 h-12 bg-zinc-900 border border-zinc-700 rounded-sm flex items-center justify-center mx-auto mb-5 text-emerald-400">
+            <CheckCircle2 className="w-6 h-6" strokeWidth={1.5} />
           </div>
-          <h2 className="text-4xl font-extrabold text-white mb-6">Enrollment Successful!</h2>
-          <p className="text-white/40 mb-12 text-lg leading-relaxed">
-            Success, <span className="text-blue-400 font-bold">{formData.name}</span>! Your enrollment request has been prioritized. Manoj Sir or Sandeep Sir will reach out to you within 24 hours.
+          <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-1">
+            ENROLLMENT_DISPATCH_CONFIRMED
+          </div>
+          <h2 className="text-xl font-bold text-zinc-100 mb-2">Enrollment Request Prioritized</h2>
+          <p className="text-zinc-400 mb-6 text-xs font-mono leading-relaxed">
+            Welcome, <span className="text-zinc-200 font-semibold">{formData.name}</span>. Your application for <span className="text-zinc-300 font-medium">{courseDetails}</span> is confirmed. Direct mentor contact will follow within 24 hours.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-2 justify-center items-center font-mono">
             <a
               href={getWhatsAppLink(formData.name, 'enrollment', courseDetails)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-10 py-5 bg-green-600 text-white font-bold rounded-2xl hover:bg-green-700 transition-all shadow-xl shadow-green-500/20 active:scale-95 w-full sm:w-auto"
+              className="btn-secondary w-full sm:w-auto px-4 py-2 text-xs rounded-sm border border-zinc-800 text-zinc-200 flex items-center justify-center gap-1.5"
             >
+              <MessageSquare className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
               <span>Confirm on WhatsApp</span>
-              <span className="text-xl">💬</span>
             </a>
-            <Link to="/" className="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/20 active:scale-95 w-full sm:w-auto">
+            <Link to="/" className="btn-primary w-full sm:w-auto px-4 py-2 text-xs rounded-sm">
               Return Home
             </Link>
           </div>
@@ -264,362 +261,250 @@ const EnrollmentPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-mesh py-24 px-6 md:px-12 flex items-center justify-center overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px] -z-0"></div>
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px] -z-0"></div>
-
-      <div className="max-w-6xl w-full flex flex-col lg:flex-row gap-20 items-center relative z-10">
-        {/* Info Column */}
-        <div className="flex-1 space-y-12">
+    <div className="min-h-screen bg-[#09090b] py-16 px-4 md:px-8 flex items-center justify-center">
+      <div className="max-w-5xl w-full flex flex-col lg:flex-row gap-8 items-start">
+        {/* Left Specification Column */}
+        <div className="lg:w-5/12 space-y-6">
           <div>
-            <Link to="/" className="inline-flex items-center gap-3 text-blue-500 font-bold uppercase tracking-[0.2em] text-xs mb-10 group hover:opacity-80 transition-all">
-              <span className="w-8 h-8 rounded-full glass flex items-center justify-center group-hover:-translate-x-1 transition-transform">←</span>
-              Back to Home
+            <Link to="/" className="inline-flex items-center gap-2 text-zinc-400 hover:text-zinc-100 font-mono text-xs mb-4 transition-colors">
+              <ArrowLeft className="w-3.5 h-3.5" strokeWidth={1.5} />
+              <span>RETURN TO HOME</span>
             </Link>
-            <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-[1.1] mb-8">
-              Unlock Your <br /><span className="text-gradient">Potential</span>
+            <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 mb-1">
+              PROVISIONING PROTOCOL // CANDIDATE REGISTRATION
+            </div>
+            <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-zinc-100 leading-tight mb-3">
+              Enroll for <br className="hidden sm:inline" />Academic Mentorship
             </h1>
-            <p className="text-white/40 text-xl leading-relaxed max-w-md">
-              Secure your spot at Tiwari Tutorials. Expert mentorship for school, boards, and competitive excellence.
+            <p className="text-xs font-mono text-zinc-400 leading-relaxed">
+              Complete candidate profile to reserve batch capacity. All admissions are verified directly by Manoj Sir and Sandeep Sir.
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-2.5 pt-2">
             {[
-              { title: 'Personalized Attention', desc: 'Direct mentorship from founders.' },
-              { title: 'Proven Results', desc: 'Consistent toppers in boards & JEE/NEET.' },
-              { title: 'Modern Methodology', desc: 'Concept-first learning approach.' }
+              { title: 'Personalized Diagnostic', desc: 'Direct syllabus evaluation and weak-area roadmap.' },
+              { title: 'Small Batch Discipline', desc: 'Strict student-teacher ratio to maintain high focus.' },
+              { title: 'Continuous Telemetry', desc: 'Weekly analytics reports delivered directly to parents.' }
             ].map((item, idx) => (
-              <div key={idx} className="flex gap-6 items-start group">
-                <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-lg">✓</div>
+              <div key={idx} className="p-3 bg-[#0d0e12] border border-zinc-800 rounded-sm flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" strokeWidth={1.5} />
                 <div>
-                  <h4 className="text-white font-bold mb-1">{item.title}</h4>
-                  <p className="text-white/30 text-sm">{item.desc}</p>
+                  <div className="text-xs font-mono font-semibold text-zinc-200">{item.title}</div>
+                  <div className="text-[11px] text-zinc-500 font-mono">{item.desc}</div>
                 </div>
               </div>
             ))}
           </div>
+
+          <div className="p-3 bg-zinc-900/60 border border-zinc-800 rounded-sm text-[11px] font-mono text-zinc-500 flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-zinc-400 shrink-0" strokeWidth={1.5} />
+            <span>ENCRYPTED SECURE VERIFICATION DISPATCH</span>
+          </div>
         </div>
 
-        {/* Form Column */}
-        <div className="flex-[1.3] w-full max-w-2xl">
-          <form onSubmit={handleSubmit} className="glass-card p-10 md:p-14 rounded-[60px] border border-white/5 space-y-8 shadow-2xl">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div className="space-y-3">
-                <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Full Name</label>
+        {/* Right Form Column */}
+        <div className="lg:w-7/12 w-full">
+          <form onSubmit={handleSubmit} className="bg-[#0d0e12] border border-zinc-800 p-6 sm:p-8 rounded-md space-y-4 shadow-xl">
+            <div className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 pb-2 border-b border-zinc-800">
+              CANDIDATE CREDENTIALS
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Student Full Name</label>
                 <input
                   type="text"
                   name="name"
                   required
-                  placeholder="Student Name"
+                  placeholder="Full Name"
+                  value={formData.name}
                   onChange={handleChange}
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all placeholder:text-white/10 font-medium"
+                  className="w-full bg-zinc-900/60 border border-zinc-800 rounded-sm px-3 py-2 text-xs font-mono text-zinc-100 placeholder:text-zinc-600 focus:border-zinc-500 outline-none transition-colors"
                 />
               </div>
-              <div className="space-y-3">
-                <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Contact Number</label>
+
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Contact Number</label>
                 <input
                   type="tel"
                   name="phone"
                   required
                   placeholder="+91"
+                  value={formData.phone}
                   onChange={handleChange}
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all placeholder:text-white/10 font-medium"
+                  className="w-full bg-zinc-900/60 border border-zinc-800 rounded-sm px-3 py-2 text-xs font-mono text-zinc-100 placeholder:text-zinc-600 focus:border-zinc-500 outline-none transition-colors"
                 />
               </div>
             </div>
 
-            <div className="space-y-3">
-              <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Email Address</label>
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Email Address</label>
               <input
                 type="email"
                 name="email"
                 required
                 placeholder="email@example.com"
+                value={formData.email}
                 onChange={handleChange}
-                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all placeholder:text-white/10 font-medium"
+                className="w-full bg-zinc-900/60 border border-zinc-800 rounded-sm px-3 py-2 text-xs font-mono text-zinc-100 placeholder:text-zinc-600 focus:border-zinc-500 outline-none transition-colors"
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div className="space-y-3">
-                <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Course / Category</label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-zinc-800/60">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Course / Category</label>
                 <div className="relative">
                   <select
                     name="standard"
                     required
+                    value={formData.standard}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
+                    className="w-full bg-zinc-900/60 border border-zinc-800 rounded-sm px-3 py-2 text-xs font-mono text-zinc-100 focus:border-zinc-500 outline-none appearance-none cursor-pointer"
                   >
-                    <option value="" disabled selected className="bg-[#050b18]">Choose Course Category</option>
-                    <option value="School Boards (Class 10-12)" className="bg-[#050b18]">School Boards (Class 10-12)</option>
-                    <option value="Pre Foundation (Class 1-9)" className="bg-[#050b18]">Pre Foundation (Class 1-9)</option>
-                    <option value="NEET" className="bg-[#050b18]">NEET</option>
-                    <option value="IIT JEE" className="bg-[#050b18]">IIT JEE</option>
-                    <option value="Commerce Section" className="bg-[#050b18]">Commerce Section</option>
+                    <option value="" disabled className="bg-[#09090b]">Select Curricular Track</option>
+                    <option value="School Boards (Class 10-12)" className="bg-[#09090b]">School Boards (Class 10–12)</option>
+                    <option value="Pre Foundation (Class 1-9)" className="bg-[#09090b]">Pre Foundation (Class 1–9)</option>
+                    <option value="NEET" className="bg-[#09090b]">NEET Medical Entrance</option>
+                    <option value="IIT JEE" className="bg-[#09090b]">IIT JEE Engineering Entrance</option>
+                    <option value="Commerce Section" className="bg-[#09090b]">Commerce Stream</option>
                   </select>
-                  <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
+                  <ChevronDown className="w-3.5 h-3.5 text-zinc-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" strokeWidth={1.5} />
                 </div>
               </div>
 
               {(formData.standard === 'School Boards (Class 10-12)' || formData.standard === 'Pre Foundation (Class 1-9)') && (
-                <>
-                  <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Specific Class</label>
-                    <div className="relative">
-                      <select
-                        name="specificClass"
-                        required
-                        onChange={handleChange}
-                        value={formData.specificClass}
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
-                      >
-                        <option value="" disabled className="bg-[#050b18]">Select Class</option>
-                        {formData.standard === 'School Boards (Class 10-12)' ? (
-                          <>
-                            <option value="Class 10" className="bg-[#050b18]">Class 10</option>
-                            <option value="Class 11" className="bg-[#050b18]">Class 11</option>
-                            <option value="Class 12" className="bg-[#050b18]">Class 12</option>
-                          </>
-                        ) : (
-                          [...Array(9)].map((_, i) => (
-                            <option key={i + 1} value={i + 1} className="bg-[#050b18]">{i + 1}{i + 1 === 1 ? 'st' : i + 1 === 2 ? 'nd' : i + 1 === 3 ? 'rd' : 'th'} Standard</option>
-                          ))
-                        )}
-                      </select>
-                      <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Medium of Language</label>
-                    <div className="relative">
-                      <select
-                        name="medium"
-                        required
-                        onChange={handleChange}
-                        value={formData.medium}
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
-                      >
-                        <option value="" disabled className="bg-[#050b18]">Select Medium</option>
-                        <option value="English" className="bg-[#050b18]">English</option>
-                        <option value="Hindi" className="bg-[#050b18]">Hindi</option>
-                        <option value="Vernacular" className="bg-[#050b18]">Vernacular</option>
-                      </select>
-                      <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
-                    </div>
-                  </div>
-
-                  {(formData.standard === 'School Boards (Class 10-12)' && (formData.specificClass === 'Class 11' || formData.specificClass === 'Class 12')) && (
-                    <>
-                      <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Stream</label>
-                        <div className="relative">
-                          <select
-                            name="stream"
-                            required
-                            onChange={handleChange}
-                            value={formData.stream}
-                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
-                          >
-                            <option value="" disabled className="bg-[#050b18]">Select Stream</option>
-                            <option value="Science" className="bg-[#050b18]">Science</option>
-                            <option value="Commerce" className="bg-[#050b18]">Commerce</option>
-                          </select>
-                          <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
-                        </div>
-                      </div>
-
-                      {formData.stream === 'Science' && (
-                        <>
-                          <div className="space-y-3">
-                            <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Science Group</label>
-                            <div className="relative">
-                              <select
-                                name="scienceGroup"
-                                required
-                                onChange={handleChange}
-                                value={formData.scienceGroup}
-                                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
-                              >
-                                <option value="" disabled className="bg-[#050b18]">Select Group</option>
-                                <option value="PCMB" className="bg-[#050b18]">PCMB</option>
-                                <option value="PCB" className="bg-[#050b18]">PCB</option>
-                                <option value="PCM" className="bg-[#050b18]">PCM</option>
-                                <option value="PCM Computer Science" className="bg-[#050b18]">PCM Computer Science</option>
-                              </select>
-                              <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
-                            </div>
-                          </div>
-
-                          {formData.scienceGroup && formData.scienceGroup !== 'PCM Computer Science' && (
-                            <div className="space-y-3">
-                              <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Language Selection (Max 2)</label>
-                              <div className="flex flex-wrap gap-4">
-                                {['English', 'Hindi', 'Marathi', 'Information Technology'].map(lang => (
-                                  <label key={lang} className="flex items-center space-x-2 cursor-pointer">
-                                    <input 
-                                      type="checkbox" 
-                                      name="languages" 
-                                      value={lang}
-                                      onChange={handleChange}
-                                      checked={formData.languages.includes(lang)}
-                                      disabled={!formData.languages.includes(lang) && formData.languages.length >= 2}
-                                      className="w-4 h-4 rounded bg-white/5 border-white/10 text-blue-500 focus:ring-blue-500"
-                                    />
-                                    <span className="text-white/80 text-sm">{lang}</span>
-                                  </label>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                        </>
-                      )}
-
-                      {formData.stream === 'Commerce' && (
-                        <>
-                          <div className="bg-white/5 border border-white/10 rounded-2xl p-4 mt-2">
-                            <p className="text-[11px] font-bold text-white/60 mb-1 uppercase tracking-wider text-green-400">Compulsory Subjects:</p>
-                            <p className="text-sm text-white/80 font-medium">Accountancy, Business Studies, Economics, English</p>
-                          </div>
-                          
-                          <div className="space-y-3">
-                            <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Optional Subject</label>
-                            <div className="relative">
-                              <select
-                                name="optionalSubject"
-                                required
-                                onChange={handleChange}
-                                value={formData.optionalSubject}
-                                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
-                              >
-                                <option value="" disabled className="bg-[#050b18]">Select Optional Subject</option>
-                                <option value="Mathematics" className="bg-[#050b18]">Mathematics</option>
-                                <option value="Information Technology" className="bg-[#050b18]">Information Technology</option>
-                                <option value="Hindi" className="bg-[#050b18]">Hindi</option>
-                                <option value="Marathi" className="bg-[#050b18]">Marathi</option>
-                              </select>
-                              <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
-                            </div>
-                          </div>
-                        </>
-                      )}
-                    </>
-                  )}
-                </>
-              )}
-
-              {(formData.standard === 'NEET' || formData.standard === 'IIT JEE') && (
-                <div className="space-y-3">
-                  <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Select Class / Batch</label>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Standard / Grade</label>
                   <div className="relative">
                     <select
                       name="specificClass"
                       required
                       onChange={handleChange}
                       value={formData.specificClass}
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
+                      className="w-full bg-zinc-900/60 border border-zinc-800 rounded-sm px-3 py-2 text-xs font-mono text-zinc-100 focus:border-zinc-500 outline-none appearance-none cursor-pointer"
                     >
-                      <option value="" disabled className="bg-[#050b18]">Select Class/Batch</option>
-                      <option value="Class 11" className="bg-[#050b18]">Class 11</option>
-                      <option value="Class 12" className="bg-[#050b18]">Class 12</option>
-                      <option value="Dropper" className="bg-[#050b18]">Dropper</option>
+                      <option value="" disabled className="bg-[#09090b]">Select Class</option>
+                      {formData.standard === 'School Boards (Class 10-12)' ? (
+                        <>
+                          <option value="Class 10" className="bg-[#09090b]">Class 10</option>
+                          <option value="Class 11" className="bg-[#09090b]">Class 11</option>
+                          <option value="Class 12" className="bg-[#09090b]">Class 12</option>
+                        </>
+                      ) : (
+                        [...Array(9)].map((_, i) => (
+                          <option key={i + 1} value={i + 1} className="bg-[#09090b]">{i + 1} Standard</option>
+                        ))
+                      )}
                     </select>
-                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
+                    <ChevronDown className="w-3.5 h-3.5 text-zinc-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" strokeWidth={1.5} />
+                  </div>
+                </div>
+              )}
+
+              {(formData.standard === 'NEET' || formData.standard === 'IIT JEE') && (
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Target Cohort</label>
+                  <div className="relative">
+                    <select
+                      name="specificClass"
+                      required
+                      onChange={handleChange}
+                      value={formData.specificClass}
+                      className="w-full bg-zinc-900/60 border border-zinc-800 rounded-sm px-3 py-2 text-xs font-mono text-zinc-100 focus:border-zinc-500 outline-none appearance-none cursor-pointer"
+                    >
+                      <option value="" disabled className="bg-[#09090b]">Select Cohort</option>
+                      <option value="Class 11" className="bg-[#09090b]">Class 11 (2-Year Integrated)</option>
+                      <option value="Class 12" className="bg-[#09090b]">Class 12 (1-Year Focused)</option>
+                      <option value="Dropper" className="bg-[#09090b]">Dropper / Repeater Batch</option>
+                    </select>
+                    <ChevronDown className="w-3.5 h-3.5 text-zinc-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" strokeWidth={1.5} />
                   </div>
                 </div>
               )}
 
               {formData.standard === 'Commerce Section' && (
-                <div className="space-y-3">
-                  <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Commerce Subject</label>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Commerce Subject</label>
                   <div className="relative">
                     <select
                       name="commerceSubject"
                       required
                       onChange={handleChange}
                       value={formData.commerceSubject}
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all appearance-none font-medium cursor-pointer"
+                      className="w-full bg-zinc-900/60 border border-zinc-800 rounded-sm px-3 py-2 text-xs font-mono text-zinc-100 focus:border-zinc-500 outline-none appearance-none cursor-pointer"
                     >
-                      <option value="" disabled className="bg-[#050b18]">Select Subject</option>
-                      <option value="Accountancy" className="bg-[#050b18]">Accountancy</option>
-                      <option value="Business Studies" className="bg-[#050b18]">Business Studies</option>
-                      <option value="Economics" className="bg-[#050b18]">Economics</option>
-                      <option value="Mathematics (Commerce)" className="bg-[#050b18]">Mathematics (Commerce)</option>
-                      <option value="English" className="bg-[#050b18]">English</option>
-                      <option value="All Subjects" className="bg-[#050b18]">All Subjects</option>
+                      <option value="" disabled className="bg-[#09090b]">Select Subject Focus</option>
+                      <option value="Accountancy" className="bg-[#09090b]">Accountancy</option>
+                      <option value="Business Studies" className="bg-[#09090b]">Business Studies</option>
+                      <option value="Economics" className="bg-[#09090b]">Economics</option>
+                      <option value="Mathematics (Commerce)" className="bg-[#09090b]">Mathematics (Commerce)</option>
+                      <option value="English" className="bg-[#09090b]">English</option>
+                      <option value="All Subjects" className="bg-[#09090b]">Comprehensive Package</option>
                     </select>
-                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20">↓</div>
+                    <ChevronDown className="w-3.5 h-3.5 text-zinc-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" strokeWidth={1.5} />
                   </div>
                 </div>
               )}
             </div>
 
-            {error && <p className="text-red-400 text-sm text-center font-bold">{error}</p>}
+            {error && <p className="text-red-400 text-xs font-mono">{error}</p>}
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-5 bg-blue-600 text-white font-extrabold rounded-2xl hover:bg-blue-700 transition-all transform hover:-translate-y-1 shadow-2xl shadow-blue-600/30 active:scale-95 text-sm uppercase tracking-[0.2em] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+              className="btn-primary w-full py-2.5 text-xs font-mono rounded-sm flex items-center justify-center gap-2 disabled:opacity-50 mt-4"
             >
-              {loading ? 'Submitting...' : 'Confirm Enrollment'}
+              <Lock className="w-3.5 h-3.5" strokeWidth={1.5} />
+              <span>{loading ? 'PROCESSING...' : 'AUTHENTICATE & DISPATCH ENROLLMENT'}</span>
             </button>
-            <p className="text-center text-[10px] text-white/20 font-bold uppercase tracking-widest">By enrolling, you agree to our terms of excellence.</p>
+            <p className="text-center text-[10px] text-zinc-600 font-mono">Secure TLS Verified Dispatch // Powai Administrative Registry</p>
           </form>
         </div>
       </div>
 
-      {/* Premium Notification Toast (Simulating SMS) */}
+      {/* Notification Toast */}
       {toastMessage && (
-        <div className="fixed top-6 right-6 z-50 max-w-sm w-full bg-slate-900/95 border border-white/10 backdrop-blur-xl rounded-2xl p-4 shadow-[0_10px_50px_rgba(0,0,0,0.5)] animate-slide-in pointer-events-auto">
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-10 h-10 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center text-lg">
-              💬
-            </div>
-            <div className="flex-1">
-              <p className="text-xs font-bold text-white/40 uppercase tracking-wider">{toastMessage.title}</p>
-              <p className="text-sm font-semibold text-white mt-1 leading-relaxed">{toastMessage.message}</p>
-              <div className="mt-2 text-[10px] text-blue-400 font-bold uppercase tracking-wider">
-                Now arriving via SMS
+        <div className="fixed top-4 right-4 z-50 max-w-sm w-full bg-[#0d0e12] border border-zinc-700 p-3.5 rounded-sm shadow-2xl animate-slide-in font-mono">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start gap-2.5">
+              <KeyRound className="w-4 h-4 text-zinc-300 mt-0.5 shrink-0" strokeWidth={1.5} />
+              <div>
+                <p className="text-[10px] text-zinc-500 uppercase tracking-wider">{toastMessage.title}</p>
+                <p className="text-xs text-zinc-200 mt-0.5">{toastMessage.message}</p>
               </div>
             </div>
             <button
               onClick={() => setToastMessage(null)}
-              className="text-white/25 hover:text-white/60 transition-colors font-bold text-sm cursor-pointer"
+              className="text-zinc-500 hover:text-zinc-200"
             >
-              ✕
+              <X className="w-3.5 h-3.5" strokeWidth={1.5} />
             </button>
           </div>
         </div>
       )}
 
-      {/* Glassmorphism OTP Verification Modal */}
+      {/* OTP Verification Modal (Linear/Stripe style) */}
       {showOtpModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-md">
-          <div className="glass-card w-full max-w-md p-10 rounded-[40px] border border-white/10 shadow-[0_0_100px_rgba(59,130,246,0.15)] text-center animate-fade-in relative overflow-hidden">
-            {/* Glow effect inside modal */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-600/10 rounded-full blur-2xl -z-10"></div>
-            
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-blue-500/20">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#09090b]/85 backdrop-blur-sm">
+          <div className="bg-[#0d0e12] border border-zinc-800 w-full max-w-sm p-6 rounded-md shadow-2xl text-center animate-fade-in font-mono">
+            <div className="w-10 h-10 bg-zinc-900 border border-zinc-700 rounded-sm flex items-center justify-center mx-auto mb-4 text-zinc-200">
+              <Lock className="w-4 h-4" strokeWidth={1.5} />
             </div>
 
-            <h3 className="text-2xl font-extrabold text-white mb-2">Phone Verification</h3>
-            <p className="text-white/50 text-sm leading-relaxed mb-6">
-              We've sent a 6-digit verification code to <span className="text-blue-400 font-bold">{formData.phone || 'your number'}</span>
+            <div className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">SECURITY GATEWAY</div>
+            <h3 className="text-base font-semibold text-zinc-100 mb-1">Verify Contact Authenticity</h3>
+            <p className="text-zinc-400 text-xs mb-4">
+              Enter 6-digit verification code sent to <span className="text-zinc-200">{formData.phone}</span>
             </p>
 
-            {/* Demo/Testing Helper Badge */}
-            <div className="mb-8 px-4 py-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl inline-flex items-center gap-3">
-              <span className="text-blue-400 text-sm font-bold">🔑 Demo OTP Code:</span>
-              <span className="bg-blue-600 text-white font-extrabold px-3 py-1 rounded-lg text-sm tracking-wider select-all">{otpCode}</span>
+            <div className="mb-5 px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-sm inline-flex items-center gap-2 text-xs">
+              <span className="text-zinc-400">TEST CODE:</span>
+              <span className="text-zinc-100 font-bold select-all tracking-wider">{otpCode}</span>
             </div>
 
-            <form onSubmit={handleVerifyOTP} className="space-y-6">
-              <div className="flex justify-between gap-2 max-w-[300px] mx-auto">
+            <form onSubmit={handleVerifyOTP} className="space-y-4">
+              <div className="flex justify-between gap-1.5 max-w-[260px] mx-auto">
                 {otpInput.map((digit, index) => (
                   <input
                     key={index}
@@ -630,41 +515,41 @@ const EnrollmentPage = () => {
                     onChange={(e) => handleOtpChange(e.target, index)}
                     onKeyDown={(e) => handleOtpKeyDown(e, index)}
                     onFocus={(e) => e.target.select()}
-                    className="w-12 h-14 bg-white/5 border border-white/10 rounded-xl text-center text-xl text-white font-bold focus:border-blue-500 focus:bg-white/10 outline-none transition-all"
+                    className="w-9 h-11 bg-zinc-900 border border-zinc-800 rounded-sm text-center text-base text-zinc-100 font-bold focus:border-zinc-500 outline-none"
                   />
                 ))}
               </div>
 
-              {otpError && <p className="text-red-400 text-xs font-bold">{otpError}</p>}
+              {otpError && <p className="text-red-400 text-xs">{otpError}</p>}
 
-              <div className="text-xs font-semibold">
+              <div className="text-[11px] text-zinc-500">
                 {otpTimer > 0 ? (
-                  <span className="text-white/40">Resend code in <span className="text-blue-400">{otpTimer}s</span></span>
+                  <span>Resend available in <span className="text-zinc-300 font-medium">{otpTimer}s</span></span>
                 ) : (
                   <button
                     type="button"
                     onClick={generateOTP}
-                    className="text-blue-400 hover:text-blue-300 font-bold transition-all cursor-pointer"
+                    className="text-zinc-300 hover:text-white underline"
                   >
-                    Resend Code
+                    Resend OTP Code
                   </button>
                 )}
               </div>
 
-              <div className="flex gap-4 pt-4">
+              <div className="flex gap-2 pt-2">
                 <button
                   type="button"
                   onClick={() => setShowOtpModal(false)}
-                  className="flex-1 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-2xl border border-white/10 active:scale-95 transition-all text-sm uppercase tracking-wider"
+                  className="btn-secondary flex-1 py-2 text-xs rounded-sm"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={otpVerifying || loading}
-                  className="flex-1 py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl active:scale-95 shadow-lg shadow-blue-600/30 transition-all text-sm uppercase tracking-wider disabled:opacity-50"
+                  className="btn-primary flex-1 py-2 text-xs rounded-sm"
                 >
-                  {otpVerifying ? 'Verifying...' : 'Verify'}
+                  {otpVerifying ? 'VERIFYING...' : 'CONFIRM'}
                 </button>
               </div>
             </form>

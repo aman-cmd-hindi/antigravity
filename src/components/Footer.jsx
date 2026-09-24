@@ -1,5 +1,5 @@
-
 import { Link } from 'react-router-dom';
+import { MapPin, Phone, Mail, ArrowUp, ArrowUpRight, Terminal } from 'lucide-react';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -7,27 +7,42 @@ const Footer = () => {
   };
 
   return (
-    <footer id="contact" className="bg-mesh pt-16 md:pt-32 pb-12 px-6 md:px-12 relative overflow-hidden">
-      {/* Decorative Gradient */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[300px] bg-primary/10 rounded-full blur-[150px] pointer-events-none"></div>
+    <footer id="contact" className="bg-[#09090b] border-t border-zinc-800/90 pt-12 pb-8 px-4 md:px-8 text-zinc-400">
+      <div className="max-w-6xl mx-auto">
+        {/* Main Columns Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+          {/* Brand & Overview */}
+          <div className="md:col-span-4 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-2.5 mb-3">
+                <div className="w-6 h-6 bg-zinc-900 border border-zinc-700 rounded-sm flex items-center justify-center text-zinc-200 text-xs font-mono font-bold">
+                  T
+                </div>
+                <div className="flex items-center gap-1.5 text-xs font-mono tracking-tight text-zinc-100">
+                  <span className="font-semibold">TIWARI</span>
+                  <span className="text-zinc-500 font-normal">TUTORIALS</span>
+                </div>
+              </div>
 
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-20 mb-16 md:mb-24">
-          <div className="col-span-1 md:col-span-2 text-center md:text-left">
-            <div className="text-2xl md:text-3xl font-extrabold tracking-tighter text-white mb-6 md:mb-8 flex items-center justify-center md:justify-start gap-3">
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-slate-950 text-base font-black shadow-xl shadow-primary/20">T</div>
-              TIWARI <span className="text-primary font-mono-label">TUTORIALS</span>
+              <p className="text-xs text-zinc-400 leading-relaxed max-w-sm mb-4">
+                Premier academic coaching institute providing rigorous foundational training for JEE Main & Advanced, NEET-UG, School Boards, and Commerce.
+              </p>
+
+              {/* Operational Status Badge */}
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[#0d0e12] border border-zinc-800 rounded-sm text-[10px] font-mono text-zinc-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>ALL ACADEMIC SERVICES OPERATIONAL</span>
+              </div>
             </div>
-            <p className="text-white/30 max-w-sm mx-auto md:mx-0 leading-relaxed mb-8 md:mb-10 text-base md:text-lg">
-               Building strong foundations for future engineers, doctors, and scientists. Your journey to excellence starts here.
-            </p>
-            <div className="flex justify-center md:justify-start gap-4 md:gap-6">
+
+            {/* Social channels (monospaced buttons) */}
+            <div className="flex items-center gap-1.5 mt-6">
               {['FB', 'IG', 'TW', 'LI'].map((social) => (
                 <a 
                   key={social} 
                   href="#" 
-                  aria-label={`Visit our ${social} social channel`}
-                  className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl glass edu-card flex items-center justify-center text-[10px] font-bold text-white/40 hover:text-primary hover:border-primary/50 transition-all active:scale-95 font-mono-label"
+                  aria-label={`Visit our ${social} channel`}
+                  className="px-2 py-1 rounded-sm bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] font-mono text-zinc-400 hover:text-zinc-200 transition-colors"
                 >
                   {social}
                 </a>
@@ -35,76 +50,114 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="text-center md:text-left">
-            <h4 className="text-white font-bold uppercase tracking-[0.2em] text-[10px] mb-8 md:mb-10 font-mono-label">Navigation</h4>
-            <ul className="space-y-4 md:space-y-5">
-              {['Home', 'Courses', 'About', 'Contact'].map((item) => (
-                <li key={item}>
-                  <a href={`#${item.toLowerCase()}`} className="text-white/40 hover:text-primary transition-colors text-sm font-semibold">
-                    {item}
-                  </a>
-                </li>
-              ))}
+          {/* Curricula Links */}
+          <div className="md:col-span-3">
+            <h4 className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-3">
+              Curricular Modules
+            </h4>
+            <ul className="space-y-2 text-xs font-mono text-zinc-400">
+              <li>
+                <a href="#courses" className="hover:text-zinc-200 transition-colors flex items-center justify-between">
+                  <span>NEET-UG Medical</span>
+                  <ArrowUpRight className="w-3 h-3 text-zinc-600" strokeWidth={1.5} />
+                </a>
+              </li>
+              <li>
+                <a href="#courses" className="hover:text-zinc-200 transition-colors flex items-center justify-between">
+                  <span>IIT JEE (Main & Adv)</span>
+                  <ArrowUpRight className="w-3 h-3 text-zinc-600" strokeWidth={1.5} />
+                </a>
+              </li>
+              <li>
+                <a href="#courses" className="hover:text-zinc-200 transition-colors flex items-center justify-between">
+                  <span>HSC & CBSE Boards (10–12)</span>
+                  <ArrowUpRight className="w-3 h-3 text-zinc-600" strokeWidth={1.5} />
+                </a>
+              </li>
+              <li>
+                <a href="#courses" className="hover:text-zinc-200 transition-colors flex items-center justify-between">
+                  <span>Pre-Foundation (Class 1–9)</span>
+                  <ArrowUpRight className="w-3 h-3 text-zinc-600" strokeWidth={1.5} />
+                </a>
+              </li>
+              <li>
+                <a href="#courses" className="hover:text-zinc-200 transition-colors flex items-center justify-between">
+                  <span>Commerce Section</span>
+                  <ArrowUpRight className="w-3 h-3 text-zinc-600" strokeWidth={1.5} />
+                </a>
+              </li>
+              <li>
+                <Link to="/cbt" className="text-zinc-300 hover:text-white transition-colors flex items-center justify-between">
+                  <span>Mock CBT Test Portal</span>
+                  <Terminal className="w-3 h-3 text-zinc-500" strokeWidth={1.5} />
+                </Link>
+              </li>
             </ul>
           </div>
 
-          <div className="space-y-10 text-center md:text-left">
-            <div>
-               <h4 className="text-white font-bold uppercase tracking-[0.2em] text-[10px] mb-6 md:mb-8 font-mono-label">Reach Us</h4>
-               <div className="space-y-6 md:space-y-8">
-                  <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-5">
-                    <div className="w-6 h-6 text-primary flex-shrink-0" aria-hidden="true">📍</div>
-                    <div className="text-white/40 text-sm leading-relaxed">
-                      <p className="mb-4">Pujari Ka Tabela, Tunga Village,<br />Powai, Mumbai 400072</p>
-                      <div className="rounded-2xl overflow-hidden border border-white/5 glass h-32 md:h-24 w-full relative group">
-                        <iframe 
-                          title="Location Map"
-                          src="https://maps.google.com/maps?q=19.119900,72.891421&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-                          width="100%" 
-                          height="100%" 
-                          style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) brightness(95%) contrast(90%)' }} 
-                          allowFullScreen="" 
-                          loading="lazy"
-                        ></iframe>
-                        <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors pointer-events-none"></div>
-                      </div>
-                    </div>
-                  </div>
+          {/* Contact & Campus Info */}
+          <div className="md:col-span-5">
+            <h4 className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-3">
+              Campus Location & Dispatch
+            </h4>
+            
+            <div className="space-y-3 text-xs font-mono">
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-3.5 h-3.5 text-zinc-400 mt-0.5 shrink-0" strokeWidth={1.5} />
+                <div className="text-zinc-400">
+                  Pujari Ka Tabela, Tunga Village, Powai, Mumbai 400072
+                </div>
+              </div>
 
-                  <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-5">
-                    <div className="w-6 h-6 text-primary flex-shrink-0" aria-hidden="true">📞</div>
-                    <div className="text-white/40 text-sm font-bold space-y-1">
-                      <p className="hover:text-primary transition-colors cursor-pointer">+91 877 956 0903</p>
-                      <p className="hover:text-primary transition-colors cursor-pointer">+91 98331 87969</p>
-                    </div>
-                  </div>
+              <div className="flex items-center gap-2.5">
+                <Phone className="w-3.5 h-3.5 text-zinc-400 shrink-0" strokeWidth={1.5} />
+                <div className="flex items-center gap-3 text-zinc-300">
+                  <a href="tel:+918779560903" className="hover:text-white transition-colors">+91 8779560903</a>
+                  <span className="text-zinc-700">|</span>
+                  <a href="tel:+919833187969" className="hover:text-white transition-colors">+91 9833187969</a>
+                </div>
+              </div>
 
-                  <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-5">
-                    <div className="w-6 h-6 text-primary flex-shrink-0" aria-hidden="true">✉️</div>
-                    <p className="text-white/40 text-sm font-bold hover:text-primary cursor-pointer">info@tiwaritutorials.com</p>
-                  </div>
-               </div>
+              <div className="flex items-center gap-2.5">
+                <Mail className="w-3.5 h-3.5 text-zinc-400 shrink-0" strokeWidth={1.5} />
+                <a href="mailto:info@tiwaritutorials.com" className="text-zinc-300 hover:text-white transition-colors">
+                  info@tiwaritutorials.com
+                </a>
+              </div>
+
+              {/* Minimal Dark Map Frame */}
+              <div className="rounded-sm overflow-hidden border border-zinc-800 bg-[#0d0e12] h-24 w-full relative mt-2">
+                <iframe 
+                  title="Location Map"
+                  src="https://maps.google.com/maps?q=19.119900,72.891421&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) brightness(85%) contrast(90%)' }} 
+                  allowFullScreen="" 
+                  loading="lazy"
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col gap-2">
-            <p className="text-white/20 text-[10px] md:text-xs font-semibold tracking-wider text-center md:text-left">
-              © 2026 TIWARI TUTORIALS. CRAFTED BY PROFESSIONAL MENTORS<Link to="/portal-vault-88" className="text-white/20 hover:text-white/40 cursor-default inline-block" aria-label="Portal">.</Link>
-            </p>
+        {/* Bottom Bar */}
+        <div className="pt-6 border-t border-zinc-800/80 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-zinc-500">
+          <div>
+            © 2026 TIWARI TUTORIALS. ALL RIGHTS RESERVED
+            <Link to="/portal-vault-88" className="text-zinc-700 hover:text-zinc-500 ml-1" aria-label="Portal">.</Link>
           </div>
-          <div className="flex gap-8">
-             <a href="#" className="text-white/20 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors font-mono-label">Privacy</a>
-             <a href="#" className="text-white/20 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors font-mono-label">Terms</a>
+
+          <div className="flex items-center gap-4">
+            <span className="text-[10px] text-zinc-600">SYS_BUILD: 2.6.4</span>
+            <button 
+              onClick={scrollToTop}
+              className="w-7 h-7 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-sm flex items-center justify-center text-zinc-400 hover:text-zinc-200 transition-colors"
+              aria-label="Scroll to top"
+            >
+              <ArrowUp className="w-3.5 h-3.5" strokeWidth={1.5} />
+            </button>
           </div>
-          <button 
-            onClick={scrollToTop}
-            className="w-10 h-10 md:w-12 md:h-12 btn-secondary circuit-btn ripple-btn rounded-xl md:rounded-2xl flex items-center justify-center hover:bg-primary hover:text-slate-950 transition-all shadow-xl active:scale-95"
-            aria-label="Scroll to top"
-          >
-            ↑
-          </button>
         </div>
       </div>
     </footer>

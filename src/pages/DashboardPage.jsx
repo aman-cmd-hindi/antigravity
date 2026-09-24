@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { collection, getDocs, orderBy, query, deleteDoc, doc, addDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
 import { db, storage } from '../firebase';
+import { Lock, Eye, EyeOff, RefreshCw, LogOut, ArrowLeft, ClipboardList, Star, Image as ImageIcon, Trophy, Users, AlertTriangle } from 'lucide-react';
 
 // Pre-computed SHA-256 hash of the administrative key (Security through Obscurity)
 const ADMIN_HASH = '3d71fbedca959944b53f34769a6326ba4d8f464d5db25e181f4777821b954494';
@@ -506,55 +507,54 @@ const DashboardPage = () => {
   // ── LOGIN SCREEN ──
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-mesh flex items-center justify-center px-6">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-blue-600/5 rounded-full blur-[150px] pointer-events-none" />
-
-        <div className="w-full max-w-md relative z-10">
-          <div className="text-center mb-10">
-            <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-6 shadow-2xl shadow-blue-500/30">
-              🔐
+      <div className="min-h-screen bg-[#09090b] flex items-center justify-center px-4 font-mono">
+        <div className="w-full max-w-sm relative z-10">
+          <div className="text-center mb-6">
+            <div className="w-10 h-10 bg-zinc-900 border border-zinc-700 rounded-sm flex items-center justify-center text-zinc-200 mx-auto mb-3">
+              <Lock className="w-4 h-4" strokeWidth={1.5} />
             </div>
-            <h1 className="text-3xl font-extrabold text-white mb-2">Admin Dashboard</h1>
-            <p className="text-white/30 text-sm">Tiwari Tutorials · Restricted Access</p>
+            <div className="text-[10px] uppercase tracking-widest text-zinc-500 mb-1">SECURITY ACCESS GATEWAY</div>
+            <h1 className="text-xl font-bold text-zinc-100 mb-1">Administrative Terminal</h1>
+            <p className="text-zinc-500 text-xs">Tiwari Tutorials · Restricted Access</p>
           </div>
 
-          <form onSubmit={handleLogin} className="glass-card p-10 rounded-[40px] space-y-6 shadow-2xl border border-white/5">
-            <div className="space-y-3">
-              <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] px-1">Admin Password</label>
+          <form onSubmit={handleLogin} className="bg-[#0d0e12] border border-zinc-800 p-6 rounded-md space-y-4 shadow-xl">
+            <div className="space-y-1.5">
+              <label className="text-[10px] uppercase tracking-wider text-zinc-500">Security Key</label>
               <div className="relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter password"
+                  placeholder="Enter administrative key"
                   autoComplete="off"
                   required
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 pr-14 text-white focus:border-blue-500 focus:bg-white/10 outline-none transition-all font-medium"
+                  className="w-full bg-zinc-900/60 border border-zinc-800 rounded-sm px-3 py-2 pr-10 text-xs text-zinc-100 focus:border-zinc-500 outline-none transition-colors"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/70 transition-colors text-lg"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors"
                 >
-                  {showPassword ? '🙈' : '👁️'}
+                  {showPassword ? <EyeOff className="w-3.5 h-3.5" strokeWidth={1.5} /> : <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />}
                 </button>
               </div>
               {passwordError && (
-                <p className="text-red-400 text-xs font-bold px-1 flex items-center gap-2">
-                  <span>⚠️</span> {passwordError}
+                <p className="text-red-400 text-xs flex items-center gap-1.5 pt-1">
+                  <AlertTriangle className="w-3.5 h-3.5" strokeWidth={1.5} /> {passwordError}
                 </p>
               )}
             </div>
 
             <button
               type="submit"
-              className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl transition-all shadow-xl text-sm uppercase tracking-[0.2em] active:scale-95 cursor-pointer"
+              className="btn-primary w-full py-2.5 text-xs rounded-sm cursor-pointer"
             >
-              Access Dashboard
+              Verify & Enter Terminal
             </button>
 
-            <Link to="/" className="block text-center text-xs text-white/20 hover:text-white/40 transition-colors font-bold uppercase tracking-widest">
-              ← Back to Website
+            <Link to="/" className="block text-center text-xs text-zinc-500 hover:text-zinc-300 transition-colors pt-2">
+              ← Return to Main Web
             </Link>
           </form>
         </div>
@@ -566,73 +566,88 @@ const DashboardPage = () => {
   const currentData = activeTab === 'enrollments' ? enrollments : reviews;
 
   return (
-    <div className="min-h-screen px-4 md:px-10 py-10">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[150px] pointer-events-none" />
-
+    <div className="min-h-screen bg-[#09090b] px-4 md:px-8 py-8 font-mono text-zinc-400">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10 relative z-10">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 pb-4 border-b border-zinc-800">
         <div>
-          <div className="flex items-center gap-3 mb-1">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-sm font-black">T</div>
-            <span className="text-white/30 text-xs font-bold uppercase tracking-widest">Admin Dashboard</span>
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-5 h-5 bg-zinc-900 border border-zinc-700 rounded-sm flex items-center justify-center text-xs text-zinc-200 font-bold">T</div>
+            <span className="text-[10px] uppercase tracking-wider text-zinc-500">ADMINISTRATIVE CORE // v2.6</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-white">Tiwari Tutorials</h1>
+          <h1 className="text-xl font-bold text-zinc-100">Telemetry & Operations Control</h1>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button
             onClick={fetchData}
-            className="px-4 py-2 glass border border-white/10 text-white/60 hover:text-white rounded-xl text-xs font-bold uppercase tracking-widest transition-all cursor-pointer"
+            className="btn-secondary px-3 py-1.5 rounded-sm text-xs flex items-center gap-1.5 cursor-pointer"
           >
-            🔄 Refresh
+            <RefreshCw className="w-3 h-3 text-zinc-400" strokeWidth={1.5} />
+            <span>Sync</span>
           </button>
           <button
             onClick={handleLogout}
-            className="px-4 py-2 bg-red-600/10 border border-red-500/20 text-red-400 hover:bg-red-600/20 rounded-xl text-xs font-bold uppercase tracking-widest transition-all cursor-pointer"
+            className="px-3 py-1.5 bg-red-950/30 border border-red-900/60 text-red-300 hover:bg-red-950/60 rounded-sm text-xs flex items-center gap-1.5 cursor-pointer"
           >
-            🔒 Logout
+            <LogOut className="w-3 h-3 text-red-400" strokeWidth={1.5} />
+            <span>Exit</span>
           </button>
-          <Link to="/" className="px-4 py-2 glass border border-white/10 text-white/60 hover:text-white rounded-xl text-xs font-bold uppercase tracking-widest transition-all">
-            ← Website
+          <Link to="/" className="btn-secondary px-3 py-1.5 rounded-sm text-xs flex items-center gap-1.5">
+            <ArrowLeft className="w-3 h-3 text-zinc-400" strokeWidth={1.5} />
+            <span>Public Site</span>
           </Link>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8 relative z-10">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
         {[
-          { label: 'Total Enrollments', value: enrollments.length, icon: '📋', color: 'blue' },
-          { label: 'Total Reviews', value: reviews.length, icon: '⭐', color: 'yellow' },
-          { label: 'Gallery Images', value: gallery.length, icon: '📷', color: 'purple' },
-          { label: 'Toppers List', value: toppers.length, icon: '🏆', color: 'amber' },
-          { label: 'Faculty List', value: faculty.length, icon: '👥', color: 'green' },
-        ].map((stat, i) => (
-          <div key={i} className="glass-card p-6 rounded-3xl border border-white/5">
-            <div className="text-2xl mb-2">{stat.icon}</div>
-            <div className="text-2xl font-extrabold text-white">{stat.value}</div>
-            <div className="text-xs text-white/30 font-bold uppercase tracking-widest mt-1">{stat.label}</div>
-          </div>
-        ))}
+          { label: 'Total Enrollments', value: enrollments.length, icon: ClipboardList },
+          { label: 'Total Reviews', value: reviews.length, icon: Star },
+          { label: 'Gallery Images', value: gallery.length, icon: ImageIcon },
+          { label: 'Toppers List', value: toppers.length, icon: Trophy },
+          { label: 'Faculty List', value: faculty.length, icon: Users },
+        ].map((stat, i) => {
+          const Icon = stat.icon;
+          return (
+            <div key={i} className="bg-[#0d0e12] border border-zinc-800 p-4 rounded-md flex flex-col justify-between">
+              <div className="flex items-center justify-between text-zinc-500 mb-2">
+                <span className="text-[10px] uppercase tracking-wider">{stat.label}</span>
+                <Icon className="w-3.5 h-3.5 text-zinc-500" strokeWidth={1.5} />
+              </div>
+              <div className="text-2xl font-bold text-zinc-100">{stat.value}</div>
+            </div>
+          );
+        })}
       </div>
 
       {/* Tabs */}
-      <div className="flex flex-wrap gap-3 mb-6 relative z-10">
-        {['enrollments', 'reviews', 'gallery', 'toppers', 'faculty'].map(tab => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all cursor-pointer ${
-              activeTab === tab
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20 font-extrabold'
-                : 'glass border border-white/10 text-white/40 hover:text-white'
-            }`}
-          >
-            {tab === 'enrollments' && `📋 Enrollments (${enrollments.length})`}
-            {tab === 'reviews' && `⭐ Reviews (${reviews.length})`}
-            {tab === 'gallery' && `📷 Gallery (${gallery.length})`}
-            {tab === 'toppers' && `🏆 Toppers (${toppers.length})`}
-            {tab === 'faculty' && `👥 Faculty (${faculty.length})`}
-          </button>
-        ))}
+      <div className="flex flex-wrap gap-1.5 mb-6 pb-2 border-b border-zinc-800/80">
+        {[
+          { id: 'enrollments', label: 'Enrollments', count: enrollments.length, icon: ClipboardList },
+          { id: 'reviews', label: 'Reviews', count: reviews.length, icon: Star },
+          { id: 'gallery', label: 'Gallery', count: gallery.length, icon: ImageIcon },
+          { id: 'toppers', label: 'Toppers', count: toppers.length, icon: Trophy },
+          { id: 'faculty', label: 'Faculty', count: faculty.length, icon: Users },
+        ].map(tab => {
+          const Icon = tab.icon;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-3 py-1.5 rounded-sm text-xs font-mono flex items-center gap-1.5 transition-colors cursor-pointer border ${
+                activeTab === tab.id
+                  ? 'bg-zinc-100 text-zinc-950 font-medium border-zinc-200'
+                  : 'bg-[#0d0e12] border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700'
+              }`}
+            >
+              <Icon className="w-3 h-3" strokeWidth={1.5} />
+              <span>{tab.label}</span>
+              <span className={`text-[10px] px-1 rounded-xs ${activeTab === tab.id ? 'bg-zinc-300 text-zinc-900' : 'bg-zinc-800 text-zinc-400'}`}>
+                {tab.count}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       {/* Conditional Tabs Rendering */}

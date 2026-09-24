@@ -3,16 +3,9 @@ import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Image as ImageIcon, Search, X, ChevronLeft, ChevronRight, Layers } from 'lucide-react';
 
 const CATEGORIES = ['All', 'Classroom', 'Events', 'Toppers', 'Activities', 'Other'];
-
-const CATEGORY_COLORS = {
-  Classroom: 'bg-blue-500/10 border-blue-500/20 text-blue-400',
-  Events: 'bg-purple-500/10 border-purple-500/20 text-purple-400',
-  Toppers: 'bg-amber-500/10 border-amber-500/20 text-amber-400',
-  Activities: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400',
-  Other: 'bg-pink-500/10 border-pink-500/20 text-pink-400',
-};
 
 const GalleryPage = () => {
   const [images, setImages] = useState([]);
@@ -20,7 +13,6 @@ const GalleryPage = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedIdx, setSelectedIdx] = useState(null);
 
-  // Fetch images from Firestore
   useEffect(() => {
     const fetchImages = async () => {
       setLoading(true);
@@ -42,12 +34,10 @@ const GalleryPage = () => {
     fetchImages();
   }, []);
 
-  // Filtered images
   const filteredImages = activeCategory === 'All'
     ? images
     : images.filter(img => img.category?.toLowerCase() === activeCategory.toLowerCase());
 
-  // Lightbox keyboard controls
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (selectedIdx === null) return;
@@ -71,25 +61,24 @@ const GalleryPage = () => {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-mesh pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
-        {/* Background Decorative Blobs */}
-        <div className="absolute top-[10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[150px] pointer-events-none" />
-        <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[150px] pointer-events-none" />
-
-        {/* Content Container */}
-        <div className="max-w-7xl mx-auto relative z-10">
-          {/* Page Title */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4">
-              Our <span className="text-gradient">Gallery</span>
+      <main className="min-h-screen bg-[#09090b] pt-24 pb-16 px-4 md:px-8 relative">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <div className="mb-8">
+            <div className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-zinc-500 mb-1.5">
+              <Layers className="w-3.5 h-3.5" strokeWidth={1.5} />
+              <span>ARCHIVE // GALLERY</span>
+            </div>
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-100 mb-2">
+              Visual Documentation Roster
             </h1>
-            <p className="text-white/40 max-w-xl mx-auto text-sm md:text-base font-medium">
-              Take a visual journey through our academic environment, student activities, celebratory events, and shining toppers.
+            <p className="text-xs font-mono text-zinc-400 max-w-xl">
+              Photographic records of classroom sessions, seminar events, academic celebrations, and merit awards.
             </p>
           </div>
 
-          {/* Category Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-12">
+          {/* Category Tabs (Dense Linear style) */}
+          <div className="flex flex-wrap items-center gap-1.5 mb-8 pb-3 border-b border-zinc-800/80">
             {CATEGORIES.map(category => (
               <button
                 key={category}
@@ -97,10 +86,10 @@ const GalleryPage = () => {
                   setActiveCategory(category);
                   setSelectedIdx(null);
                 }}
-                className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 ${
+                className={`px-3 py-1 rounded-sm text-xs font-mono transition-colors ${
                   activeCategory === category
-                    ? 'bg-[#f59e0b] text-slate-950 shadow-lg shadow-[#f59e0b]/20 scale-105 font-extrabold'
-                    : 'glass border border-white/10 text-white/50 hover:text-white hover:border-white/20'
+                    ? 'bg-zinc-100 text-zinc-950 font-medium'
+                    : 'bg-[#0d0e12] border border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700'
                 }`}
               >
                 {category}
@@ -110,61 +99,56 @@ const GalleryPage = () => {
 
           {/* Loading Skeleton */}
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {[...Array(8)].map((_, i) => (
-                <div key={i} className="glass-card h-72 rounded-3xl border border-white/5 animate-pulse overflow-hidden">
-                  <div className="w-full h-4/5 bg-white/5" />
-                  <div className="p-4 space-y-2">
-                    <div className="h-4 bg-white/10 rounded w-2/3" />
-                    <div className="h-3 bg-white/5 rounded w-1/3" />
-                  </div>
+                <div key={i} className="bg-[#0d0e12] border border-zinc-800 h-56 rounded-md animate-pulse p-3 space-y-3">
+                  <div className="w-full h-36 bg-zinc-900 rounded-sm" />
+                  <div className="h-3 bg-zinc-800 rounded w-2/3" />
+                  <div className="h-2 bg-zinc-800/60 rounded w-1/3" />
                 </div>
               ))}
             </div>
           ) : filteredImages.length === 0 ? (
             /* Empty State */
-            <div className="glass-card max-w-md mx-auto p-12 text-center rounded-[2.5rem] border border-white/5 shadow-2xl">
-              <div className="text-6xl mb-6 opacity-30">🖼️</div>
-              <h3 className="text-xl font-bold text-white mb-2">No Images Found</h3>
-              <p className="text-white/40 text-sm mb-6">
-                We couldn't find any images in the "{activeCategory}" category.
+            <div className="bg-[#0d0e12] border border-zinc-800 max-w-md mx-auto p-8 text-center rounded-md">
+              <ImageIcon className="w-8 h-8 text-zinc-600 mx-auto mb-3" strokeWidth={1.5} />
+              <h3 className="text-sm font-mono font-semibold text-zinc-200 mb-1">NO ARCHIVE RECORDS FOUND</h3>
+              <p className="text-xs text-zinc-500 mb-4 font-mono">
+                No image records exist for category "{activeCategory}".
               </p>
               <button
                 onClick={() => setActiveCategory('All')}
-                className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all"
+                className="btn-secondary px-3 py-1.5 text-xs font-mono rounded-sm"
               >
-                Show All Images
+                RESET FILTER
               </button>
             </div>
           ) : (
             /* Image Grid */
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-in fade-in duration-700">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {filteredImages.map((img, idx) => (
                 <div
                   key={img.id}
                   onClick={() => setSelectedIdx(idx)}
-                  className="group relative cursor-pointer glass-card rounded-3xl overflow-hidden border border-white/5 hover:border-amber-500/30 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-amber-500/5 hover:-translate-y-1"
+                  className="group relative cursor-pointer bg-[#0d0e12] border border-zinc-800 hover:border-zinc-600 rounded-md overflow-hidden transition-colors"
                 >
-                  {/* Image wrapper with fixed height & zoom */}
-                  <div className="aspect-[4/3] w-full overflow-hidden bg-slate-900 relative">
+                  <div className="aspect-[4/3] w-full overflow-hidden bg-zinc-900 relative">
                     <img
                       src={img.url}
                       alt={img.title}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                      className="w-full h-full object-cover filter grayscale contrast-110 group-hover:filter-none transition-all duration-300"
                     />
-                    {/* Shadow / Tint Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d0e12] via-transparent to-transparent opacity-60" />
                   </div>
 
-                  {/* Image details */}
-                  <div className="p-5 relative z-10">
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className={`px-2.5 py-0.5 rounded-lg border text-[9px] font-extrabold uppercase tracking-wider ${CATEGORY_COLORS[img.category] || CATEGORY_COLORS.Other}`}>
+                  <div className="p-3">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <span className="text-[9px] font-mono uppercase tracking-wider text-zinc-400 bg-zinc-900 px-1.5 py-0.5 rounded-xs border border-zinc-800">
                         {img.category}
                       </span>
                       {img.createdAt && (
-                        <span className="text-[10px] text-white/30 font-semibold font-mono">
+                        <span className="text-[10px] text-zinc-500 font-mono">
                           {img.createdAt.toDate 
                             ? img.createdAt.toDate().toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })
                             : new Date(img.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })
@@ -172,14 +156,13 @@ const GalleryPage = () => {
                         </span>
                       )}
                     </div>
-                    <h3 className="text-white font-bold truncate group-hover:text-amber-400 transition-colors text-sm md:text-base" title={img.title}>
+                    <h3 className="text-xs font-semibold text-zinc-200 truncate group-hover:text-white" title={img.title}>
                       {img.title}
                     </h3>
                   </div>
 
-                  {/* Corner indicator */}
-                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-950/50 backdrop-blur-md border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-xs">🔍</span>
+                  <div className="absolute top-2 right-2 w-6 h-6 rounded-xs bg-[#09090b]/80 border border-zinc-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Search className="w-3 h-3 text-zinc-300" strokeWidth={1.5} />
                   </div>
                 </div>
               ))}
@@ -190,65 +173,50 @@ const GalleryPage = () => {
 
       {/* Lightbox / Fullscreen Modal */}
       {selectedIdx !== null && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-2xl animate-in fade-in duration-300">
-          {/* Close button top right */}
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#09090b]/95 backdrop-blur-md p-4">
           <button
             onClick={() => setSelectedIdx(null)}
-            className="absolute top-6 right-6 w-12 h-12 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white rounded-full flex items-center justify-center text-xl transition-all cursor-pointer z-50 active:scale-95"
+            className="absolute top-4 right-4 w-8 h-8 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 rounded-sm flex items-center justify-center transition-colors cursor-pointer z-50"
             aria-label="Close lightbox"
           >
-            ✕
+            <X className="w-4 h-4" strokeWidth={1.5} />
           </button>
 
-          {/* Left Arrow */}
           <button
             onClick={handlePrev}
-            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-full flex items-center justify-center text-xl transition-all cursor-pointer z-50 active:scale-95 hover:scale-105"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 rounded-sm flex items-center justify-center transition-colors cursor-pointer z-50"
             aria-label="Previous image"
           >
-            ‹
+            <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
           </button>
 
-          {/* Image Container */}
-          <div className="relative max-w-5xl max-h-[75vh] w-full px-6 flex items-center justify-center animate-in zoom-in-95 duration-300">
+          <div className="relative max-w-4xl max-h-[75vh] w-full flex items-center justify-center">
             <img
               src={filteredImages[selectedIdx].url}
               alt={filteredImages[selectedIdx].title}
-              className="max-w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl border border-white/10 select-none"
+              className="max-w-full max-h-[75vh] object-contain rounded-sm border border-zinc-800 shadow-2xl"
             />
           </div>
 
-          {/* Image metadata overlay bottom */}
-          <div className="text-center mt-6 px-6 max-w-xl">
-            <div className="inline-block px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-full text-[10px] font-bold uppercase tracking-wider mb-2">
+          <div className="text-center mt-4 px-4 max-w-lg font-mono">
+            <div className="inline-block px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-zinc-400 text-[10px] uppercase tracking-wider mb-1 rounded-xs">
               {filteredImages[selectedIdx].category}
             </div>
-            <h2 className="text-white text-xl md:text-2xl font-bold tracking-tight">
+            <h2 className="text-zinc-100 text-sm font-semibold tracking-tight">
               {filteredImages[selectedIdx].title}
             </h2>
-            {filteredImages[selectedIdx].createdAt && (
-              <p className="text-white/40 text-xs mt-1 font-semibold font-mono">
-                Uploaded: {filteredImages[selectedIdx].createdAt.toDate
-                  ? filteredImages[selectedIdx].createdAt.toDate().toLocaleDateString('en-IN', { dateStyle: 'medium' })
-                  : new Date(filteredImages[selectedIdx].createdAt).toLocaleDateString('en-IN', { dateStyle: 'medium' })
-                }
-              </p>
-            )}
+            <p className="text-zinc-500 text-[11px] mt-0.5">
+              IMAGE {selectedIdx + 1} OF {filteredImages.length}
+            </p>
           </div>
 
-          {/* Right Arrow */}
           <button
             onClick={handleNext}
-            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-full flex items-center justify-center text-xl transition-all cursor-pointer z-50 active:scale-95 hover:scale-105"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 rounded-sm flex items-center justify-center transition-colors cursor-pointer z-50"
             aria-label="Next image"
           >
-            ›
+            <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
           </button>
-
-          {/* Page Indicator */}
-          <div className="absolute bottom-6 text-white/30 text-xs font-mono font-bold">
-            {selectedIdx + 1} / {filteredImages.length}
-          </div>
         </div>
       )}
       <Footer />

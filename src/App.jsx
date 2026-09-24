@@ -10,38 +10,46 @@ import GalleryPage from './pages/GalleryPage';
 import AnimatedBackground from './components/AnimatedBackground';
 import BookLoader from './components/BookLoader';
 
+import EducatorShell from './components/educator/EducatorShell';
+
 function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1200);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <Router>
-      <div className="relative min-h-screen text-white selection:bg-blue-500/30">
-        {loading && <BookLoader />}
-        <AnimatedBackground />
-        <div className="relative z-10">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/gallery" element={<GalleryPage />} />
-            <Route path="/enroll" element={<EnrollmentPage />} />
-            <Route path="/review" element={<SubmitReviewPage />} />
-            {/* Security through Obscurity: Obscured admin access route */}
-            <Route path="/portal-vault-88" element={<DashboardPage />} />
-            {/* Decoy redirects for standard admin paths */}
-            <Route path="/dashboard" element={<Navigate to="/" replace />} />
-            <Route path="/admin" element={<Navigate to="/" replace />} />
-            <Route path="/cbt" element={<CbtPage />} />
-            {/* Fallback */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </div>
-      </div>
+      <Routes>
+        {/* Grounded Scholastic Educator Workspace Shell */}
+        <Route path="/educator" element={<EducatorShell />} />
+        <Route path="/faculty" element={<EducatorShell />} />
+
+        {/* Existing Routes */}
+        <Route path="/*" element={
+          <div className="relative min-h-screen selection:bg-stone-200">
+            {loading && <BookLoader />}
+            <AnimatedBackground />
+            <div className="relative z-10">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/gallery" element={<GalleryPage />} />
+                <Route path="/enroll" element={<EnrollmentPage />} />
+                <Route path="/review" element={<SubmitReviewPage />} />
+                <Route path="/portal-vault-88" element={<DashboardPage />} />
+                <Route path="/dashboard" element={<Navigate to="/educator" replace />} />
+                <Route path="/admin" element={<Navigate to="/educator" replace />} />
+                <Route path="/cbt" element={<CbtPage />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </div>
+          </div>
+        } />
+      </Routes>
     </Router>
   );
 }

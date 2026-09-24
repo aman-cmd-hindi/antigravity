@@ -1,95 +1,172 @@
 import { Link } from 'react-router-dom';
-import useTilt from '../hooks/useTilt';
+import { 
+  GraduationCap, 
+  Stethoscope, 
+  Compass, 
+  Dna, 
+  BarChart3, 
+  ArrowRight, 
+  CheckCircle2 
+} from 'lucide-react';
 
 const courses = [
   {
-    title: "School Boards (Class 10-12)",
-    desc: "Expert board exam coaching for Class 10, 11 & 12 — CBSE, ICSE and State Boards.",
-    tag: "School Education",
-    color: "from-green-500 to-emerald-500",
-    icon: "🏫"
+    id: "COURSE_01",
+    title: "School Boards (Class 10–12)",
+    desc: "Rigorous syllabus alignment for Class 10, 11 & 12 — covering Maharashtra State Board, CBSE, and ICSE with weekly evaluation tests.",
+    tag: "SECONDARY & HIGHER SEC",
+    icon: GraduationCap,
+    specs: ["Maths / Science / English", "Weekly Board Test Papers", "NCERT & State Texts"]
   },
   {
-    title: "NEET",
-    desc: "Rigorous and targeted preparation for medical entrance exams with comprehensive support.",
-    tag: "Medical Entrance",
-    color: "from-purple-500 to-pink-500",
-    icon: "🩺",
-    popular: true
+    id: "COURSE_02",
+    title: "NEET-UG Medical Entrance",
+    desc: "Targeted competitive training covering Biology, Physics, and Chemistry with rigorous NCERT line-by-line concept breakdown.",
+    tag: "MEDICAL ENTRANCE",
+    icon: Stethoscope,
+    popular: true,
+    specs: ["Biology Specialization", "Daily Practice Problems (DPP)", "Full-Length Mock CBTs"]
   },
   {
-    title: "IIT JEE",
-    desc: "Elite training program designed to help engineering aspirants crack JEE Main & Advanced.",
-    tag: "Engineering Entrance",
-    color: "from-blue-500 to-indigo-500",
-    icon: "🚀"
+    id: "COURSE_03",
+    title: "IIT JEE Main & Advanced",
+    desc: "Elite problem-solving curriculum focused on calculus, mechanics, physical & organic chemistry with deep conceptual derivations.",
+    tag: "ENGINEERING ENTRANCE",
+    icon: Compass,
+    specs: ["Advanced Problem Analysis", "Speed & Accuracy Drills", "Time-Engineered CBT"]
   },
   {
-    title: "Pre Foundation (Class 1-9)",
-    desc: "Nurturing early analytical thinking, logic, and competitive readiness from standards 1 to 9.",
-    tag: "Competitive Prep",
-    color: "from-yellow-500 to-orange-500",
-    icon: "🧬"
+    id: "COURSE_04",
+    title: "Pre-Foundation (Class 1–9)",
+    desc: "Nurturing early analytical logic, mental aptitude, and fundamental science principles to build a rock-solid base before high school.",
+    tag: "FOUNDATION ENGINE",
+    icon: Dna,
+    specs: ["Logic & Mental Ability", "Core Math Fundamentals", "Hands-on Science Labs"]
   },
   {
-    title: "Commerce Section",
-    desc: "Expert coaching in Accountancy, Business Studies, Economics & Maths for commerce stream students.",
-    tag: "Commerce Stream",
-    color: "from-teal-500 to-cyan-500",
-    icon: "📊"
+    id: "COURSE_05",
+    title: "Commerce Stream",
+    desc: "High-accuracy coaching in Bookkeeping & Accountancy, Economics, Organisation of Commerce (OCM), and Secretarial Practice (SP).",
+    tag: "COMMERCE STREAM",
+    icon: BarChart3,
+    specs: ["Financial Accounting", "Macro & Micro Economics", "Board Model Answers"]
   }
 ];
 
-const CourseCard = ({ course }) => {
-  const { style, onMouseMove, onMouseLeave } = useTilt();
-
-  return (
-    <div 
-      style={style}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      className="glass-card edu-card tilt-card p-8 md:p-10 rounded-[30px] md:rounded-[40px] group relative overflow-hidden"
-    >
-      {course.popular && (
-        <div className="absolute top-6 right-6 bg-primary text-slate-950 text-[9px] md:text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-lg shadow-primary/20 font-mono-label">
-          Most Popular
-        </div>
-      )}
-
-      <div className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br ${course.color} flex items-center justify-center text-2xl md:text-3xl mb-6 md:mb-8 group-hover:scale-110 transition-transform duration-500 shadow-xl shadow-black/20`}>
-        {course.icon}
-      </div>
-
-      <span className="text-[10px] font-bold text-primary/60 uppercase tracking-[0.2em] font-mono-label">{course.tag}</span>
-      <h3 className="text-xl md:text-2xl font-extrabold text-white mt-2 md:mt-3 mb-3 md:mb-4 group-hover:text-primary transition-colors duration-300">{course.title}</h3>
-      <p className="text-white/40 text-sm leading-relaxed mb-8 md:mb-10 group-hover:text-white/60 transition-colors">{course.desc}</p>
-
-      <Link to="/enroll" className="inline-flex items-center gap-3 btn-secondary circuit-btn ripple-btn px-5 py-2.5 md:px-6 md:py-3 rounded-xl text-white font-bold text-sm group/btn">
-        <span className="group-hover/btn:mr-1 transition-all">Enroll Now</span>
-        <div className="w-6 h-6 rounded-full glass flex items-center justify-center group-hover/btn:bg-primary group-hover/btn:text-slate-950 transition-all">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </div>
-      </Link>
-    </div>
-  );
-};
-
 const Courses = () => {
   return (
-    <section id="courses" className="py-16 md:py-32 px-4 md:px-12 bg-mesh relative">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12 md:mb-20">
-          <span className="text-primary font-bold uppercase tracking-[0.2em] text-[10px] mb-3 block font-mono-label">Excellence Guaranteed</span>
-          <h2 className="text-3xl md:text-6xl font-extrabold text-white mb-4 md:mb-6">Master Your <span className="text-primary">Future</span></h2>
-          <p className="text-white/40 max-w-lg mx-auto text-base md:text-lg leading-relaxed font-medium">Elite coaching for school boards, commerce, pre foundation, and competitive entrance exams.</p>
+    <section id="courses" className="py-12 md:py-16 px-4 md:px-8 border-b border-zinc-800/80 bg-[#09090b]">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div>
+            <div className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-zinc-500 mb-1.5">
+              <span>CATALOG // 02</span>
+              <span>•</span>
+              <span className="text-zinc-400">CURRICULAR MODULES</span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-100">
+              Structured Academic Tracks
+            </h2>
+          </div>
+          <p className="text-xs font-mono text-zinc-400 max-w-md">
+            Engineered syllabi combining conceptual clarity, regular proctored assessments, and small-batch mentor guidance.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {courses.map((course, idx) => (
-            <CourseCard key={idx} course={course} />
-          ))}
+        {/* Dense Grid of Modules */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+          {courses.map((course) => {
+            const Icon = course.icon;
+            return (
+              <div 
+                key={course.id}
+                className="bg-[#0d0e12] border border-zinc-800 hover:border-zinc-700 p-5 rounded-md flex flex-col justify-between transition-colors group"
+              >
+                <div>
+                  {/* Top Bar with Icon & Status */}
+                  <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-zinc-800/70">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-sm bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 group-hover:border-zinc-700 transition-colors">
+                        <Icon className="w-4 h-4 text-zinc-300" strokeWidth={1.5} />
+                      </div>
+                      <span className="text-[10px] font-mono text-zinc-500 tracking-wider">
+                        {course.id}
+                      </span>
+                    </div>
+
+                    {course.popular ? (
+                      <span className="px-2 py-0.5 bg-zinc-900 border border-zinc-700 text-[10px] font-mono font-medium text-zinc-200 rounded-sm">
+                        MOST POPULAR
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-mono text-zinc-600 uppercase">
+                        ENROLLING
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Title & Tag */}
+                  <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 mb-1">
+                    {course.tag}
+                  </div>
+                  <h3 className="text-base font-semibold text-zinc-100 mb-2 group-hover:text-white transition-colors">
+                    {course.title}
+                  </h3>
+                  <p className="text-xs text-zinc-400 leading-relaxed mb-4">
+                    {course.desc}
+                  </p>
+
+                  {/* Curricular Specs */}
+                  <div className="space-y-1.5 pt-3 border-t border-zinc-800/50 mb-5">
+                    {course.specs.map((spec, i) => (
+                      <div key={i} className="flex items-center gap-2 text-[11px] font-mono text-zinc-400">
+                        <CheckCircle2 className="w-3 h-3 text-zinc-500 shrink-0" strokeWidth={1.5} />
+                        <span>{spec}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Card Action */}
+                <div className="pt-3 border-t border-zinc-800 flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-zinc-500">FORMAT: HYBRID + CBT</span>
+                  <Link 
+                    to="/enroll"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-300 hover:text-white group/btn"
+                  >
+                    <span>Enroll Track</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-zinc-500 group-hover/btn:translate-x-0.5 transition-transform" strokeWidth={1.5} />
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+
+          {/* Quick-Enroll Consultation Tile */}
+          <div className="bg-zinc-900/40 border border-dashed border-zinc-800 hover:border-zinc-700 p-5 rounded-md flex flex-col justify-between text-zinc-400">
+            <div>
+              <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 mb-2">
+                CUSTOM EVALUATION
+              </div>
+              <h3 className="text-base font-semibold text-zinc-100 mb-2">
+                Need Guidance on Track Selection?
+              </h3>
+              <p className="text-xs text-zinc-400 leading-relaxed mb-4">
+                Consult directly with our directors to chart an individualized roadmap based on past board scores and target rank timelines.
+              </p>
+            </div>
+            <div className="flex items-center gap-2 pt-4 border-t border-zinc-800/60">
+              <a 
+                href="https://wa.me/918779560903" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn-primary w-full py-2 text-xs font-mono rounded-sm"
+              >
+                Schedule Diagnostic Session
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
